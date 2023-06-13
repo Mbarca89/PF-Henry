@@ -1,11 +1,17 @@
-import './App.css'
 
-function App() {
+import { Route, BrowserRouter, Routes } from "react-router-dom"
+import { Products, Home } from "./components"
+
+
+const App = () => {
 
   return (
-    <div>
-      
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
