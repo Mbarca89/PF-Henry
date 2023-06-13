@@ -1,17 +1,14 @@
+import './App.css'
+import NavBar from './components/NavBar/NavBar'
+import Home from './views/Home/Home'
 
-import { Route, BrowserRouter, Routes } from "react-router-dom"
-import { Products, Home } from "./components"
-
-
-const App = () => {
+function App() {
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <NavBar />
+      <Home />
+    </div>
   )
 }
 
