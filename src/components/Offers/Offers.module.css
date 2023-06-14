@@ -1,4 +1,4 @@
-.categories_container{
+.offers_container{
     width: calc(100% - 8rem);
     height: 16rem;
     margin: 1rem auto;
@@ -7,24 +7,24 @@
     justify-content: space-between;
     gap: 1rem;
 }
-.categorie_container{
+.offer_container{
     width: 12rem;
     height: 12rem;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
 }
-.categories_carousel{
+.offers_carousel{
     height: 16rem;
     width: 100%;
     display: flex;
     padding: 0 9.5%;
     margin: 0 auto;
 }
-.categorie_container h3{
+.offer_container h3{
     text-align: center;
 }
-.categorie_container img{
+.offer_container img{
     width: 12rem;
     margin: 0 auto;
     height: 8rem;

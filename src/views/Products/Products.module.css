@@ -1,0 +1,6 @@
+.products_container{
+    display: flex;
+    width: calc(100% - 8rem);
+    margin: 0 auto;
+    justify-content: space-between;
+}

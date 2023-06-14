@@ -1,5 +1,5 @@
 import styles from './Home.module.css'
-import Categories from '../../components/Categories/Categories';
+import Offers from '../../components/Offers/Offers';
 
 const Home = () => {
     return (
@@ -14,7 +14,7 @@ const Home = () => {
             </div>
             <img src="/src/assets/pngwing.com.png" alt="image_product" />
         </div>
-        <Categories />
+        <Offers />
         </>
     )
 }

@@ -1,0 +1,26 @@
+.productsList_container{
+    display: flex;
+    width: 80%;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+}
+.productsList_item{
+    width: 21%;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.productsList_item img{
+    width: 100%;
+}
+.productsList_item button{
+    all: unset;
+    text-align: center;
+    background-color: antiquewhite;
+    width: 50%;
+    border-radius: 7px;
+    height: 2rem;
+}

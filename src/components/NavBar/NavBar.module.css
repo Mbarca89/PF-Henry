@@ -25,6 +25,7 @@
 .navbar_button{
     all: unset;
     font-size: 1.5rem;
+    cursor: pointer;
 }
 .navbar_icon{
     display: flex;
