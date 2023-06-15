@@ -13,7 +13,6 @@ const NavBar = () => {
             <div className={styles.navbar_options}>
                 <button className={styles.navbar_button}>Categorias</button>
                 {pathname !== '/products' && <NavLink to='/products' className={styles.navbar_button}>Productos</NavLink>}
-                <button className={styles.navbar_button}>Favoritos</button>
                 <button className={styles.navbar_button}>Sobre Nosotros</button>
             </div>
             <div className={styles.navbar_icons}>

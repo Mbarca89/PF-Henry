@@ -3,15 +3,18 @@ import NavBar from './components/NavBar/NavBar'
 import Home from './views/Home/Home'
 import Detail from './views/Detail/Detail'
 import Products from './views/Products/Products'
-import { Routes, Route } from 'react-router-dom'
+import Landing from './views/Landing/Landing'
+import { Routes, Route, useLocation } from 'react-router-dom'
 
 function App() {
+  const location = useLocation();
 
   return (
     <div>
-      <NavBar />
+      {location.pathname !== '/' ? <NavBar /> : null}
       <Routes>
-        <Route path='/' element={<Home />}/>
+        <Route path='/' element={<Landing />}/>
+        <Route path='/home' element={<Home />}/>
         <Route path='/product/:id' element={<Detail />}/>
         <Route path='/products' element={<Products />}/>
       </Routes>
