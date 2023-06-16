@@ -1,21 +1,21 @@
 import styles from './Products.module.css';
 import Filters from '../../components/Filters/Filters';
 import ProductsList from '../../components/ProductsList/ProductsList';
-import { useDispatch, useSelector } from 'react-redux';
+import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
 //import { getProducts } from '../../redux/slices/productsSlice';
-import { fetchProducts } from '../../redux/utils/fetchProducts';
+import { getProducts } from '../../redux/utils/fetchProducts';
 //import axios from 'axios';
 import { useEffect } from 'react';
 
 const Products = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const {products} = useSelector((state: any) => state.products);
+    const { products } = useAppSelector((state: RootState) => state.products);
 
     useEffect(() => {
         if(!products.length){
-            fetchProducts();
+            getProducts();
             //dispatch(getProducts)
         }
     },[dispatch, products.length])

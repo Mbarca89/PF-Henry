@@ -1,45 +1,15 @@
 import styles from './ProductsList.module.css';
-
+import { RootState, useAppSelector, useAppDispatch } from '../../redux/store';
+import { useEffect } from 'react';
+import { getProducts } from '../../redux/utils/fetchProducts';
 
 const ProductsList = () => {
-    const products = [
-        {
-            name: 'Jugo natural',
-            price: 350,
-            photos: [
-                {
-                    url: 'https://img.freepik.com/vector-gratis/anuncio-producto-bebida-energetica-potente-refrescante_52683-34035.jpg?w=2000',
-                },
-            ],
-        },
-        {
-            name: 'Jugo natural',
-            price: 350,
-            photos: [
-                {
-                    url: 'https://img.freepik.com/vector-gratis/anuncio-producto-bebida-energetica-potente-refrescante_52683-34035.jpg?w=2000',
-                },
-            ],
-        },
-        {
-            name: 'Jugo natural',
-            price: 350,
-            photos: [
-                {
-                    url: 'https://img.freepik.com/vector-gratis/anuncio-producto-bebida-energetica-potente-refrescante_52683-34035.jpg?w=2000',
-                },
-            ],
-        },
-        {
-            name: 'Jugo natural',
-            price: 350,
-            photos: [
-                {
-                    url: 'https://img.freepik.com/vector-gratis/anuncio-producto-bebida-energetica-potente-refrescante_52683-34035.jpg?w=2000',
-                },
-            ],
-        },
-    ];
+    const { products } = useAppSelector((state: RootState) => state.products);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(getProducts())
+      }, [dispatch])
 
     return (
         <div className={styles.productsList_container}>

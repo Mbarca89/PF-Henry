@@ -1,0 +1,5 @@
+.about_container{
+    height: 100vh;
+    width: calc(100% - 8rem);
+    border: 2rem solid red;
+}
