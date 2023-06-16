@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import {AiOutlineShoppingCart} from 'react-icons/ai';
 import {BiLogIn} from 'react-icons/bi';
 import { useLocation } from 'react-router-dom';
+import SearchBar from '../SearchBar/SearchBar';
 
 const NavBar = () => {
     const {pathname} = useLocation();
@@ -15,6 +16,7 @@ const NavBar = () => {
                 {pathname !== '/products' && <NavLink to='/products' className={styles.navbar_button}>Productos</NavLink>}
                 <button className={styles.navbar_button}>Sobre Nosotros</button>
             </div>
+            <SearchBar />
             <div className={styles.navbar_icons}>
                 <div className={styles.navbar_icon}>
                     <BiLogIn size={50}/>
@@ -24,7 +26,6 @@ const NavBar = () => {
                     <AiOutlineShoppingCart size={50}/>
                     <span>Carrito</span>
                 </div>
-                
             </div>
         </div>
     )
