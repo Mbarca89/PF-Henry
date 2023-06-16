@@ -2,19 +2,19 @@ import styles from './NavBar.module.css'
 import { NavLink } from 'react-router-dom';
 import {AiOutlineShoppingCart} from 'react-icons/ai';
 import {BiLogIn} from 'react-icons/bi';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 
 const NavBar = () => {
     const {pathname} = useLocation();
-    
+    const navigate = useNavigate();
     return (
         <div className={styles.navbar_container}>
-            <img src="/src/assets/LEGO_logo.svg" className={styles.navbar_logo} alt="logo" />
+            <img src="/src/assets/LEGO_logo.svg" className={styles.navbar_logo} alt="logo" onClick={() => navigate('/home')}/>
             <div className={styles.navbar_options}>
                 <button className={styles.navbar_button}>Categorias</button>
                 {pathname !== '/products' && <NavLink to='/products' className={styles.navbar_button}>Productos</NavLink>}
-                <button className={styles.navbar_button}>Sobre Nosotros</button>
+                <NavLink className={styles.navbar_button} to='/about'>Sobre Nosotros</NavLink>
             </div>
             <SearchBar />
             <div className={styles.navbar_icons}>

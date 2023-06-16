@@ -9,7 +9,7 @@ type productState = {
 const initialState: productState = {
   products: [
     {
-      name: "",
+      name: "Cargando",
       price: 0,
       description: "",
       stock: 0,
@@ -17,7 +17,7 @@ const initialState: productState = {
       discount: 0,
       photos: [
         {
-          url: "",
+          url: "https://cdn-icons-png.flaticon.com/512/107/107814.png?w=360",
           public_id: "",
         },
       ],

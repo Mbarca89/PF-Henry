@@ -20,6 +20,10 @@ const Products = () => {
         }
     },[dispatch, products.length])
 
+    const handleState = () => {
+        getProducts();
+    }
+
     return (
         <div className={styles.products_container}>
             <Filters />

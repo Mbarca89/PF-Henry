@@ -1,11 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './Detail.module.css'
 import {AiOutlineShoppingCart, AiOutlineHeart} from 'react-icons/ai';
-
-
-
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Detail = () => {
+    
+    interface Product {
+        name: string;
+    }
+      
+
+    const [product, setProduct] = useState<Record<string, any>>({});
+
+
+    const { id } = useParams<{ id: string }>();
+
+    useEffect(() => {
+        const getProduct = () => {
+          axios.get(`https://pf-henry-back-two.vercel.app/products/detail/${id}`)
+            .then(({ data }) => {
+              if (data.name) {
+                setProduct(data);
+              } else {
+                alert('No hay productos con ese ID');
+              }
+            })
+            .catch((error) => {
+              console.error('Error al obtener el producto:', error);
+              alert('Hubo un error al obtener el producto');
+            });
+        };
+        getProduct(); // Llamar a la función getProduct aquí para que se ejecute
+      
+      }, [id]);
+      
+    
     const [value, setValue] = useState<number | ''>(1);
     //barra de stock
     const [progress, setProgress] = useState(40);
@@ -42,7 +72,7 @@ const Detail = () => {
 
             <div className={style.detail_container_description}>   
                 <div className={style.title}>
-                    <h2> Titulo del Producto </h2>
+                    <h2>{product.name}</h2>
                     <span> NABAT </span>
                 </div>
 
