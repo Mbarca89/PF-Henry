@@ -1,26 +1,32 @@
 import styles from './Filters.module.css';
 import { FcShipped, FcRating, FcHome, FcLike, FcAdvertising, FcMoneyTransfer } from 'react-icons/fc';
 import { GoChevronRight } from 'react-icons/go';
-import { useAppDispatch } from '../../redux/store';
-import { getProductsByFilter } from '../../redux/utils/fetchProducts';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
-import { ChangeEvent, useState } from 'react';
+import { setBody } from '../../redux/slices/productsSlice';
+import { ChangeEvent, useState, useEffect } from 'react';
+import { Body } from '../../types';
 
 const Filters = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const [stateFiltered, setStateFiltered] = useState({
-    priceSorted: { isSorted: false, value: 'asc' },
-    salesSorted: { isSorted: false, value: 'asc' },
-    relevantSorted: { isSorted: false, value: 'asc' },
+  const { body } = useAppSelector(state => state.products);
+  const [stateFiltered, setStateFiltered] = useState<Body>({
+    sort: {
+      price: { isSorted: false, order: 'asc' },
+      sales: { isSorted: false, order: 'asc' },
+      relevant: { isSorted: false, order: 'asc' },
+    },
     freeShipping: false,
     hasDiscount: false,
     category: '',
-    minPrice: '0',
+    minPrice: '',
     maxPrice: 'Infinity'
   });
-
+  useEffect(() => {
+    console.log('body de estado global' ,body);
+    setStateFiltered(body)
+  }, [body])
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
     setStateFiltered((prevState) => {
@@ -29,8 +35,17 @@ const Filters = () => {
         [name]: checked
       };
     });
-  };
 
+  };
+  const handlePrice = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setStateFiltered((prevState) => {
+      return {
+        ...prevState,
+        [name]: value
+      };
+    });
+  };
   const handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     if(name === 'priceSorted'){
@@ -76,9 +91,8 @@ const Filters = () => {
         console.log(stateFiltered);
     }
   };
-
   const handleApplyFilters = () => {
-    dispatch(getProductsByFilter(stateFiltered));
+    dispatch(setBody(stateFiltered));
   };
 
   return (
@@ -131,27 +145,33 @@ const Filters = () => {
       </div>
       <div className={styles.filters_option}>
         <FcRating size={25} />
-        <select name="salesSorted" onChange={handleChangeSelect} value={stateFiltered.salesSorted.value}>
+        <select name="salesSorted" onChange={handleChangeSelect} value={stateFiltered.sort.sales.order}>
           <option value="asc">Mayor venta</option>
           <option value="desc">Menor venta</option>
         </select>
-        
       </div>
       <div className={styles.filters_option}>
         <FcMoneyTransfer size={25} />
-        <select name="priceSorted" onChange={handleChangeSelect} value={stateFiltered.priceSorted.value}>
+        <select name="priceSorted" onChange={handleChangeSelect} value={stateFiltered.sort.price.order}>
           <option value="desc">Mayor precio</option>
           <option value="asc">Menor precio</option>
         </select>
       </div>
       <div className={styles.filters_option}>
         <FcMoneyTransfer size={25} />
-        <select name="relevantSorted" onChange={handleChangeSelect} value={stateFiltered.relevantSorted.value}>
+        <select name="relevantSorted" onChange={handleChangeSelect} value={stateFiltered.sort.relevant.order}>
           <option value="asc">Mayor puntuación</option>
           <option value="desc">Menor puntuación</option>
         </select>
       </div>
-      <button onClick={handleApplyFilters}>Aplicar filtros</button>
+      <div className={styles.filters_option}>
+        <FcMoneyTransfer size={25} />
+          <div>
+            <input type='number' placeholder='Precio mínimo' value={stateFiltered.minPrice} name='minPrice' onChange={handlePrice}/>
+            <input type='number' placeholder='Precio máximo' value={stateFiltered.maxPrice} name='maxPrice' onChange={handlePrice}/>
+          </div>
+      </div>
+      <button className={styles.btn} onClick={handleApplyFilters}>Aplicar filtros</button>
     </div>
   );
 };

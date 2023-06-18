@@ -5,16 +5,18 @@ import { getProducts } from '../../redux/utils/fetchProducts';
 import { NavLink } from 'react-router-dom';
 
 const ProductsList = () => {
-    const { products } = useAppSelector((state: RootState) => state.products);
+    const { productsFiltered } = useAppSelector((state: RootState) => state.products);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getProducts())
-      }, [dispatch])
+        if(!productsFiltered.length){
+            dispatch(getProducts())
+        }
+      }, [dispatch, productsFiltered.length])
 
     return (
         <div className={styles.productsList_container}>
-            {products.map((product) => (
+            {productsFiltered.map((product) => (
                 <div key={product.name} className={styles.productsList_item}>
                     <img src={product.photos[0].url} alt="" />
                     <NavLink to={`${product.id}`} >

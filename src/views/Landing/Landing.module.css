@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 .container_background{
-    background-image: url('/src/assets/a.jpeg');
+    background-image: url('/src/assets/Landing2.png');
     height: 100vh;
     background-repeat: repeat; 
     background-size: cover;

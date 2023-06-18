@@ -6,11 +6,7 @@ import axios from 'axios';
 
 const Detail = () => {
     
-    interface Product {
-        name: string;
-    }
-      
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [product, setProduct] = useState<Record<string, any>>({});
 
 
