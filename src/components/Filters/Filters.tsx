@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { setBody } from '../../redux/slices/productsSlice';
 import { ChangeEvent, useState, useEffect } from 'react';
+import { fecthProducts } from '../../redux/utils/fetchProducts';
 import { Body } from '../../types';
 
 const Filters = () => {
@@ -26,6 +27,7 @@ const Filters = () => {
   useEffect(() => {
     console.log('body de estado global' ,body);
     setStateFiltered(body)
+    console.log(body);
   }, [body])
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
@@ -48,51 +50,54 @@ const Filters = () => {
   };
   const handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    if(name === 'priceSorted'){
-        const newState = {
-            priceSorted: {
-                isSorted: true, value
+    if(name === 'price'){
+      setStateFiltered(
+        {
+          ...stateFiltered,
+          sort:{
+            ...stateFiltered.sort,
+            price:{
+              isSorted:true,
+              order: value
             }
+          }            
+        })        
+  }
+  else if(name === 'sales'){
+    setStateFiltered(
+      {
+        ...stateFiltered,
+        sort:{
+          ...stateFiltered.sort,
+          sales:{
+            isSorted:true,
+            order: value
+          }
+        }            
+      })        
+}
+if(name === 'relevant'){
+  setStateFiltered(
+    {
+      ...stateFiltered,
+      sort:{
+        ...stateFiltered.sort,
+        relevant:{
+          isSorted:true,
+          order: value
         }
-        setStateFiltered((prevState) => {
-            return {
-              ...prevState,
-              ...newState
-            };
-        });
-        console.log(stateFiltered);
-    }
-    else if(name === 'salesSorted'){
-        const newState = {
-            salesSorted: {
-                isSorted: true, value
-            }
-        }
-        setStateFiltered((prevState) => {
-            return {
-              ...prevState,
-              ...newState
-            };
-        });
-        console.log(stateFiltered);
-    }
-    else if(name === 'relevantSorted'){
-        const newState = {
-            relevantSorted: {
-                isSorted: true, value
-            }
-        }
-        setStateFiltered((prevState) => {
-            return {
-              ...prevState,
-              ...newState
-            };
-        });
-        console.log(stateFiltered);
-    }
+      }            
+    })        
+}
   };
   const handleApplyFilters = () => {
     dispatch(setBody(stateFiltered));
+    dispatch(fecthProducts({
+      page: '1',
+      name: '',
+      body: stateFiltered
+    }))
+    console.log(body);
   };
 
   return (
@@ -145,21 +150,21 @@ const Filters = () => {
       </div>
       <div className={styles.filters_option}>
         <FcRating size={25} />
-        <select name="salesSorted" onChange={handleChangeSelect} value={stateFiltered.sort.sales.order}>
+        <select name="sales" onChange={handleChangeSelect}>
           <option value="asc">Mayor venta</option>
           <option value="desc">Menor venta</option>
         </select>
       </div>
       <div className={styles.filters_option}>
         <FcMoneyTransfer size={25} />
-        <select name="priceSorted" onChange={handleChangeSelect} value={stateFiltered.sort.price.order}>
+        <select name="price" onChange={handleChangeSelect}>
           <option value="desc">Mayor precio</option>
           <option value="asc">Menor precio</option>
         </select>
       </div>
       <div className={styles.filters_option}>
         <FcMoneyTransfer size={25} />
-        <select name="relevantSorted" onChange={handleChangeSelect} value={stateFiltered.sort.relevant.order}>
+        <select name="relevant" onChange={handleChangeSelect}>
           <option value="asc">Mayor puntuación</option>
           <option value="desc">Menor puntuación</option>
         </select>

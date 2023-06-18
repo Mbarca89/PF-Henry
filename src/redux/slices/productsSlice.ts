@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Products, Body } from "../../types";
-import { getProducts, getProductsByName, getProductsByFilter } from "../utils/fetchProducts";
+import { fecthProducts, getProducts, getProductsByName, getProductsByFilter } from "../utils/fetchProducts";
 
 type productState = {
   products: Products[];
@@ -32,7 +32,7 @@ const initialState: productState = {
       "freeShipping": false,
       "hasDiscount": false,
       "category": "",
-      "minPrice": '0',
+      "minPrice": '',
       "maxPrice": "Infinity"
     },
     url: 'https://pf-henry-back-two.vercel.app/products',
@@ -49,15 +49,9 @@ export const productsSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getProducts.fulfilled, (state, action) => {
-      state.products = [...action.payload];
-      state.productsFiltered = [...action.payload];
-    })
-    builder.addCase(getProductsByFilter.fulfilled, (state, action) => {
-      state.productsFiltered = [...action.payload];
-    })
-    builder.addCase(getProductsByName.fulfilled, (state, action) => {
-      state.productsFiltered = [...action.payload];
+    builder.addCase(fecthProducts.fulfilled, (state, action) => {
+      state.products = [...action.payload.products];
+      state.productsFiltered = [...action.payload.products];
     })
   }
 });

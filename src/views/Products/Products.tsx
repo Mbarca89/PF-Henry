@@ -3,26 +3,25 @@ import Filters from '../../components/Filters/Filters';
 import ProductsList from '../../components/ProductsList/ProductsList';
 import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
 //import { getProducts } from '../../redux/slices/productsSlice';
-import { getProducts } from '../../redux/utils/fetchProducts';
+import { fecthProducts } from '../../redux/utils/fetchProducts';
 //import axios from 'axios';
 import { useEffect } from 'react';
 
 const Products = () => {
     const dispatch = useAppDispatch()
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { body } = useAppSelector((state: RootState) => state.products);
     const { products } = useAppSelector((state: RootState) => state.products);
 
     useEffect(() => {
         if(!products.length){
-            getProducts();
-            //dispatch(getProducts)
+            dispatch(fecthProducts({
+                page: '1',
+                name: '',
+                body
+              }))
         }
-    },[dispatch, products.length])
+    },[body, dispatch, products.length])
 
-    const handleState = () => {
-        getProducts();
-    }
 
     return (
         <div className={styles.products_container}>

@@ -1,6 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+//const { body } = useAppSelector((state: RootState) => state.products);
+export const fecthProducts = createAsyncThunk(
+  'products/get',
+  async ({ page, name, body }: { page: string; name: string; body: any }, thunkApi) => {
+    try {
+      const response = await axios.post(
+        `${API_PRODUCTS}?page=${page}&name=${name}`,
+        body
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+);
 const API_PRODUCTS = 'https://pf-henry-back-two.vercel.app/products?page=1';
 const BODY = {
   "sort": {
