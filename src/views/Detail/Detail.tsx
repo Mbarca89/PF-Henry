@@ -22,6 +22,7 @@ const Detail = () => {
             .then(({ data }) => {
               if (data.name) {
                 setProduct(data);
+                setProgress(data.stock)
               } else {
                 alert('No hay productos con ese ID');
               }
@@ -47,7 +48,7 @@ const Detail = () => {
     const decrement = () => {
         setValue(prevValue => {
             const newValue = Number(prevValue) - 1;
-            return newValue >= 0 ? newValue : prevValue;
+            return newValue > 0 ? newValue : prevValue;
           });
     };
 
@@ -67,7 +68,7 @@ const Detail = () => {
     return(
         <div className={style.detail_container}>
             <div className={style.detail_img}>
-                <img src="/src/assets/detail.jpg" alt="" />
+                <img src={product.photos && product.photos[0].url} alt="" />
             </div>
 
             <div className={style.detail_container_description}>   
@@ -77,8 +78,9 @@ const Detail = () => {
                 </div>
 
                 <div className={style.price}>
-                    <h3 className={style.price_descuento}>$9.99</h3>
-                    <h1 className={style.price_real}> $2.99 </h1>
+                    {product.hasDiscount && <h3 className={style.price_descuento}>{`$${product.price}`}</h3>}
+                    {product.hasDiscount && <h1 className={style.price_real}> {`$${product.price * (100-product.discount) /100}`} </h1>}
+                    {!product.hasDiscount && <h1 className={style.price_real}> {`$${product.price}`}</h1>}
                 </div>
 
                 <div className={style.container_progress}>
@@ -91,7 +93,7 @@ const Detail = () => {
 
                 <div className={style.description}>
                    <h4> Descripcion </h4>
-                   <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic nisi, nemo deserunt, minus quo delectus sapiente at cumque cum non nostrum accusantium magnam nam, explicabo inventore quisquam omnis! Similique, at?</p> 
+                   <p> {product.description}</p> 
                 </div>
 
 
