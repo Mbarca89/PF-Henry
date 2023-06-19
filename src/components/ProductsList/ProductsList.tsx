@@ -18,11 +18,17 @@ const ProductsList = () => {
         <div className={styles.productsList_container}>
             {productsFiltered.map((product) => (
                 <div key={product.name} className={styles.productsList_item}>
+                    <NavLink to={`${product.id}`}>
                     <img src={product.photos[0].url} alt="" />
-                    <NavLink to={`${product.id}`} >
+                    </NavLink>
+                    <NavLink to={`${product.id}`} className={styles.name}>
                         <h2>{product.name}</h2>
                     </NavLink>
-                    <p>${product.price}</p>
+                    <div className={styles.priceContainer}>
+                    {product.hasDiscount && <p className={styles.price_descuento}>{`$${product.price}`}</p>}
+                    {product.hasDiscount && <p className={styles.price_real}> {`$${product.price * (100-product.discount) /100}`} </p>}
+                    {!product.hasDiscount && <p className={styles.price_real}> {`$${product.price}`}</p>}       
+                    </div>
                     <button>Comprar</button>
                 </div>
             ))}
