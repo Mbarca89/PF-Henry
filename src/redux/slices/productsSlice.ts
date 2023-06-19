@@ -36,7 +36,7 @@ const initialState: productState = {
       "minPrice": '',
       "maxPrice": "Infinity"
     },
-    url: 'http://localhost:3000/products',
+    url: 'https://pf-henry-back-two.vercel.app/products',
     urlPage: '1',
     urlName: '',
     productCount: 0

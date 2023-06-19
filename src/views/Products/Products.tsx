@@ -23,7 +23,7 @@ const Products = () => {
                 body
             }))
         }
-    }, [body, dispatch, products.length])
+    }, [body, dispatch, products.length, urlName, urlPage])
 
     return (
         <div className={styles.products_container}>

@@ -1,7 +1,18 @@
 import styles from './Home.module.css'
 import Offers from '../../components/Offers/Offers';
+import { useState, useEffect } from 'react';
+import { useAppSelector } from '../../redux/store';
 
 const Home = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [product, setProduct] = useState<Record<string, any>>({});
+    const {products} = useAppSelector(state => state.products);
+    const index = Math.random() * products.length;
+    useEffect(() => {
+        setProduct(products[index])
+        console.log(product);
+      }, [index, product, products]);
+
     return (
         <>
         <div className={styles.home_container}>

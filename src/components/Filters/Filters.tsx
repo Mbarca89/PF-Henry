@@ -1,6 +1,7 @@
 import styles from './Filters.module.css';
-import { FcShipped, FcRating, FcHome, FcLike, FcAdvertising, FcMoneyTransfer } from 'react-icons/fc';
+import { FcShipped, FcRating, FcHome, FcLike, FcAdvertising, FcMoneyTransfer, FcPositiveDynamic } from 'react-icons/fc';
 import { GoChevronRight } from 'react-icons/go';
+import {MdAttachMoney} from 'react-icons/md'
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { setBody, setName, setPage } from '../../redux/slices/productsSlice';
@@ -196,14 +197,15 @@ if(name === 'relevant'){
         </select>
       </div>
       <div className={styles.filters_option}>
-        <FcMoneyTransfer size={25} />
+        <FcPositiveDynamic size={25} />
         <select name="relevant" onChange={handleChangeSelect}>
           <option value="asc">Mayor puntuación</option>
           <option value="desc">Menor puntuación</option>
         </select>
       </div>
       <div className={styles.price_filters_option}>
-          <div>
+        <MdAttachMoney size={25}/>
+          <div className={styles.range_prize_container}>
             <input type='number' placeholder='Precio mínimo' value={stateFiltered.minPrice} name='minPrice' onChange={handlePrice}/>
             <input type='number' placeholder='Precio máximo' value={stateFiltered.maxPrice} name='maxPrice' onChange={handlePrice}/>
           </div>
