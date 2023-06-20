@@ -1,0 +1,18 @@
+.pagination{
+    display: flex;
+    flex-direction: row;
+    gap: 1%;
+    width: 80%;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+button{
+    all: unset;
+    text-align: center;
+    background-color: antiquewhite;
+    width: 5%;
+    border-radius: 7px;
+    height: 2rem;
+    cursor: pointer;
+}

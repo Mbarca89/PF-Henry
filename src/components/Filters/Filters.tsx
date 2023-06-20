@@ -1,9 +1,10 @@
 import styles from './Filters.module.css';
-import { FcShipped, FcRating, FcHome, FcLike, FcAdvertising, FcMoneyTransfer } from 'react-icons/fc';
+import { FcShipped, FcRating, FcHome, FcLike, FcAdvertising, FcMoneyTransfer, FcPositiveDynamic } from 'react-icons/fc';
 import { GoChevronRight } from 'react-icons/go';
+import {MdAttachMoney} from 'react-icons/md'
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
-import { setBody } from '../../redux/slices/productsSlice';
+import { setBody, setName, setPage } from '../../redux/slices/productsSlice';
 import { ChangeEvent, useState, useEffect } from 'react';
 import { fecthProducts } from '../../redux/utils/fetchProducts';
 import { Body } from '../../types';
@@ -12,6 +13,8 @@ const Filters = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { body } = useAppSelector(state => state.products);
+  const urlName = useAppSelector(state => state.products.urlName)
+  const urlPage = useAppSelector(state => state.products.urlPage)
   const [stateFiltered, setStateFiltered] = useState<Body>({
     sort: {
       price: { isSorted: false, order: 'asc' },
@@ -94,10 +97,41 @@ if(name === 'relevant'){
     dispatch(setBody(stateFiltered));
     dispatch(fecthProducts({
       page: '1',
-      name: '',
+      name: urlName,
       body: stateFiltered
     }))
-    console.log(body);
+  };
+
+  const handleResetFilters = () => {
+    dispatch(setBody({
+      sort: {
+        price: { isSorted: false, order: 'asc' },
+        sales: { isSorted: false, order: 'asc' },
+        relevant: { isSorted: false, order: 'asc' },
+      },
+      freeShipping: false,
+      hasDiscount: false,
+      category: '',
+      minPrice: '',
+      maxPrice: 'Infinity'
+    }));
+    dispatch(setPage('1'))
+    dispatch(fecthProducts({
+      page: '1',
+      name: urlName,
+      body: {
+        sort: {
+          price: { isSorted: false, order: 'asc' },
+          sales: { isSorted: false, order: 'asc' },
+          relevant: { isSorted: false, order: 'asc' },
+        },
+        freeShipping: false,
+        hasDiscount: false,
+        category: '',
+        minPrice: '',
+        maxPrice: 'Infinity'
+      }
+    }))
   };
 
   return (
@@ -163,20 +197,21 @@ if(name === 'relevant'){
         </select>
       </div>
       <div className={styles.filters_option}>
-        <FcMoneyTransfer size={25} />
+        <FcPositiveDynamic size={25} />
         <select name="relevant" onChange={handleChangeSelect}>
           <option value="asc">Mayor puntuación</option>
           <option value="desc">Menor puntuación</option>
         </select>
       </div>
-      <div className={styles.filters_option}>
-        <FcMoneyTransfer size={25} />
-          <div>
+      <div className={styles.price_filters_option}>
+        <MdAttachMoney size={25}/>
+          <div className={styles.range_prize_container}>
             <input type='number' placeholder='Precio mínimo' value={stateFiltered.minPrice} name='minPrice' onChange={handlePrice}/>
             <input type='number' placeholder='Precio máximo' value={stateFiltered.maxPrice} name='maxPrice' onChange={handlePrice}/>
           </div>
       </div>
       <button className={styles.btn} onClick={handleApplyFilters}>Aplicar filtros</button>
+      <button className={styles.btn} onClick={handleResetFilters}>Limpiar filtros</button>
     </div>
   );
 };

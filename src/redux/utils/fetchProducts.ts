@@ -16,7 +16,7 @@ export const fecthProducts = createAsyncThunk(
     }
   }
 );
-const API_PRODUCTS = 'https://pf-henry-back-two.vercel.app/products?page=1';
+const API_PRODUCTS = 'https://pf-henry-back-two.vercel.app/products';
 const BODY = {
   "sort": {
     "price": {

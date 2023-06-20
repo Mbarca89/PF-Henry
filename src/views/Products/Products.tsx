@@ -1,6 +1,7 @@
 import styles from './Products.module.css';
 import Filters from '../../components/Filters/Filters';
 import ProductsList from '../../components/ProductsList/ProductsList';
+import Pagination from '../../components/Pagination/Pagination';
 import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
 //import { getProducts } from '../../redux/slices/productsSlice';
 import { fecthProducts } from '../../redux/utils/fetchProducts';
@@ -11,22 +12,28 @@ const Products = () => {
     const dispatch = useAppDispatch()
     const { body } = useAppSelector((state: RootState) => state.products);
     const { products } = useAppSelector((state: RootState) => state.products);
+    const urlName = useAppSelector(state => state.products.urlName)
+    const urlPage = useAppSelector(state => state.products.urlPage)
 
     useEffect(() => {
-        if(!products.length){
+        if (!products.length) {
             dispatch(fecthProducts({
-                page: '1',
-                name: '',
+                page: urlPage,
+                name: urlName,
                 body
-              }))
+            }))
         }
-    },[body, dispatch, products.length])
-
+    }, [body, dispatch, products.length, urlName, urlPage])
 
     return (
         <div className={styles.products_container}>
-            <Filters />
-            <ProductsList />
+            <div className={styles.mainContainer}>
+                <Filters />
+                <ProductsList />
+            </div>
+            <div className={styles.paginationContainer}>
+            <Pagination />
+            </div>
         </div>
     )
 }

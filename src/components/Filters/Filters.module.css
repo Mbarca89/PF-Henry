@@ -1,10 +1,12 @@
 .filters_container{
   display: flex;
-  width: 17%;
+  width: 18%;
   flex-direction: column;
-  height: 70vh;
+  height: 75vh;
+  gap: 3px;
   justify-content: space-between;
-  background-color: transparent;
+  align-items: center;
+  border-radius: 15px;
 }
 .filters_option{
   background-color: antiquewhite;
@@ -17,12 +19,27 @@
   width: 100%;
   cursor: pointer;
 }
+.price_filters_option{
+  background-color: antiquewhite;
+  height: 4rem;
+  border-radius: 5px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  gap: 1%;
+}
 .range_prize_container{
+  margin: 0 auto;
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-.range_prize{
+.range_prize_container input{
+  height: 40%;
   width: 100%;
 }
 .switch {
@@ -135,9 +152,7 @@
 
   .btn{
     box-sizing: border-box;
-    margin-top: 1em;
     width: 100%;
-    padding: .5em ;
     color: white;
     font-weight: bold;
     background-color: #c2b491e1;
@@ -156,7 +171,8 @@
 
 /*******************************/
 
-.filters_option input {
+.price_filters_option input {
+  width: 80%;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;

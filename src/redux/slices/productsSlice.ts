@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Products, Body } from "../../types";
-import { fecthProducts, getProducts, getProductsByName, getProductsByFilter } from "../utils/fetchProducts";
+import { fecthProducts} from "../utils/fetchProducts";
 
 type productState = {
   products: Products[];
@@ -9,6 +9,7 @@ type productState = {
   url: string;
   urlName: string;
   urlPage: string;
+  productCount: number;
 };
 const initialState: productState = {
   products: [],
@@ -36,8 +37,9 @@ const initialState: productState = {
       "maxPrice": "Infinity"
     },
     url: 'https://pf-henry-back-two.vercel.app/products',
-    urlPage: '',
-    urlName: ''
+    urlPage: '1',
+    urlName: '',
+    productCount: 0
 };
 
 export const productsSlice = createSlice({
@@ -46,18 +48,25 @@ export const productsSlice = createSlice({
   reducers: {
     setBody: (state, action) => {
       state.body = action.payload
+    },
+    setName: (state, action) => {
+      state.urlName = action.payload
+    },
+    setPage: (state, action) => {
+      state.urlPage = action.payload
     }
   },
   extraReducers: (builder) => {
     builder.addCase(fecthProducts.fulfilled, (state, action) => {
       state.products = [...action.payload.products];
       state.productsFiltered = [...action.payload.products];
+      state.productCount = action.payload.totalCount
     })
   }
 });
 
 
 // eslint-disable-next-line no-empty-pattern
-export const { setBody } = productsSlice.actions;
+export const { setBody, setName, setPage } = productsSlice.actions;
 export default productsSlice.reducer;
 
