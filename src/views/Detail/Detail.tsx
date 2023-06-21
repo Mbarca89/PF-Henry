@@ -6,11 +6,7 @@ import axios from 'axios';
 
 const Detail = () => {
     
-    interface Product {
-        name: string;
-    }
-      
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [product, setProduct] = useState<Record<string, any>>({});
 
 
@@ -39,7 +35,7 @@ const Detail = () => {
     
     const [value, setValue] = useState<number | ''>(1);
     //barra de stock
-    const [progress, setProgress] = useState(40);
+    const [progress, setProgress] = useState(0);
 
     const increment = () => {
         setValue(nextValue => (Number(nextValue) + 1));
@@ -57,15 +53,16 @@ const Detail = () => {
         setValue(inputValue);
 
         //calculo para la barra de stock
-        const maxQuantity = 10;
-        const currentProgress = (inputValue / maxQuantity) * 100;
-        setProgress(currentProgress);
+        // const maxQuantity = 10;
+        // const currentProgress = (inputValue / maxQuantity) * 100;
+        // setProgress(currentProgress);
     };
     
     
     
 
     return(
+        product.photos && 
         <div className={style.detail_container}>
             <div className={style.detail_img}>
                 <img src={product.photos && product.photos[0].url} alt="" />
@@ -92,7 +89,7 @@ const Detail = () => {
                 
 
                 <div className={style.description}>
-                   <h4> Descripcion </h4>
+                   <h4> Descripción: </h4>
                    <p> {product.description}</p> 
                 </div>
 

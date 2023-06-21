@@ -1,48 +1,72 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Products } from "../../types";
-import { getProducts } from "../utils/fetchProducts";
+import { createSlice } from "@reduxjs/toolkit";
+import { Products, Body } from "../../types";
+import { fecthProducts} from "../utils/fetchProducts";
 
 type productState = {
   products: Products[];
+  productsFiltered: Products[];
+  body: Body;
+  url: string;
+  urlName: string;
+  urlPage: string;
+  productCount: number;
 };
-
 const initialState: productState = {
-  products: [
+  products: [],
+  productsFiltered: [],
+  body: 
     {
-      name: "Cargando",
-      price: 0,
-      description: "",
-      stock: 0,
-      hasDiscount: true,
-      discount: 0,
-      photos: [
-        {
-          url: "https://cdn-icons-png.flaticon.com/512/107/107814.png?w=360",
-          public_id: "",
+      "sort": {
+        "price": {
+          "isSorted": false,
+          "order": "asc"
         },
-      ],
-      freeShipping: true,
-      sales: 0,
-      rating: 0,
-      id: "",
+        "sales": {
+          "isSorted": false,
+          "order": "asc"
+        },
+        "relevant": {
+          "isSorted": false,
+          "order": "asc"
+        }
+      },
+      "freeShipping": false,
+      "hasDiscount": false,
+      "category": "",
+      "minPrice": '',
+      "maxPrice": "Infinity"
     },
-  ],
+    url: 'https://pf-henry-back-two.vercel.app/products',
+    urlPage: '1',
+    urlName: '',
+    productCount: 0
 };
 
 export const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
+    setBody: (state, action) => {
+      state.body = action.payload
+    },
+    setName: (state, action) => {
+      state.urlName = action.payload
+    },
+    setPage: (state, action) => {
+      state.urlPage = action.payload
+    }
   },
   extraReducers: (builder) => {
-    builder.addCase(getProducts.fulfilled, (state, action) => {
-        state.products = [...action.payload];
-    });
+    builder.addCase(fecthProducts.fulfilled, (state, action) => {
+      state.products = [...action.payload.products];
+      state.productsFiltered = [...action.payload.products];
+      state.productCount = action.payload.totalCount
+    })
   }
 });
 
 
 // eslint-disable-next-line no-empty-pattern
-export const {} = productsSlice.actions;
+export const { setBody, setName, setPage } = productsSlice.actions;
 export default productsSlice.reducer;
 

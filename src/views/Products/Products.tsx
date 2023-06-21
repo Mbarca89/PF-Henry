@@ -1,33 +1,39 @@
 import styles from './Products.module.css';
 import Filters from '../../components/Filters/Filters';
 import ProductsList from '../../components/ProductsList/ProductsList';
+import Pagination from '../../components/Pagination/Pagination';
 import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
 //import { getProducts } from '../../redux/slices/productsSlice';
-import { getProducts } from '../../redux/utils/fetchProducts';
+import { fecthProducts } from '../../redux/utils/fetchProducts';
 //import axios from 'axios';
 import { useEffect } from 'react';
 
 const Products = () => {
     const dispatch = useAppDispatch()
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { body } = useAppSelector((state: RootState) => state.products);
     const { products } = useAppSelector((state: RootState) => state.products);
+    const urlName = useAppSelector(state => state.products.urlName)
+    const urlPage = useAppSelector(state => state.products.urlPage)
 
     useEffect(() => {
-        if(!products.length){
-            getProducts();
-            //dispatch(getProducts)
+        if (!products.length) {
+            dispatch(fecthProducts({
+                page: urlPage,
+                name: urlName,
+                body
+            }))
         }
-    },[dispatch, products.length])
-
-    const handleState = () => {
-        getProducts();
-    }
+    }, [body, dispatch, products.length, urlName, urlPage])
 
     return (
         <div className={styles.products_container}>
-            <Filters />
-            <ProductsList />
+            <div className={styles.mainContainer}>
+                <Filters />
+                <ProductsList />
+            </div>
+            <div className={styles.paginationContainer}>
+            <Pagination />
+            </div>
         </div>
     )
 }

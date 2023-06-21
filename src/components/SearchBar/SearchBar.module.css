@@ -4,7 +4,6 @@
     justify-content: space-evenly;
     width: 20%;
     height: 20%;
-
     border-radius: 5px;
     border: 1px solid black;
 }
@@ -12,4 +11,10 @@
     all: unset;
     width: 80%;
     height: 80%;
+}
+
+.searchBar_container p {
+    position: absolute;
+    right: 21%;
+    cursor: pointer;
 }
