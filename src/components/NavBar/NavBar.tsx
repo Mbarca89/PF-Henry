@@ -26,7 +26,6 @@ const NavBar = () => {
             try {
                 const response = await axios.get('https://pf-henry-back-two.vercel.app/categories');
                 setCategories(response.data);
-                console.log(categories);
 
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
@@ -51,7 +50,6 @@ const NavBar = () => {
                     <div className={styles.customSelect} style = {showCategories ? {opacity:1} : {opacity:0}}>
                         {
                             categories.map(category => {
-                                console.log(category);
                                 return (
                                     <div key={category.id}>{category.categoryName}</div>
                                 )

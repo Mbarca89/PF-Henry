@@ -1,18 +1,10 @@
 import styles from './ProductsList.module.css';
 import { RootState, useAppSelector, useAppDispatch } from '../../redux/store';
-import { useEffect } from 'react';
-import { getProducts } from '../../redux/utils/fetchProducts';
 import { NavLink } from 'react-router-dom';
 
 const ProductsList = () => {
     const { productsFiltered } = useAppSelector((state: RootState) => state.products);
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if(!productsFiltered.length){
-            dispatch(getProducts())
-        }
-      }, [dispatch, productsFiltered.length])
 
     return (
         <div className={styles.productsList_container}>

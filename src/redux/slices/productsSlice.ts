@@ -26,8 +26,8 @@ const initialState: productState = {
           "order": "asc"
         },
         "relevant": {
-          "isSorted": false,
-          "order": "asc"
+          "isSorted": true,
+          "order": "desc"
         }
       },
       "freeShipping": false,
