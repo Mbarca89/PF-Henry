@@ -28,9 +28,7 @@ const Filters = () => {
     maxPrice: 'Infinity'
   });
   useEffect(() => {
-    console.log('body de estado global' ,body);
     setStateFiltered(body)
-    console.log(body);
   }, [body])
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
