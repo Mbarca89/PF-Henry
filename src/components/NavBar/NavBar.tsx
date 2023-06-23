@@ -17,6 +17,8 @@ const NavBar = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
+    const token = localStorage.getItem('token')
+
     interface Product {
         _id: string;
     }
@@ -62,8 +64,9 @@ const NavBar = () => {
             const storedUserDataOk = JSON.parse(storedUserData)
             setUserName(storedUserDataOk.name);
         }
-
-    }, [dispatch])
+        if(!token)window.location.reload()
+        if(token) navigate('/home')
+    }, [])
 
    
 
