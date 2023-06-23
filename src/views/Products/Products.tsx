@@ -3,9 +3,7 @@ import Filters from '../../components/Filters/Filters';
 import ProductsList from '../../components/ProductsList/ProductsList';
 import Pagination from '../../components/Pagination/Pagination';
 import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
-//import { getProducts } from '../../redux/slices/productsSlice';
 import { fecthProducts } from '../../redux/utils/fetchProducts';
-//import axios from 'axios';
 import { useEffect } from 'react';
 
 const Products = () => {
@@ -23,7 +21,7 @@ const Products = () => {
                 body
             }))
         }
-    }, [body, dispatch, products.length, urlName, urlPage])
+    }, [])
 
     return (
         <div className={styles.products_container}>
@@ -32,7 +30,7 @@ const Products = () => {
                 <ProductsList />
             </div>
             <div className={styles.paginationContainer}>
-            <Pagination />
+                <Pagination />
             </div>
         </div>
     )

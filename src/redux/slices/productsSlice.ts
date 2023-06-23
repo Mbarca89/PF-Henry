@@ -35,9 +35,9 @@ const initialState: productState = {
       "hasDiscount": false,
       "category": "",
       "minPrice": '',
-      "maxPrice": "Infinity"
+      "maxPrice": Infinity
     },
-    url: 'https://pf-henry-back-two.vercel.app/products',
+    url: 'http://localhost:3000/products',
     urlPage: '1',
     urlName: '',
     productCount: 0,
@@ -63,9 +63,16 @@ export const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fecthProducts.fulfilled, (state, action) => {
-      state.products = [...action.payload.products];
-      state.productsFiltered = [...action.payload.products];
-      state.productCount = action.payload.totalCount
+      console.log(action.payload)
+      if(!action.payload){
+        state.products = []
+        state.productsFiltered = [];
+        state.productCount = 0
+      } else {
+        state.products = [...action.payload.products];
+        state.productsFiltered = [...action.payload.products];
+        state.productCount = action.payload.totalCount
+      }
     })
   }
 });

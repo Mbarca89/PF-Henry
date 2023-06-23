@@ -1,27 +1,24 @@
 import styles from "./Login.module.css";
 import axios from "axios";
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { useAppDispatch } from "../../redux/store";
-import { setJWT } from "../../redux/slices/productsSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const dispatch = useAppDispatch()
+
+  const navigate = useNavigate()
+
   const [login, setLogin] = useState("Inicio de sesión");
+
+  const [tokenState, setTokenState] = useState({
+    token: "",
+    userInfo: "",
+  });
 
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  useEffect(() => {
-    const storedData = window.localStorage.getItem('token');
-    console.log(storedData);
-    if (storedData) {
-      dispatch(setJWT(storedData))
-    }
-  }, [dispatch]);
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setForm((prevState) => {
@@ -31,38 +28,6 @@ const Login = () => {
       };
     });
   };
-
-  const handleLogin = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    try {
-      const res = await axios.get("http://localhost:3000/auth/google");
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  /*   const handleLoginNormal = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-
-    const formData = {
-      email: form.email,
-      password: form.password,
-    };
-
-    try {
-      const res = await axios.post(
-        "http://localhost:3000/auth/login",
-        formData
-      );
-      console.log(res.data); // Log the response data
-
-
-
-    } catch (error) {
-      console.log(error);
-    }
-  }; */
 
   const handleLoginNormal = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -77,17 +42,21 @@ const Login = () => {
         "http://localhost:3000/auth/login",
         formData
       );
-      console.log(res.data); // Log the response data
-
       if (res.data) {
         const token = res.data.token;
-        const userName = res.data.user.name;
+        const userInfo = res.data.user;
 
         // Store token and userName in localStorage
-        localStorage.setItem("token", JSON.stringify(token));
-        localStorage.setItem("userName", JSON.stringify(userName));
+        localStorage.setItem("token", token);
+        localStorage.setItem("userData", JSON.stringify(userInfo));
 
-        window.history.back();
+        setTokenState({
+          token,
+          userInfo,
+        });
+
+        // window.history.back();
+        navigate('/products')
       }
     } catch (error) {
       console.log(error);
@@ -122,17 +91,16 @@ const Login = () => {
         </div>
         <div className={styles.login_btn}>
           {login === "Inicio de sesión" ? (
-            <button type="submit">REGISTRARSE</button>
-          ) : null}
+            <button type="submit">INGRESAR</button>
+          ) : <button type="submit">REGISTRARME</button>}
         </div>
       </form>
       <a href="http://localhost:3000/auth/google">
-        <button>Click Me</button>
+        <button className={styles.google_login}>
+          <FcGoogle size={25} />
+          INGRESAR CON GOOGLE
+        </button>
       </a>
-      <button onClick={handleLogin}>
-        <FcGoogle size={25} />
-        INGRESAR
-      </button>
     </div>
   );
 };

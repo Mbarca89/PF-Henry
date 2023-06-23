@@ -1,5 +1,5 @@
 import styles from './SearchBar.module.css'
-import { SetStateAction, useEffect, useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { fecthProducts } from '../../redux/utils/fetchProducts';
@@ -12,7 +12,6 @@ const SearchBar = () => {
     const navigate = useNavigate();
     const [input, setInput] = useState('');
     const body = useAppSelector(state => state.products.body)
-    const urlPage = useAppSelector(state => state.products.urlPage)
 
 
     const handleChange = (event: { target: { value: SetStateAction<string>; }; }) => {
@@ -21,11 +20,6 @@ const SearchBar = () => {
             navigate('/products')
         }
     }
-    // useEffect(() => {
-    //     dispatch(getProductsByName(input))
-    //     console.log(input);
-
-    // }, [dispatch, input])
 
     const nameHandle = (event: any) => {
         if (event.key === 'Enter') {
