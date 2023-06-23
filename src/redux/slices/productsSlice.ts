@@ -10,6 +10,7 @@ type productState = {
   urlName: string;
   urlPage: string;
   productCount: number;
+  JWT: string
 };
 const initialState: productState = {
   products: [],
@@ -39,7 +40,8 @@ const initialState: productState = {
     url: 'http://localhost:3000/products',
     urlPage: '1',
     urlName: '',
-    productCount: 0
+    productCount: 0,
+    JWT: '',
 };
 
 export const productsSlice = createSlice({
@@ -54,6 +56,9 @@ export const productsSlice = createSlice({
     },
     setPage: (state, action) => {
       state.urlPage = action.payload
+    },
+    setJWT: (state, action) => {
+      state.JWT = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -74,6 +79,6 @@ export const productsSlice = createSlice({
 
 
 // eslint-disable-next-line no-empty-pattern
-export const { setBody, setName, setPage } = productsSlice.actions;
+export const { setBody, setName, setPage, setJWT } = productsSlice.actions;
 export default productsSlice.reducer;
 

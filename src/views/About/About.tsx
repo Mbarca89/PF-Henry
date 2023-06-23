@@ -7,9 +7,10 @@ const About = () => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
+    const storedUserName = localStorage.getItem("userData");
     if (storedUserName) {
-      setUserName(storedUserName);
+      const storedUserNameOk = JSON.parse(storedUserName)
+      setUserName(storedUserNameOk);
     }
   }, []);
 
