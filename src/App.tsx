@@ -34,16 +34,4 @@ function App() {
     </div>
   )
 }
-
-
-
-export default App
-
-      </Routes>
-    </div>
-  )
-}
-
-
-
 export default App
