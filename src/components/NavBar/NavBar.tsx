@@ -53,7 +53,7 @@ const NavBar = () => {
             if (userCookie) {
                 const userJSON = decodeURIComponent(userCookie.split('=')[1]);
                 const userOk = JSON.parse(userJSON)
-                localStorage.setItem('userName', userOk.name)
+                localStorage.setItem('userData', JSON.stringify(userOk))
                 dispatch(setUser(userOk))
             }
         }

@@ -55,8 +55,7 @@ const Login = () => {
           userInfo,
         });
 
-        // window.history.back();
-        navigate('/products')
+        window.history.back();
       }
     } catch (error) {
       console.log(error);
