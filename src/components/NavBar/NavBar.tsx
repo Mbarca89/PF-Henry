@@ -17,8 +17,6 @@ const NavBar = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
-    const token = localStorage.getItem('token')
-
     interface Product {
         _id: string;
     }
@@ -58,14 +56,17 @@ const NavBar = () => {
                 localStorage.setItem('userData', JSON.stringify(userOk))
                 dispatch(setUser(userOk))
             }
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            window.location.reload()
+            if(token) navigate('/home')
         }
         const storedUserData = localStorage.getItem("userData");
         if (storedUserData) {            
             const storedUserDataOk = JSON.parse(storedUserData)
             setUserName(storedUserDataOk.name);
         }
-        if(!token)window.location.reload()
-        if(token) navigate('/home')
+        
     }, [])
 
    
