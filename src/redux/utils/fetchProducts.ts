@@ -6,17 +6,17 @@ export const fecthProducts = createAsyncThunk(
   'products/get',
   async ({ page, name, body }: { page: string; name: string; body: any }, thunkApi) => {
     try {
-      const response = await axios.post(
+      const {data} = await axios.post(
         `${API_PRODUCTS}?page=${page}&name=${name}`,
         body
       );
-      return response.data;
+      return data;      
     } catch (error) {
       console.log(error)
     }
   }
 );
-const API_PRODUCTS = 'https://pf-henry-back-two.vercel.app/products';
+const API_PRODUCTS = 'http://localhost:3000/products';
 
 export const getProductsByFilter = createAsyncThunk(
   'products/getByFilter',

@@ -1,7 +1,17 @@
 import styles from './About.module.css';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const About = () => {
+
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const storedUserName = localStorage.getItem("userName");
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  }, []);
 
     const productList = [
         {
@@ -32,6 +42,8 @@ const About = () => {
         window.location.href = data.init_point
     }
 
+
+    if (userName) {
     return (
         <div className={styles.about_container}>
             <h1>Sobre nosotros</h1>
@@ -40,5 +52,12 @@ const About = () => {
             </button>
         </div>
     )
+    } else {
+      return (
+        <div>
+          <span>Please login</span>
+        </div>
+      );
+    }
 }
 export default About;

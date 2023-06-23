@@ -1,20 +1,26 @@
 import styles from './MyProfile.module.css'
 import { CgProfile } from 'react-icons/cg'
+import { useState, useEffect } from 'react'
 
 const MyProfile = () => {
 
-    const user = {
-        id: "6491c116b90b2ebad884db12",
-        name: "Mauricio Barca",
-        email: "mauriciobarca1989@gmail.com",
-        address: "direccion del usuario",
-        city: "San Luis",
-        province: "San Luis",
-        postalCode: 5700,
-    }
+    const [user,setUser] = useState({
+        name: '',
+        email:'',
+        address:'',
+        city:'',
+        province:''
+    })
+
+    useEffect(()=> {
+        const stringUser = localStorage.getItem('userData')
+        if(stringUser){
+            setUser(JSON.parse(stringUser))
+        }
+    },[])
 
     return (
-        <div className={styles.myProfile}>
+        user && <div className={styles.myProfile}>
             <div className={styles.mainInfo}>
                 <div>
                     <CgProfile size={50} />
