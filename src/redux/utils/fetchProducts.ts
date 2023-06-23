@@ -6,53 +6,17 @@ export const fecthProducts = createAsyncThunk(
   'products/get',
   async ({ page, name, body }: { page: string; name: string; body: any }, thunkApi) => {
     try {
-      const response = await axios.post(
+      const {data} = await axios.post(
         `${API_PRODUCTS}?page=${page}&name=${name}`,
         body
       );
-      return response.data;
+      return data;      
     } catch (error) {
       console.log(error)
     }
   }
 );
-const API_PRODUCTS = 'https://pf-henry-back-two.vercel.app/products';
-const BODY = {
-  "sort": {
-    "price": {
-      "isSorted": false,
-      "order": "asc"
-    },
-    "sales": {
-      "isSorted": false,
-      "order": "asc"
-    },
-    "relevant": {
-      "isSorted": false,
-      "order": "asc"
-    }
-  },
-  "freeShipping": false,
-  "hasDiscount": false,
-  "category": "",
-  "minPrice": 0,
-  "maxPrice": "Infinity"
-}
-
-export const getProducts = createAsyncThunk(
-    'products/get',
-    async (thunkApi) => {
-      const response = await axios.post(
-        API_PRODUCTS,
-        BODY
-      );
-
-      console.log(response);
-      
-      return response.data.products;
-    }
-);
-
+const API_PRODUCTS = 'http://localhost:3000/products';
 
 export const getProductsByFilter = createAsyncThunk(
   'products/getByFilter',
@@ -100,21 +64,8 @@ export const getProductsByFilter = createAsyncThunk(
     };
 
     const response = await axios.post(API_PRODUCTS, BODY);
-    console.log(response);
 
     return response.data.products;
   }
 );
-export const getProductsByName = createAsyncThunk(
-  'products/getByName',
-  async (input: string) => {
-    const response = await axios.post(
-      `${API_PRODUCTS}&name=${input}`,
-      BODY
-    );
 
-    console.log(response);
-    
-    return response.data.products;
-  }
-);

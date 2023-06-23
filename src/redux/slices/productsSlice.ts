@@ -10,6 +10,7 @@ type productState = {
   urlName: string;
   urlPage: string;
   productCount: number;
+  JWT: string
 };
 const initialState: productState = {
   products: [],
@@ -26,20 +27,21 @@ const initialState: productState = {
           "order": "asc"
         },
         "relevant": {
-          "isSorted": false,
-          "order": "asc"
+          "isSorted": true,
+          "order": "desc"
         }
       },
       "freeShipping": false,
       "hasDiscount": false,
       "category": "",
       "minPrice": '',
-      "maxPrice": "Infinity"
+      "maxPrice": Infinity
     },
-    url: 'https://pf-henry-back-two.vercel.app/products',
+    url: 'http://localhost:3000/products',
     urlPage: '1',
     urlName: '',
-    productCount: 0
+    productCount: 0,
+    JWT: '',
 };
 
 export const productsSlice = createSlice({
@@ -54,19 +56,29 @@ export const productsSlice = createSlice({
     },
     setPage: (state, action) => {
       state.urlPage = action.payload
+    },
+    setJWT: (state, action) => {
+      state.JWT = action.payload;
     }
   },
   extraReducers: (builder) => {
     builder.addCase(fecthProducts.fulfilled, (state, action) => {
-      state.products = [...action.payload.products];
-      state.productsFiltered = [...action.payload.products];
-      state.productCount = action.payload.totalCount
+      console.log(action.payload)
+      if(!action.payload){
+        state.products = []
+        state.productsFiltered = [];
+        state.productCount = 0
+      } else {
+        state.products = [...action.payload.products];
+        state.productsFiltered = [...action.payload.products];
+        state.productCount = action.payload.totalCount
+      }
     })
   }
 });
 
 
 // eslint-disable-next-line no-empty-pattern
-export const { setBody, setName, setPage } = productsSlice.actions;
+export const { setBody, setName, setPage, setJWT } = productsSlice.actions;
 export default productsSlice.reducer;
 

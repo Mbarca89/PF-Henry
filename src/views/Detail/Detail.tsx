@@ -1,38 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import style from './Detail.module.css'
-import {AiOutlineShoppingCart, AiOutlineHeart} from 'react-icons/ai';
+import { AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
+import { RootState, useAppSelector } from '../../redux/store'
 import axios from 'axios';
 
 const Detail = () => {
-    
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [product, setProduct] = useState<Record<string, any>>({});
+    const { user } = useAppSelector((state: RootState) => state.user)
 
 
     const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
         const getProduct = () => {
-          axios.get(`https://pf-henry-back-two.vercel.app/products/detail/${id}`)
-            .then(({ data }) => {
-              if (data.name) {
-                setProduct(data);
-                setProgress(data.stock)
-              } else {
-                alert('No hay productos con ese ID');
-              }
-            })
-            .catch((error) => {
-              console.error('Error al obtener el producto:', error);
-              alert('Hubo un error al obtener el producto');
-            });
+            axios.get(`http://localhost:3000/products/detail/${id}`)
+                .then(({ data }) => {
+                    if (data.name) {
+                        setProduct(data);
+                        setProgress(data.stock)
+                    } else {
+                        alert('No hay productos con ese ID');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error al obtener el producto:', error);
+                    alert('Hubo un error al obtener el producto');
+                });
         };
         getProduct(); // Llamar a la función getProduct aquí para que se ejecute
-      
-      }, [id]);
-      
-    
+
+    }, [id]);
+
+
     const [value, setValue] = useState<number | ''>(1);
     //barra de stock
     const [progress, setProgress] = useState(0);
@@ -40,35 +42,36 @@ const Detail = () => {
     const increment = () => {
         setValue(nextValue => (Number(nextValue) + 1));
     };
-  
+
     const decrement = () => {
         setValue(prevValue => {
             const newValue = Number(prevValue) - 1;
             return newValue > 0 ? newValue : prevValue;
-          });
+        });
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = Number(event.target.value);
         setValue(inputValue);
-
-        //calculo para la barra de stock
-        // const maxQuantity = 10;
-        // const currentProgress = (inputValue / maxQuantity) * 100;
-        // setProgress(currentProgress);
     };
-    
-    
-    
 
-    return(
-        product.photos && 
+    const addProduct = async () => {
+        try {
+            await axios.post('http://localhost:3000/cart/add', { id, userId: user.id, quantity: value })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    return (
+        product.photos &&
         <div className={style.detail_container}>
             <div className={style.detail_img}>
                 <img src={product.photos && product.photos[0].url} alt="" />
             </div>
 
-            <div className={style.detail_container_description}>   
+            <div className={style.detail_container_description}>
                 <div className={style.title}>
                     <h2>{product.name}</h2>
                     <span> NABAT </span>
@@ -76,21 +79,21 @@ const Detail = () => {
 
                 <div className={style.price}>
                     {product.hasDiscount && <h3 className={style.price_descuento}>{`$${product.price}`}</h3>}
-                    {product.hasDiscount && <h1 className={style.price_real}> {`$${product.price * (100-product.discount) /100}`} </h1>}
+                    {product.hasDiscount && <h1 className={style.price_real}> {`$${product.price * (100 - product.discount) / 100}`} </h1>}
                     {!product.hasDiscount && <h1 className={style.price_real}> {`$${product.price}`}</h1>}
                 </div>
 
                 <div className={style.container_progress}>
                     <h5>{progress} articulos restantes </h5>
                     <div className={style.progress_bar}>
-                        <div className={style.progress_fill} style={{ width: `${progress}%` }}/>
+                        <div className={style.progress_fill} style={{ width: `${progress}%` }} />
                     </div>
                 </div>
-                
+
 
                 <div className={style.description}>
-                   <h4> Descripción: </h4>
-                   <p> {product.description}</p> 
+                    <h4> Descripción: </h4>
+                    <p> {product.description}</p>
                 </div>
 
 
@@ -105,7 +108,7 @@ const Detail = () => {
                     <button className={style.buy}> Comprar Ahora </button>
 
                     <div className={style.buttons}>
-                        <button className={style.cart}>
+                        <button className={style.cart} onClick={addProduct}>
                             <AiOutlineShoppingCart size={20} />
                             Agregar al carrito
                         </button>
@@ -116,7 +119,7 @@ const Detail = () => {
                     </div>
                 </div>
 
-                
+
             </div>
         </div>
     )

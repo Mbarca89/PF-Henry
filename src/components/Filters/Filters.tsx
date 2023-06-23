@@ -1,10 +1,10 @@
 import styles from './Filters.module.css';
-import { FcShipped, FcRating, FcHome, FcLike, FcAdvertising, FcMoneyTransfer, FcPositiveDynamic } from 'react-icons/fc';
+import { FcShipped, FcRating, FcHome, FcAdvertising, FcMoneyTransfer, FcPositiveDynamic } from 'react-icons/fc';
 import { GoChevronRight } from 'react-icons/go';
 import {MdAttachMoney} from 'react-icons/md'
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
-import { setBody, setName, setPage } from '../../redux/slices/productsSlice';
+import { setBody, setPage } from '../../redux/slices/productsSlice';
 import { ChangeEvent, useState, useEffect } from 'react';
 import { fecthProducts } from '../../redux/utils/fetchProducts';
 import { Body } from '../../types';
@@ -14,7 +14,6 @@ const Filters = () => {
   const dispatch = useAppDispatch();
   const { body } = useAppSelector(state => state.products);
   const urlName = useAppSelector(state => state.products.urlName)
-  const urlPage = useAppSelector(state => state.products.urlPage)
   const [stateFiltered, setStateFiltered] = useState<Body>({
     sort: {
       price: { isSorted: false, order: 'asc' },
@@ -25,12 +24,10 @@ const Filters = () => {
     hasDiscount: false,
     category: '',
     minPrice: '',
-    maxPrice: 'Infinity'
+    maxPrice: Infinity
   });
   useEffect(() => {
-    console.log('body de estado global' ,body);
     setStateFiltered(body)
-    console.log(body);
   }, [body])
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
@@ -107,13 +104,13 @@ if(name === 'relevant'){
       sort: {
         price: { isSorted: false, order: 'asc' },
         sales: { isSorted: false, order: 'asc' },
-        relevant: { isSorted: false, order: 'asc' },
+        relevant: { isSorted: true, order: 'desc' },
       },
       freeShipping: false,
       hasDiscount: false,
       category: '',
       minPrice: '',
-      maxPrice: 'Infinity'
+      maxPrice: Infinity
     }));
     dispatch(setPage('1'))
     dispatch(fecthProducts({
@@ -123,13 +120,13 @@ if(name === 'relevant'){
         sort: {
           price: { isSorted: false, order: 'asc' },
           sales: { isSorted: false, order: 'asc' },
-          relevant: { isSorted: false, order: 'asc' },
+          relevant: { isSorted: true, order: 'desc' },
         },
         freeShipping: false,
         hasDiscount: false,
         category: '',
         minPrice: '',
-        maxPrice: 'Infinity'
+        maxPrice: Infinity
       }
     }))
   };
@@ -206,8 +203,8 @@ if(name === 'relevant'){
       <div className={styles.price_filters_option}>
         <MdAttachMoney size={25}/>
           <div className={styles.range_prize_container}>
-            <input type='number' placeholder='Precio mínimo' value={stateFiltered.minPrice} name='minPrice' onChange={handlePrice}/>
-            <input type='number' placeholder='Precio máximo' value={stateFiltered.maxPrice} name='maxPrice' onChange={handlePrice}/>
+            <input type='number' min='0' placeholder='Precio mínimo' value={stateFiltered.minPrice} name='minPrice' onChange={handlePrice}/>
+            <input type='number' min='0' placeholder='Precio máximo' value={stateFiltered.maxPrice} name='maxPrice' onChange={handlePrice}/>
           </div>
       </div>
       <button className={styles.btn} onClick={handleApplyFilters}>Aplicar filtros</button>

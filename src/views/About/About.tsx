@@ -1,20 +1,64 @@
 import styles from './About.module.css';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const About = () => {
+
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const storedUserName = localStorage.getItem("userData");
+    if (storedUserName) {
+      const storedUserNameOk = JSON.parse(storedUserName)
+      setUserName(storedUserNameOk);
+    }
+  }, []);
+
+    const productList = [
+        {
+          itemName: "crema para manos",
+          unityPrice: 3700,
+          quantity: 2,
+          total: 7400
+        },
+        {
+          itemName: "crema de enjuague",
+          unityPrice: 3300,
+          quantity: 3,
+          total: 9900
+        }
+      ]
+    
+    // const checkout = async ()=> {
+    //   const response = await fetch ('/create-order', {
+    //      method: 'POST'
+    //  })
+    //   const data =  await response.json()
+    //   console.log(data);
+    //   window.location.href = data.init_point
+    // }
+
+    const checkoutOk = async () => {
+        const {data} = await axios.post('http://localhost:3000/checkout/create-order', {productList})
+        window.location.href = data.init_point
+    }
+
+
+    if (userName) {
     return (
         <div className={styles.about_container}>
             <h1>Sobre nosotros</h1>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse porro voluptas corporis error sed magni perspiciatis. Sequi eos odio animi hic officia accusamus! Consequatur modi quos natus fugiat quibusdam unde!
-            Soluta error possimus recusandae pariatur suscipit ducimus, quis delectus ex laboriosam, sunt officiis repellendus quod itaque dignissimos aspernatur esse distinctio maiores illum provident obcaecati, sequi neque tempore! Unde, ratione adipisci.
-            Tempore quas commodi facilis labore dicta accusamus obcaecati, sint voluptatibus maiores laboriosam molestias officia harum minus laudantium! Laudantium ducimus nesciunt excepturi necessitatibus esse, beatae velit quis possimus, distinctio quam ratione?
-            Amet accusantium possimus officiis maxime modi minima molestias facilis porro numquam dolor, nesciunt non expedita architecto hic sit? Ab assumenda debitis esse explicabo deleniti voluptas aperiam. Obcaecati labore architecto iure.
-            Excepturi reiciendis est consequatur nihil aliquid facere modi delectus libero illum. Architecto animi, repellendus nisi aliquam rem, reprehenderit, voluptatum magnam accusamus amet facere eius necessitatibus est quasi omnis vero natus.
-            In numquam esse labore reiciendis, perspiciatis harum voluptate veniam veritatis deleniti. Nihil, velit non quaerat alias sunt consectetur quis incidunt nemo aperiam et minus necessitatibus ipsa, doloribus consequuntur explicabo! Odio.
-            Molestias quod eveniet minus commodi suscipit id optio possimus hic enim quo tempore excepturi, perspiciatis, ex maxime iusto expedita beatae voluptatem corrupti quae eos magnam obcaecati. Molestias sunt nam saepe.
-            Minima ex dolores, hic nisi odio distinctio tempore a repellat magnam praesentium minus ipsa et rem officiis, similique dolorum cupiditate pariatur est illo aperiam, expedita atque suscipit. Facilis, ab mollitia.
-            Nam alias laborum officia ipsa esse tempore possimus pariatur voluptatem neque beatae provident omnis aliquid qui facere error, illo quasi reprehenderit adipisci nobis enim nihil, repudiandae officiis, suscipit odit! Ea.
-            Magni deserunt ratione eligendi nulla aliquid repellat quisquam ex pariatur aperiam tempore nemo optio sequi, necessitatibus non molestias numquam qui perferendis architecto. Ratione dicta voluptas similique, sapiente impedit unde fugiat.</p>
+            <button id="checkout" onClick={checkoutOk}>
+                Pay
+            </button>
         </div>
     )
+    } else {
+      return (
+        <div>
+          <span>Please login</span>
+        </div>
+      );
+    }
 }
 export default About;
