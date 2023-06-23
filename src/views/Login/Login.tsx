@@ -1,12 +1,18 @@
 import styles from "./Login.module.css";
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
   const navigate = useNavigate()
+
+  const token = localStorage.getItem('token')
+  console.log(token)
+  useEffect(()=> {
+    if(token) navigate('/home')
+  },[])
 
   const [login, setLogin] = useState("Inicio de sesión");
 
@@ -54,9 +60,7 @@ const Login = () => {
           token,
           userInfo,
         });
-
-        // window.history.back();
-        navigate('/products')
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
