@@ -58,7 +58,6 @@ const NavBar = () => {
             }
         }
         const storedUserData = localStorage.getItem("userData");
-        console.log(storedUserData)
         if (storedUserData) {            
             const storedUserDataOk = JSON.parse(storedUserData)
             setUserName(storedUserDataOk.name);
@@ -122,12 +121,12 @@ const NavBar = () => {
                             className={styles.navbar_icon}
                             onClick={() => navigate("/login")}
                         >
-                            <BiLogIn size={40} />
+                            <BiLogIn size={25} />
                             <span>Ingresar</span>
                         </div>
                     )}
-                    <div className={styles.navbar_icon}>
-                        <AiOutlineShoppingCart size={40} />
+                    <div className={styles.navbar_icon} onClick={() => navigate('/cart')}>
+                        <AiOutlineShoppingCart size={25} />
                         <span>Carrito</span>
                     </div>
                 </div>

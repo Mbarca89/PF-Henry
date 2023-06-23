@@ -1,0 +1,28 @@
+.myPurchases{
+    position: relative;
+    width: 100%;
+    height: 72vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3%;
+}
+
+.order_container{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 2%;
+}
+
+.order{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.order_info{
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+}
