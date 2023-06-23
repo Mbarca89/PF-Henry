@@ -6,6 +6,9 @@ import Products from './views/Products/Products'
 import Landing from './views/Landing/Landing'
 import About from './views/About/About'
 import Profile from './views/Profile/Profile'
+import Success from './views/Success/Success'
+import Login from './views/Login/Login'
+import Checkout from './views/Checkout/Checkout'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 function App() {
@@ -21,6 +24,9 @@ function App() {
         <Route path='/products' element={<Products />}/>
         <Route path='/about' element={<About />}/>
         <Route path='/myprofile' element={<Profile />}/>
+        <Route path='/success' element={<Success />}/>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/checkout' element={<Checkout />}/>
       </Routes>
     </div>
   )
