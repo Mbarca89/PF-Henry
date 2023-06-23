@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import style from './Detail.module.css'
 import { AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai';
-import { useParams } from 'react-router-dom';
-import { RootState, useAppSelector } from '../../redux/store'
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Detail = () => {
+    const navigate = useNavigate()
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [product, setProduct] = useState<Record<string, any>>({});
-    const { user } = useAppSelector((state: RootState) => state.user)
+
+    let user = ''
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {            
+        const storedUserDataOk = JSON.parse(storedUserData)
+        user = storedUserDataOk.id
+    }
 
 
     const { id } = useParams<{ id: string }>();
@@ -57,7 +63,8 @@ const Detail = () => {
 
     const addProduct = async () => {
         try {
-            await axios.post('http://localhost:3000/cart/add', { id, userId: user.id, quantity: value })
+            await axios.post('http://localhost:3000/cart/add', { id, userId: user, quantity: value })
+            navigate('/cart')
         } catch (error) {
             console.log(error)
         }
