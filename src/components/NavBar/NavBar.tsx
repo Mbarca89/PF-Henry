@@ -8,7 +8,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { setUser } from '../../redux/slices/userSlice';
-import { store, useAppDispatch } from '../../redux/store';
+import { useAppDispatch } from '../../redux/store';
 
 
 const NavBar = () => {
@@ -64,7 +64,7 @@ const NavBar = () => {
             setUserName(storedUserDataOk.name);
         }
 
-    }, [])
+    }, [dispatch])
 
    
 
@@ -87,7 +87,7 @@ const NavBar = () => {
             <div className={styles.navbar_items}>
                 <div className={styles.navbar_options}>
                     <div className={styles.categorySelect}>
-                        <button style={{ cursor: 'pointer' }} className={showCategories ? styles.navbar_button_active : styles.navbar_button} onClick={showCategoriesHandler}>Cagegorias</button>
+                        <button style={{ cursor: 'pointer' }} className={showCategories ? styles.navbar_button_active : styles.navbar_button} onClick={showCategoriesHandler}>Categorias</button>
                         <div className={styles.customSelect} style={showCategories ? { opacity: 1 } : { opacity: 0 }}>
                             {
                                 categories.map(category => {
@@ -122,12 +122,12 @@ const NavBar = () => {
                             className={styles.navbar_icon}
                             onClick={() => navigate("/login")}
                         >
-                            <BiLogIn size={25} />
+                            <BiLogIn size={40} />
                             <span>Ingresar</span>
                         </div>
                     )}
                     <div className={styles.navbar_icon}>
-                        <AiOutlineShoppingCart size={25} />
+                        <AiOutlineShoppingCart size={40} />
                         <span>Carrito</span>
                     </div>
                 </div>
