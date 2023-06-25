@@ -1,15 +1,16 @@
 .cart{
     position: relative;
     width: calc(100% - 8rem);
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 2%;
+    gap: 1rem;
     align-items: center;
     margin: auto;
     margin-bottom: 2%;
 }
-
+.cart h3{
+    font-size: 1.5rem;
+}
 .cart_container{
     position: relative;
     display: flex;
@@ -28,11 +29,10 @@
 .cart_item{
     position: relative;
     display: flex;
-    flex-direction: row;
-    gap: 1%;
     border-radius: 15px;
     padding: 1%;
     align-items: center;
+    gap: 1rem;
     justify-content: space-evenly;
 }
 
@@ -51,18 +51,26 @@
 }
 
 .name_container {
+    all: unset;
     display: flex;
     flex-direction: column;
     width: 55%;
     height: 100%;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
 .name_container button {
-    width: 10%;
+    all: unset;
+    width: 15%;
+    text-align: center;
+    height: 2rem;
+    border-radius: 16px;
     border: none;
     cursor: pointer;
-    background-color: transparent;
+    background-color: red;
+    margin-top: 1rem;
+    color: white;
 }
 
 .quantity_container{
@@ -70,7 +78,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5%;
+    gap: 5px;
     width: 14%;
     height: 100%;
 }
@@ -81,7 +89,7 @@
 }
 
 .quantity_container p{
-    font-size: .7em;
+    font-size: .8em;
 }
 
 .price_container{
@@ -90,7 +98,9 @@
     align-items: center;
     justify-content: center;
 }
-
+.price_container h5{
+    font-size: 1rem;
+}
 .img_container img{
     width: 90%;
     height: 90%;

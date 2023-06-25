@@ -50,9 +50,7 @@ const Checkout = () => {
 }) => {
                 return (
                     <div className={styles.checkout_product} key={item.itemId}>
-                        <div className={styles.checkout_detail}>
-                            <h3>{item.itemName}</h3>
-                        </div>
+                        <h3>{item.itemName}</h3>
                         <p>${item.unityPrice}</p>
                         <p>{item.quantity}</p>
                         <p>${item.total}</p>

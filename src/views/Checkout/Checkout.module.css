@@ -12,25 +12,16 @@
 }
 .checkout_product{
     border-radius: 1rem;
-    padding-right: 2rem;
+    height: 5rem;
+    padding: 0 2rem;
     width: calc(100% - 8rem);
     display: flex;
     align-items: center;
     background-color: whitesmoke;
     justify-content: space-between;
 }
-.checkout_detail{
-    display: flex;
-    padding: 1rem;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    height: 60%;
-}
-.checkout_product img{
-    width: 10%;
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 1rem;
+.checkout_product h3{
+    width: 25%;
 }
 .checkout_btn{
     all: unset;
@@ -45,4 +36,5 @@
     color: black;
     justify-content: center;
     gap: 0.3rem;
+    cursor: pointer;
 }

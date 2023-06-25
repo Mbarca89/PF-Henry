@@ -113,6 +113,7 @@
 .buy{
     margin-top: 2em;
     width: 94%;
+    cursor: pointer;
     padding: 1em ;
     color: white;
     font-weight: bold;
@@ -150,6 +151,7 @@
     border-radius: 5px;
     font-size: 14px;
     transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
 }
 
 .cart svg {
@@ -174,6 +176,7 @@
     border-radius: 5px;
     font-size: 14px;
     transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
 }
 
 
