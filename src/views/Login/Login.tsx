@@ -5,27 +5,50 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  const token = localStorage.getItem("token");
+  console.log(token);
 
-  const token = localStorage.getItem('token')
-  console.log(token)
-  useEffect(()=> {
-    if(token) navigate('/home')
-  },[])
-
-  const [login, setLogin] = useState("Inicio de sesión");
-
-  const [tokenState, setTokenState] = useState({
-    token: "",
-    userInfo: "",
-  });
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [login, setLogin] = useState(isRegistering ? "Registro" : "Inicio de sesión");
 
   const [form, setForm] = useState({
     email: "",
     password: "",
+    name: "",
+    address: "",
+    city: "",
+    province: "",
+    postalCode: "",
+    role: "cliente",
   });
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    if (token) navigate("/home");
+    
+    if(document.cookie){
+      const tokenCookie = document.cookie
+        .split(';')
+        .find(cookie => cookie.trim().startsWith('email='));
+        const email = tokenCookie?.split('=')[1]
+        const nameCookie = document.cookie
+        .split(';')
+        .find(name => name.trim().startsWith('name='));
+        const name = nameCookie?.split('=')[1]
+      setIsRegistering(true);
+      setForm({
+        ...form,
+        email: decodeURIComponent(email || ""),
+        name: decodeURIComponent(name || "")
+      }
+      )
+    }
+    document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     setForm((prevState) => {
       return {
@@ -34,39 +57,46 @@ const Login = () => {
       };
     });
   };
+  
 
   const handleLoginNormal = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-
+  
     const formData = {
       email: form.email,
       password: form.password,
+      name: form.name,
+      address: form.address,
+      city: form.city,
+      province: form.province,
+      postalCode: form.postalCode,
+      role: form.role,
     };
-
+  
     try {
-      const res = await axios.post(
-        "http://localhost:3000/auth/login",
-        formData
-      );
-      if (res.data) {
-        const token = res.data.token;
-        const userInfo = res.data.user;
-
-        // Store token and userName in localStorage
-        localStorage.setItem("token", token);
-        localStorage.setItem("userData", JSON.stringify(userInfo));
-
-        setTokenState({
-          token,
-          userInfo,
-        });
+      let res;
+      if (!isRegistering) {
+        res = await axios.post("http://localhost:3000/auth/login", formData);
+        if (res.data) {
+          const token = res.data.token;
+          const userInfo = res.data.user;
+    
+          // Store token and userName in localStorage
+          localStorage.setItem("token", token);
+          localStorage.setItem("userData", JSON.stringify(userInfo));
+    
+          window.location.reload();
+        }
+      } else {
+        res = await axios.post("http://localhost:3000/users/register", formData);
         window.location.reload();
       }
+
     } catch (error) {
       console.log(error);
     }
   };
-
+  
   return (
     <div className={styles.login_container}>
       <h1>{login}</h1>
@@ -79,7 +109,7 @@ const Login = () => {
             onChange={handleChange}
             name="email"
           />
-          <span>Correo electronico</span>
+          <span>Correo electrónico</span>
           <i></i>
         </div>
         <div className={styles.inputbox}>
@@ -93,10 +123,75 @@ const Login = () => {
           <span>Contraseña</span>
           <i></i>
         </div>
+        {isRegistering && (
+          <>
+            <div className={styles.inputbox}>
+              <input
+                type="text"
+                required={true}
+                value={form.name}
+                onChange={handleChange}
+                name="name"
+              />
+              <span>Nombre</span>
+              <i></i>
+            </div>
+            <div className={styles.inputbox}>
+              <input
+                type="text"
+                required={true}
+                value={form.address}
+                onChange={handleChange}
+                name="address"
+              />
+              <span>Dirección</span>
+              <i></i>
+            </div>
+            <div className={styles.inputbox}>
+              <input
+                type="text"
+                required={true}
+                value={form.city}
+                onChange={handleChange}
+                name="city"
+              />
+              <span>Ciudad</span>
+              <i></i>
+            </div>
+            <div className={styles.inputbox}>
+              <input
+                type="text"
+                required={true}
+                value={form.province}
+                onChange={handleChange}
+                name="province"
+              />
+              <span>Provincia</span>
+              <i></i>
+            </div>
+            <div className={styles.inputbox}>
+              <input
+                type="text"
+                required={true}
+                value={form.postalCode}
+                onChange={handleChange}
+                name="postalCode"
+              />
+              <span>Código Postal</span>
+              <i></i>
+            </div>
+          </>
+        )}
         <div className={styles.login_btn}>
-          {login === "Inicio de sesión" ? (
+          {isRegistering && <button onClick={() => setIsRegistering(false)} type="button">Iniciar Sesión</button>}
+          {isRegistering ? (
+            <button type="submit">REGISTRARME</button>
+          ) : (
             <button type="submit">INGRESAR</button>
-          ) : <button type="submit">REGISTRARME</button>}
+          )}
+          {!isRegistering && (
+            <button onClick={() => setIsRegistering(true)}>REGISTRAR</button>
+          )}
         </div>
       </form>
       <a href="http://localhost:3000/auth/google">
@@ -108,4 +203,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

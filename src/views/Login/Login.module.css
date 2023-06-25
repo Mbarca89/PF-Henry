@@ -15,7 +15,7 @@
 .login_form{
     display: flex;
     width: 30%;
-    height: 50%;
+    height: 70%;
     align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
@@ -96,7 +96,6 @@
   .inputbox input:valid ~span,
   .inputbox input:focus ~span {
     color: rgb(45, 45, 45);
-    transform: translateX(-10px) translateY(-40px);
     font-size: 0,75em;
   }
   

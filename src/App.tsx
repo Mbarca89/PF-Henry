@@ -9,6 +9,9 @@ import Profile from './views/Profile/Profile'
 import Login from './views/Login/Login'
 import { Routes, Route, Outlet } from 'react-router-dom'
 import Cart from './views/Cart/Cart'
+import Checkout from './views/Checkout/Checkout'
+import Success from './views/Success/Success'
+import Failure from './views/Failure/Failure'
 
 function App() {
 
@@ -27,6 +30,9 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/myprofile' element={<Profile />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/order/:id' element={<Checkout />} />
+          <Route path='/success' element={<Success />} />
+          <Route path='/failure' element={<Failure />} />
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Landing />} />

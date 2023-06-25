@@ -68,7 +68,7 @@ const Cart = () => {
             <h3>Mi carrito de compras</h3>
             <div className={styles.cart_container}>
                 {cart.map((product: any, index: number) => {
-                    return <div className={styles.cart_item_container}>
+                    return <div className={styles.cart_item_container} key={index}>
                         <div key={index} className={styles.cart_item}>
                             <div className={styles.img_container}>
                                 <img src={product.product.photos[0]?.url} alt="" />
