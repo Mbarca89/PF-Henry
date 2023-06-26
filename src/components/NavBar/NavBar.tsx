@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { setUser } from '../../redux/slices/userSlice';
 import { useAppDispatch } from '../../redux/store';
+import {notifyError} from "../../components/Toaster/Toaster.js";
 
 
 const NavBar = () => {
@@ -36,8 +37,8 @@ const NavBar = () => {
                 const response = await axios.get('http://185.253.153.34:3001/categories');
                 setCategories(response.data);
 
-            } catch (error) {
-                console.error('Error al obtener las categorías:', error);
+            } catch (error:any) {
+                notifyError(error.response.data)
             }
         }
         fetchCategories();

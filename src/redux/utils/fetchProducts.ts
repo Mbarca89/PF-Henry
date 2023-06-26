@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import {notifyError} from "../../components/Toaster/Toaster.js";
 
 //const { body } = useAppSelector((state: RootState) => state.products);
 export const fecthProducts = createAsyncThunk(
@@ -11,8 +12,8 @@ export const fecthProducts = createAsyncThunk(
         body
       );
       return data;      
-    } catch (error) {
-      console.log(error)
+    } catch (error:any) {
+      notifyError(error.response.data)
     }
   }
 );
@@ -62,10 +63,13 @@ export const getProductsByFilter = createAsyncThunk(
       minPrice: minPrice,
       maxPrice: maxPrice
     };
+    try {
+      const response = await axios.post(API_PRODUCTS, BODY);
+      return response.data.products;
+    } catch (error:any) {
+      notifyError(error.response.data)
+    }
 
-    const response = await axios.post(API_PRODUCTS, BODY);
-
-    return response.data.products;
   }
 );
 

@@ -3,16 +3,14 @@ import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import {notifyError} from "../../components/Toaster/Toaster.js";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  console.log(token);
-
   const [isRegistering, setIsRegistering] = useState(false);
-  const [login, setLogin] = useState(isRegistering ? "Registro" : "Inicio de sesión");
-
+  const [login, setlogin] = useState(isRegistering ? "Registro" : "Inicio de sesión");
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -23,18 +21,19 @@ const Login = () => {
     postalCode: "",
     role: "cliente",
   });
+
+  useEffect(() => {
+    if (isRegistering) setlogin('Registro')
+    if (!isRegistering) setlogin('Inicio de sesión')
+  }, [isRegistering])
+
   useEffect(() => {
     if (token) navigate("/home");
-    
-    if(document.cookie){
-      const tokenCookie = document.cookie
-        .split(';')
-        .find(cookie => cookie.trim().startsWith('email='));
-        const email = tokenCookie?.split('=')[1]
-        const nameCookie = document.cookie
-        .split(';')
-        .find(name => name.trim().startsWith('name='));
-        const name = nameCookie?.split('=')[1]
+    if (document.cookie) {
+      const tokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('email='));
+      const email = tokenCookie?.split('=')[1]
+      const nameCookie = document.cookie.split(';').find(name => name.trim().startsWith('name='));
+      const name = nameCookie?.split('=')[1]
       setIsRegistering(true);
       setForm({
         ...form,
@@ -45,7 +44,7 @@ const Login = () => {
     }
     document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
@@ -57,11 +56,11 @@ const Login = () => {
       };
     });
   };
-  
+
 
   const handleLoginNormal = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-  
+
     const formData = {
       email: form.email,
       password: form.password,
@@ -72,7 +71,7 @@ const Login = () => {
       postalCode: form.postalCode,
       role: form.role,
     };
-  
+
     try {
       let res;
       if (!isRegistering) {
@@ -80,11 +79,11 @@ const Login = () => {
         if (res.data) {
           const token = res.data.token;
           const userInfo = res.data.user;
-    
+
           // Store token and userName in localStorage
           localStorage.setItem("token", token);
           localStorage.setItem("userData", JSON.stringify(userInfo));
-    
+
           window.location.reload();
         }
       } else {
@@ -92,11 +91,11 @@ const Login = () => {
         window.location.reload();
       }
 
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      notifyError(error.response.data)
     }
   };
-  
+
   return (
     <div className={styles.login_container}>
       <h1>{login}</h1>

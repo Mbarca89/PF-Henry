@@ -3,9 +3,10 @@ import { Key, ReactNode, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { SiMercadopago } from 'react-icons/si'
 import axios from 'axios';
+import { notifyError, notifySuccess } from "../../components/Toaster/Toaster.js";
 
 const Checkout = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const [order, setOrder] = useState([]);
 
     type Product = [{
@@ -14,26 +15,29 @@ const Checkout = () => {
         unityPrice: number;
         quantity: number;
         total: number;
-      }];
-      useEffect(() => {
-        const getOrder = async () => {            
-            const {data} = await axios.get(`http://185.253.153.34:3001/orders/${id}`)
-            setOrder(data.productList)
+    }];
+    useEffect(() => {
+        const getOrder = async () => {
+            try {
+                const { data } = await axios.get(`http://185.253.153.34:3001/orders/${id}`)
+                setOrder(data.productList)
+            } catch (error: any) {
+                notifyError(error.response.data)
+            }
         }
         getOrder();
-      }, [id])
+    }, [id])
 
     const checkoutOk = async () => {
         try {
             const productList = order;
             const orderId = id;
-            console.log(orderId);
-            console.log(productList);
-            
-            const {data} = await axios.post('http://185.253.153.34:3001/checkout/create-order', {productList, orderId})
+
+            const { data } = await axios.post('http://185.253.153.34:3001/checkout/create-order', { productList, orderId })
+            notifySuccess('Redirigiendo al sitio de pago.')
             window.location.href = data.init_point
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            notifyError(error.response.data)
         }
     }
 
@@ -47,7 +51,7 @@ const Checkout = () => {
                 unityPrice: ReactNode;
                 quantity: ReactNode;
                 product: Product
-}) => {
+            }) => {
                 return (
                     <div className={styles.checkout_product} key={item.itemId}>
                         <h3>{item.itemName}</h3>
@@ -58,7 +62,7 @@ const Checkout = () => {
                 )
             })}
             <button className={styles.checkout_btn} onClick={checkoutOk}>
-                <SiMercadopago size={40}/>
+                <SiMercadopago size={40} />
                 Realizar pedido
             </button>
         </div>
