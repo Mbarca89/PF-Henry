@@ -33,7 +33,7 @@ const NavBar = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/categories');
+                const response = await axios.get('http://185.253.153.34:3001/categories');
                 setCategories(response.data);
 
             } catch (error) {

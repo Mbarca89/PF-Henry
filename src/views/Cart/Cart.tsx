@@ -23,7 +23,7 @@ const Cart = () => {
     useEffect(() => {
         const getCart = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:3000/cart/get/${userData}`)
+                const { data } = await axios.get(`http://185.253.153.34:3001/cart/get/${userData}`)
                 setCart(data.products)
                 setCartId(data.id)
                 setLoading(false)
@@ -36,7 +36,7 @@ const Cart = () => {
 
     const deleteProduct = async (productId: string) => {
         try {
-            await axios.delete(`http://localhost:3000/cart/remove?cartId=${cartId}&productId=${productId}`)
+            await axios.delete(`http://185.253.153.34:3001/cart/remove?cartId=${cartId}&productId=${productId}`)
             setUpdate(!update)
         } catch (error) {
             console.log(error)
@@ -45,7 +45,7 @@ const Cart = () => {
 
     const deleteAllProducts = async () => {
         try {
-            await axios.delete(`http://localhost:3000/cart/removeall/${cartId}`)
+            await axios.delete(`http://185.253.153.34:3001/cart/removeall/${cartId}`)
             setUpdate(!update)
         } catch (error) {
             console.log(error)
@@ -54,7 +54,7 @@ const Cart = () => {
 
     const createOrder = async () => {
         try {
-            const {data} = await axios.post('http://localhost:3000/orders',{user:userData,products:cart})
+            const {data} = await axios.post('http://185.253.153.34:3001/orders',{user:userData,products:cart})
             const orderId = data.id
             deleteAllProducts()
             navigate(`/order/${orderId}`)

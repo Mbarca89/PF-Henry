@@ -17,7 +17,7 @@ const Checkout = () => {
       }];
       useEffect(() => {
         const getOrder = async () => {            
-            const {data} = await axios.get(`http://localhost:3000/orders/${id}`)
+            const {data} = await axios.get(`http://185.253.153.34:3001/orders/${id}`)
             setOrder(data.productList)
         }
         getOrder();
@@ -30,7 +30,7 @@ const Checkout = () => {
             console.log(orderId);
             console.log(productList);
             
-            const {data} = await axios.post('http://localhost:3000/checkout/create-order', {productList, orderId})
+            const {data} = await axios.post('http://185.253.153.34:3001/checkout/create-order', {productList, orderId})
             window.location.href = data.init_point
         } catch (error) {
             console.log(error);

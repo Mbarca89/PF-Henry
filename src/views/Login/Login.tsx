@@ -76,7 +76,7 @@ const Login = () => {
     try {
       let res;
       if (!isRegistering) {
-        res = await axios.post("http://localhost:3000/auth/login", formData);
+        res = await axios.post("http://185.253.153.34:3001/auth/login", formData);
         if (res.data) {
           const token = res.data.token;
           const userInfo = res.data.user;
@@ -88,7 +88,7 @@ const Login = () => {
           window.location.reload();
         }
       } else {
-        res = await axios.post("http://localhost:3000/users/register", formData);
+        res = await axios.post("http://185.253.153.34:3001/users/register", formData);
         window.location.reload();
       }
 
@@ -194,7 +194,7 @@ const Login = () => {
           )}
         </div>
       </form>
-      <a href="http://localhost:3000/auth/google">
+      <a href="http://185.253.153.34:3001/auth/google">
         <button className={styles.google_login}>
           <FcGoogle size={25} />
           INGRESAR CON GOOGLE

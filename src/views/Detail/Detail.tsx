@@ -22,7 +22,7 @@ const Detail = () => {
 
     useEffect(() => {
         const getProduct = () => {
-            axios.get(`http://localhost:3000/products/detail/${id}`)
+            axios.get(`http://185.253.153.34:3001/products/detail/${id}`)
                 .then(({ data }) => {
                     if (data.name) {
                         setProduct(data);
@@ -63,7 +63,7 @@ const Detail = () => {
 
     const addProduct = async () => {
         try {
-            await axios.post('http://localhost:3000/cart/add', { id, userId: user, quantity: value })
+            await axios.post('http://185.253.153.34:3001/cart/add', { id, userId: user, quantity: value })
             navigate('/cart')
         } catch (error) {
             console.log(error)

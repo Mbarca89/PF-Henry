@@ -26,7 +26,7 @@ const MyPurchases = () => {
         const getOrders = async () => {
             try {
                 console.log(user)
-                const { data } = await axios.get(`http://localhost:3000/orders/user/${user}`)
+                const { data } = await axios.get(`http://185.253.153.34:3001/orders/user/${user}`)
                 console.log(data)
                 setOrders(data)
             } catch (error) {

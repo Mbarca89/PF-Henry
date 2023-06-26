@@ -16,7 +16,7 @@ export const fecthProducts = createAsyncThunk(
     }
   }
 );
-const API_PRODUCTS = 'http://localhost:3000/products';
+const API_PRODUCTS = 'http://185.253.153.34:3001/products';
 
 export const getProductsByFilter = createAsyncThunk(
   'products/getByFilter',

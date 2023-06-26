@@ -39,7 +39,7 @@ const About = () => {
     // }
 
     const checkoutOk = async () => {
-        const {data} = await axios.post('http://localhost:3000/checkout/create-order', {productList})
+        const {data} = await axios.post('http://185.253.153.34:3001/checkout/create-order', {productList})
         window.location.href = data.init_point
     }
 
