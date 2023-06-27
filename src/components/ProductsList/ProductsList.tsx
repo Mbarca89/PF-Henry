@@ -10,7 +10,7 @@ const ProductsList = () => {
             {productsFiltered.map((product) => (
                 <div key={product.name} className={styles.productsList_item}>
                     <NavLink to={`${product.id}`}>
-                        <img src={product.photos[0].url} alt="" />
+                        <img src={product.photos[0]?.url} alt="" />
                     </NavLink>
                     <NavLink to={`${product.id}`} className={styles.name}>
                         <h2>{product.name}</h2>
