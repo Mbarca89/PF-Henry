@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from './Detail.module.css'
-import { AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineShoppingCart, AiOutlineHeart, AiFillStar } from 'react-icons/ai';
+import { FaUserCircle } from 'react-icons/fa'
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { notifyError, notifySuccess } from '../../components/Toaster/Toaster';
@@ -23,7 +24,7 @@ const Detail = () => {
 
     useEffect(() => {
         const getProduct = () => {
-            axios.get(`http://185.253.153.34:3001/products/detail/${id}`)
+            axios.get(`http://localhost:3000/products/detail/${id}`)
                 .then(({ data }) => {
                     if (data.name) {
                         setProduct(data);
@@ -61,7 +62,7 @@ const Detail = () => {
 
     const addProduct = async () => {
         try {
-            const {data} = await axios.post('http://185.253.153.34:3001/cart/add', { id, userId: user, quantity: value })
+            const {data} = await axios.post('http://localhost:3000/cart/add', { id, userId: user, quantity: value })
             notifySuccess(data)
             navigate('/cart')
         } catch (error:any) {
@@ -69,10 +70,19 @@ const Detail = () => {
         }
     }
 
-
+    const ReviewComponent = ({ rating }: { rating: number }) => {
+        const stars = Array.from({ length: rating }, (_, index) => <AiFillStar key={index} style={{ color: 'gold' }}/>);
+      
+        return (
+          <div>
+            {stars}
+          </div>
+        );
+    }
     return (
         product.photos &&
-        <div className={style.detail_container}>
+        <>
+            <div className={style.detail_container}>
             <div className={style.detail_img}>
                 <img src={product.photos && product.photos[0].url} alt="" />
             </div>
@@ -91,9 +101,15 @@ const Detail = () => {
 
                 <div className={style.container_progress}>
                     <h5>{progress} articulos restantes </h5>
-                    <div className={style.progress_bar}>
-                        <div className={style.progress_fill} style={{ width: `${progress}%` }} />
-                    </div>
+                    <meter
+                    value={progress}
+                    max='500'
+                    min='0'
+                    low={100}
+                    optimum={251}
+                    high={250}
+                    className={style.progress_bar}
+                    />
                 </div>
 
 
@@ -124,10 +140,20 @@ const Detail = () => {
                         </button>
                     </div>
                 </div>
-
-
             </div>
         </div>
+        {product.reviews[0] && <div className={style.reviews_container}>
+            <h2>Reseñas</h2>
+            <div className={style.reviews_item}>
+                <div className={style.reviews_user}>
+                    <FaUserCircle/>
+                    <p>{product.reviews[0]?.user}</p>
+                </div>
+                <ReviewComponent rating={product.reviews[0]?.rating} />
+                <p>{product.reviews[0]?.review}</p>
+            </div>
+        </div>}
+        </>
     )
 }
 
