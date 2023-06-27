@@ -22,10 +22,23 @@
     margin: 0 auto;
 }
 .offer_container h3{
-    text-align: center;
+    text-align: flex-start;
 }
 .offer_container img{
     width: 12rem;
     margin: 0 auto;
     height: 8rem;
+    cursor: pointer;
+}
+
+.price{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.price_descuento{
+    margin-right: 1em;
+    color: #757575;
+    text-decoration: line-through;
 }
