@@ -3,6 +3,7 @@ import style from './Detail.module.css'
 import { AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { notifyError, notifySuccess } from '../../components/Toaster/Toaster';
 
 const Detail = () => {
     const navigate = useNavigate()
@@ -27,13 +28,10 @@ const Detail = () => {
                     if (data.name) {
                         setProduct(data);
                         setProgress(data.stock)
-                    } else {
-                        alert('No hay productos con ese ID');
                     }
                 })
-                .catch((error) => {
-                    console.error('Error al obtener el producto:', error);
-                    alert('Hubo un error al obtener el producto');
+                .catch((error:any) => {
+                    notifyError(error.response.data)
                 });
         };
         getProduct(); // Llamar a la función getProduct aquí para que se ejecute
@@ -63,10 +61,11 @@ const Detail = () => {
 
     const addProduct = async () => {
         try {
-            await axios.post('http://185.253.153.34:3001/cart/add', { id, userId: user, quantity: value })
+            const {data} = await axios.post('http://185.253.153.34:3001/cart/add', { id, userId: user, quantity: value })
+            notifySuccess(data)
             navigate('/cart')
-        } catch (error) {
-            console.log(error)
+        } catch (error:any) {
+            notifyError(error.response.data)
         }
     }
 

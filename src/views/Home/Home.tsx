@@ -10,7 +10,6 @@ const Home = () => {
     const index = Math.random() * products.length;
     useEffect(() => {
         setProduct(products[index])
-        console.log(product);
       }, [index, product, products]);
 
     return (

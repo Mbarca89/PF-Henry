@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import styles from './Cart.module.css'
 import { useNavigate } from 'react-router-dom'
+import {notifyError, notifySuccess} from "../../components/Toaster/Toaster.js";
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -23,12 +24,14 @@ const Cart = () => {
     useEffect(() => {
         const getCart = async () => {
             try {
-                const { data } = await axios.get(`http://185.253.153.34:3001/cart/get/${userData}`)
-                setCart(data.products)
-                setCartId(data.id)
-                setLoading(false)
-            } catch (error) {
-                console.log(error)
+                if(userData){
+                    const { data } = await axios.get(`http://185.253.153.34:3001/cart/get/${userData}`)
+                    setCart(data.products)
+                    setCartId(data.id)
+                    setLoading(false)
+                }
+            } catch (error:any) {
+                notifyError(error.response.data)
             }
         }
         getCart()
@@ -36,19 +39,21 @@ const Cart = () => {
 
     const deleteProduct = async (productId: string) => {
         try {
-            await axios.delete(`http://185.253.153.34:3001/cart/remove?cartId=${cartId}&productId=${productId}`)
+            const {data} = await axios.delete(`http://185.253.153.34:3001/cart/remove?cartId=${cartId}&productId=${productId}`)
             setUpdate(!update)
-        } catch (error) {
-            console.log(error)
+            notifySuccess(data)
+        } catch (error:any) {
+            notifyError(error.response.data)
         }
     }
 
     const deleteAllProducts = async () => {
         try {
-            await axios.delete(`http://185.253.153.34:3001/cart/removeall/${cartId}`)
+            const {data} = await axios.delete(`http://185.253.153.34:3001/cart/removeall/${cartId}`)
             setUpdate(!update)
-        } catch (error) {
-            console.log(error)
+            notifySuccess(data)
+        } catch (error:any) {
+            notifyError(error.response.data)
         }
     }
 
@@ -56,10 +61,9 @@ const Cart = () => {
         try {
             const {data} = await axios.post('http://185.253.153.34:3001/orders',{user:userData,products:cart})
             const orderId = data.id
-            deleteAllProducts()
             navigate(`/order/${orderId}`)
-        } catch (error) {
-            console.log(error)
+        } catch (error:any) {
+            notifyError(error.response.data)
         }
     }
 

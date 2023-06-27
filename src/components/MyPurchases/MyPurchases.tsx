@@ -1,6 +1,7 @@
 import styles from './MyPurchases.module.css'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import {notifyError} from "../../components/Toaster/Toaster.js";
 
 const MyPurchases = () => {
 
@@ -25,18 +26,15 @@ const MyPurchases = () => {
         }
         const getOrders = async () => {
             try {
-                console.log(user)
                 const { data } = await axios.get(`http://185.253.153.34:3001/orders/user/${user}`)
-                console.log(data)
                 setOrders(data)
-            } catch (error) {
-                console.log(error)
+            } catch (error:any) {
+                notifyError(error.response.data)
             }
         }
         user && getOrders()
     }, [user])
 
-    console.log(orders)
 
     return (
         orders && <div className={styles.myPurchases}>
@@ -46,8 +44,8 @@ const MyPurchases = () => {
                     const date = new Date(order.orderDate);
 
                     const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
-                      .toString()
-                      .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+                        .toString()
+                        .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
                     return <div key={index} className={styles.order}>
                         <div className={styles.order_info}>
                             <h5>{`Orden: ${order.id}`}</h5>
@@ -57,8 +55,8 @@ const MyPurchases = () => {
                         <div>
                             <h4>Productos:</h4>
                             {order.productList.map((product) => {
-                            return <h5>{product.itemName}</h5>
-                        })}</div>
+                                return <h5>{product.itemName}</h5>
+                            })}</div>
                         <hr />
                         <h5>{`Monto total: ${order.totalOrderAmount}`}</h5>
                     </div>
