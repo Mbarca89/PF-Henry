@@ -1,69 +1,125 @@
-import styles from './MyPurchases.module.css'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import {notifyError} from "../../components/Toaster/Toaster.js";
+import { useState, useEffect } from 'react';
+import styles from './MyPurchases.module.css';
+import axios from 'axios';
 
-const MyPurchases = () => {
-
-    const [user, setUser] = useState('')
-    const [orders, setOrders] = useState([{
-        id: '',
-        orderDate: '',
-        productList: [{
-            itemName: '',
-            quantity: 0,
-            total: 0,
-            unityPrice: 0
-        }],
-        totalOrderAmount: 0
-    }])
-
-    useEffect(() => {
-        const stringUser = localStorage.getItem('userData')
-        if (stringUser) {
-            const userOk = JSON.parse(stringUser)
-            setUser(userOk.id)
-        }
-        const getOrders = async () => {
-            try {
-                const { data } = await axios.get(`http://185.253.153.34:3001/orders/user/${user}`)
-                setOrders(data)
-            } catch (error:any) {
-                notifyError(error.response.data)
-            }
-        }
-        user && getOrders()
-    }, [user])
-
-
-    return (
-        orders && <div className={styles.myPurchases}>
-            <h1>Mis Compras</h1>
-            <div className={styles.order_container}>
-                {orders.map((order, index) => {
-                    const date = new Date(order.orderDate);
-
-                    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
-                        .toString()
-                        .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-                    return <div key={index} className={styles.order}>
-                        <div className={styles.order_info}>
-                            <h5>{`Orden: ${order.id}`}</h5>
-                            <h5>{`creada el dia: ${formattedDate}`}</h5>
-                        </div>
-                        <hr />
-                        <div>
-                            <h4>Productos:</h4>
-                            {order.productList.map((product) => {
-                                return <h5>{product.itemName}</h5>
-                            })}</div>
-                        <hr />
-                        <h5>{`Monto total: ${order.totalOrderAmount}`}</h5>
-                    </div>
-                })}
-            </div>
-        </div>
-    )
+interface Order {
+  id: string;
+  orderDate: string;
+  productList: { itemId: string; itemName: string }[];
+  totalOrderAmount: number;
 }
 
-export default MyPurchases
+const MyPurchases = () => {
+  const [user, setUser] = useState<string>('');
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [reviewedProducts, setReviewedProducts] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const stringUser = localStorage.getItem('userData');
+      if (stringUser) {
+        const userOk = JSON.parse(stringUser);
+        setUser(userOk.id);
+
+        try {
+          const response = await axios.get(`http://185.253.153.34:3001/orders/user/${userOk.id}`);
+          setOrders(response.data);
+
+          const reviewedProductsResponse = await axios.get(`http://localhost:3000/users/purchasedproduct`);
+          const reviewedProductsData = reviewedProductsResponse.data;
+          const reviewedProductIds = reviewedProductsData.reviewedProducts.map((product: any) => product.itemId);
+          setReviewedProducts(reviewedProductIds);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  const handleAddReview = async (productId: string, userId: string) => {
+    if (reviewedProducts.includes(productId)) {
+      alert('Ya has publicado una reseña para este producto.');
+      return;
+    }
+
+    const review = prompt('Ingrese su comentario:');
+    const ratingInput = prompt('Ingrese su puntuación (del 1 al 5):');
+    const rating = ratingInput ? parseInt(ratingInput) : 0;
+
+    if (review && rating && !isNaN(rating)) {
+      const reviewData = {
+        rating: rating,
+        review: review,
+        productId: productId,
+        userId: userId,
+      };
+      console.log('Datos de la reseña:', reviewData);
+
+      try {
+        const response = await axios.post('http://185.253.153.34:3001/products/postreview', reviewData);
+        console.log(response.data);
+        // Actualizar la lista de productos revisados
+        setReviewedProducts([...reviewedProducts, productId]);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const handleProductChange = (productId: string) => {
+    console.log('ID del producto seleccionado:', productId);
+    setSelectedProduct(productId);
+  };
+
+  if (orders.length === 0) {
+    return <div>Cargando...</div>;
+  }
+
+  return (
+    <div className={styles.myPurchases}>
+      <h1>Mis Compras</h1>
+      <div className={styles.order_container}>
+        {orders.map((order, index) => {
+          const date = new Date(order.orderDate);
+          const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+
+          return (
+            <div key={index} className={styles.order}>
+              <div className={styles.order_info}>
+                <h5>{`Orden: ${order.id}`}</h5>
+                <h5>{`Creada el día: ${formattedDate}`}</h5>
+              </div>
+              <hr />
+              <div>
+                <h4>Productos:</h4>
+                {order.productList.map((product, productIndex) => (
+                  <h5 key={productIndex}>{product.itemName}</h5>
+                ))}
+              </div>
+              <hr />
+              <h5>{`Monto total: ${order.totalOrderAmount}`}</h5>
+              <select value={selectedProduct || ''} onChange={(e) => handleProductChange(e.target.value)}>
+                <option value="">Seleccione un producto</option>
+                {order.productList.map((product, productIndex) => (
+                  <option key={productIndex} value={product.itemId}>
+                    {product.itemName}
+                  </option>
+                ))}
+              </select>
+              <button disabled={!selectedProduct} onClick={() => handleAddReview(selectedProduct!, user)}>
+                Agregar Reseña
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default MyPurchases;

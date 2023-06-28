@@ -19,7 +19,7 @@ const Checkout = () => {
     useEffect(() => {
         const getOrder = async () => {
             try {
-                const { data } = await axios.get(`http://185.253.153.34:3001/orders/${id}`)
+                const { data } = await axios.get(`http://localhost:3000/orders/${id}`)
                 setOrder(data.productList)
             } catch (error: any) {
                 notifyError(error.response.data)
@@ -33,7 +33,7 @@ const Checkout = () => {
             const productList = order;
             const orderId = id;
 
-            const { data } = await axios.post('http://185.253.153.34:3001/checkout/create-order', { productList, orderId })
+            const { data } = await axios.post('http://localhost:3000/checkout/create-order', { productList, orderId })
             notifySuccess('Redirigiendo al sitio de pago.')
             window.location.href = data.init_point
         } catch (error: any) {

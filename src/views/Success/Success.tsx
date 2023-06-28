@@ -17,7 +17,7 @@ const Success = () => {
         }
         const cleanCart = async () => {
             try {
-                await axios.delete(`http://185.253.153.34:3001/cart/removeall/${cartId}`)
+                await axios.delete(`http://localhost:3000/cart/removeall/${cartId}`)
             } catch (error:any) {
                 notifyError(error.response.data)
             }

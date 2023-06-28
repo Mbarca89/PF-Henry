@@ -37,7 +37,7 @@ const initialState: productState = {
       "minPrice": '',
       "maxPrice": Infinity
     },
-    url: 'http://185.253.153.34:3001/products',
+    url: 'http://localhost:3000/products',
     urlPage: '1',
     urlName: '',
     productCount: 0,
