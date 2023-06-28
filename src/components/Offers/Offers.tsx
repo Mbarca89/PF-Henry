@@ -39,7 +39,7 @@ const Offers = () => {
 
     useEffect(() => {
         const getOffers = async () => {
-            const { data } = await axios.get('http://185.253.153.34:3001/products/offers')
+            const { data } = await axios.get('http://localhost:3000/products/offers')
             setOffers(data)
             setLoading(false)
         }

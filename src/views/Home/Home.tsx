@@ -19,7 +19,7 @@ const Home = () => {
     useEffect(() => {
         const getFeatured = async () => {
             try {
-                const { data } = await axios.get('http://185.253.153.34:3001/products/featured')
+                const { data } = await axios.get('http://localhost:3000/products/featured')
                 setProduct(data)
                 setLoading(false)
             } catch (error) {
