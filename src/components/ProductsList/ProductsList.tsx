@@ -7,8 +7,8 @@ const ProductsList = () => {
 
     return (
         productsFiltered.length ? <div className={styles.productsList_container}>
-            {productsFiltered.map((product) => (
-                <div key={product.name} className={styles.productsList_item}>
+            {productsFiltered.map((product,index) => (
+                <div key={index} className={styles.productsList_item}>
                     <NavLink to={`${product.id}`}>
                         <img src={product.photos[0]?.url} alt="" />
                     </NavLink>

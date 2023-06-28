@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { SiMercadopago } from 'react-icons/si'
 import axios from 'axios';
 import { notifyError, notifySuccess } from "../../components/Toaster/Toaster.js";
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const Checkout = () => {
     const { id } = useParams();
@@ -19,7 +20,7 @@ const Checkout = () => {
     useEffect(() => {
         const getOrder = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:3000/orders/${id}`)
+                const { data } = await axios.get(`${REACT_APP_SERVER_URL}/orders/${id}`)
                 setOrder(data.productList)
             } catch (error: any) {
                 notifyError(error.response.data)
@@ -33,7 +34,7 @@ const Checkout = () => {
             const productList = order;
             const orderId = id;
 
-            const { data } = await axios.post('http://localhost:3000/checkout/create-order', { productList, orderId })
+            const { data } = await axios.post(`${REACT_APP_SERVER_URL}/checkout/create-order`, { productList, orderId })
             notifySuccess('Redirigiendo al sitio de pago.')
             window.location.href = data.init_point
         } catch (error: any) {

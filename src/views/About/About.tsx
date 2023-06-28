@@ -1,6 +1,7 @@
 import styles from './About.module.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const About = () => {
 
@@ -39,7 +40,7 @@ const About = () => {
     // }
 
     const checkoutOk = async () => {
-        const {data} = await axios.post('http://localhost:3000/checkout/create-order', {productList})
+        const {data} = await axios.post(`${REACT_APP_SERVER_URL}/checkout/create-order`, {productList})
         window.location.href = data.init_point
     }
 

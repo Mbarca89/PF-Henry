@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './MyPurchases.module.css';
 import axios from 'axios';
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 interface Order {
   id: string;
@@ -23,10 +24,10 @@ const MyPurchases = () => {
         setUser(userOk.id);
 
         try {
-          const response = await axios.get(`http://185.253.153.34:3001/orders/user/${userOk.id}`);
+          const response = await axios.get(`${REACT_APP_SERVER_URL}/orders/user/${userOk.id}`);
           setOrders(response.data);
 
-          const reviewedProductsResponse = await axios.get(`http://localhost:3000/users/purchasedproduct`);
+          const reviewedProductsResponse = await axios.get(`${REACT_APP_SERVER_URL}/users/purchasedproduct`);
           const reviewedProductsData = reviewedProductsResponse.data;
           const reviewedProductIds = reviewedProductsData.reviewedProducts.map((product: any) => product.itemId);
           setReviewedProducts(reviewedProductIds);
@@ -59,7 +60,7 @@ const MyPurchases = () => {
       console.log('Datos de la reseña:', reviewData);
 
       try {
-        const response = await axios.post('http://185.253.153.34:3001/products/postreview', reviewData);
+        const response = await axios.post(`${REACT_APP_SERVER_URL}/products/postreview`, reviewData);
         console.log(response.data);
         // Actualizar la lista de productos revisados
         setReviewedProducts([...reviewedProducts, productId]);

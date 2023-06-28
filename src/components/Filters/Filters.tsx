@@ -18,6 +18,7 @@ import { Body } from "../../types";
 import { notifyError } from "../../components/Toaster/Toaster.js";
 import axios from "axios";
 import { setUser } from "../../redux/slices/userSlice";
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const Filters = () => {
   const navigate = useNavigate();
@@ -157,7 +158,7 @@ const Filters = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/categories");
+        const response = await axios.get(`${REACT_APP_SERVER_URL}/categories`);
         setCategories(response.data);
       } catch (error: any) {
         notifyError(error.response.data);
@@ -196,9 +197,8 @@ const Filters = () => {
       ...stateFiltered,
       category: event.target.value,
     });
-    console.log(event.target.value);
-    console.log(stateFiltered);
   };
+
   return (
     <div className={styles.filters_container}>
       <div className={styles.filters_option} onClick={() => navigate("/")}>
@@ -271,9 +271,9 @@ const Filters = () => {
           onChange={(event) => handleSelect(event)}
         >
           <option>Categorias</option>
-          {categories.map((category) => {
+          {categories.map((category,index) => {
             return (
-              <option key={category.id} value={category.id}>
+              <option key={index} value={category.id}>
                 {category.categoryName}
               </option>
             );

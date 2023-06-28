@@ -3,6 +3,8 @@ import Offers from '../../components/Offers/Offers';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AiFillStar } from 'react-icons/ai';
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
+import { notifyError } from '../../components/Toaster/Toaster.ts';
 
 const Home = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,17 +21,15 @@ const Home = () => {
     useEffect(() => {
         const getFeatured = async () => {
             try {
-                const { data } = await axios.get('http://localhost:3000/products/featured')
+                const { data } = await axios.get(`${REACT_APP_SERVER_URL}/products/featured`)
                 setProduct(data)
                 setLoading(false)
-            } catch (error) {
-                console.log(error)
+            } catch (error:any) {
+                notifyError(error.response.data)
             }
         }
         getFeatured()
     }, []);
-
-    console.log(product)
 
     return (
         !loading && <>

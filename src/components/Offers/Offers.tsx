@@ -4,6 +4,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const Offers = () => {
     const responsive = {
@@ -39,7 +40,7 @@ const Offers = () => {
 
     useEffect(() => {
         const getOffers = async () => {
-            const { data } = await axios.get('http://localhost:3000/products/offers')
+            const { data } = await axios.get(`${REACT_APP_SERVER_URL}/products/offers`)
             setOffers(data)
             setLoading(false)
         }
@@ -50,9 +51,9 @@ const Offers = () => {
         !loading && <div className={styles.offers_container}>
             <Carousel responsive={responsive} infinite={true} className={styles.offers_carousel}>
                 {
-                    offers.map(offer => {
+                    offers.map((offer,index) => {
                         return (
-                            <div className={styles.offer_container} key={offer.name}>
+                            <div className={styles.offer_container} key={index}>
                                 <img onClick={() => navigate(`/products/${offer._id}`)} src={offer.photos[0]?.url} alt={offer.name} />
                                 <h3>{offer.name}</h3>
                                 <div className={styles.price}>
