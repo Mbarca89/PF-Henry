@@ -14,6 +14,7 @@ import { notifyError } from "../../components/Toaster/Toaster.js";
 import { setBody } from "../../redux/slices/productsSlice.js";
 import { fecthProducts } from "../../redux/utils/fetchProducts.js";
 import {REACT_APP_SERVER_URL} from '../../../config.ts'
+import logo from '../../assets/logook.png'
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
@@ -117,7 +118,7 @@ const NavBar = () => {
     categories && (
       <div className={styles.navbar_container}>
         <img
-          src="/src/assets/logook.png"
+          src={logo}
           className={styles.navbar_logo}
           alt="logo"
           onClick={() => navigate("/home")}

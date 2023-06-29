@@ -5,6 +5,7 @@ import axios from 'axios';
 import { AiFillStar } from 'react-icons/ai';
 import {REACT_APP_SERVER_URL} from '../../../config.ts'
 import { notifyError } from '../../components/Toaster/Toaster.ts';
+import logo from '../../assets/pngwing.com.png'
 
 const Home = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,7 +50,7 @@ const Home = () => {
                     </div>
                     <button className={styles.home_product_button}>Ver producto</button>
                 </div>
-                <img src="/src/assets/pngwing.com.png" alt="image_product" className={styles.homeImg} />
+                <img src={logo} alt="image_product" className={styles.homeImg} />
             </div>
             <Offers />
         </>
