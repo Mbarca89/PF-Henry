@@ -23,8 +23,8 @@ const MyPurchases = () => {
         setUser(userOk.id);
 
         try {
-          const response = await axios.get(`http://185.253.153.34:3001/orders/user/${userOk.id}`);
-          setOrders(response.data);
+          const response = await axios.get(`http://localhost:3000/orders/user/${userOk.id}`);
+          setOrders(response.data.reverse());
 
           const reviewedProductsResponse = await axios.get(`http://localhost:3000/users/purchasedproduct`);
           const reviewedProductsData = reviewedProductsResponse.data;
@@ -59,7 +59,7 @@ const MyPurchases = () => {
       console.log('Datos de la reseña:', reviewData);
 
       try {
-        const response = await axios.post('http://185.253.153.34:3001/products/postreview', reviewData);
+        const response = await axios.post('http://localhost:3000/products/postreview', reviewData);
         console.log(response.data);
         // Actualizar la lista de productos revisados
         setReviewedProducts([...reviewedProducts, productId]);
