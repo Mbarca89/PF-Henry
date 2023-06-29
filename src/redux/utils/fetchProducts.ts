@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {notifyError} from "../../components/Toaster/Toaster.js";
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 //const { body } = useAppSelector((state: RootState) => state.products);
 export const fecthProducts = createAsyncThunk(
@@ -17,7 +18,7 @@ export const fecthProducts = createAsyncThunk(
     }
   }
 );
-const API_PRODUCTS = 'http://localhost:3000/products';
+const API_PRODUCTS = `${REACT_APP_SERVER_URL}/products`;
 
 export const getProductsByFilter = createAsyncThunk(
   'products/getByFilter',

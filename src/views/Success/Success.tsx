@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { notifyError } from '../../components/Toaster/Toaster'
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const Success = () => {
 
@@ -17,7 +18,7 @@ const Success = () => {
         }
         const cleanCart = async () => {
             try {
-                await axios.delete(`http://localhost:3000/cart/removeall/${cartId}`)
+                await axios.delete(`${REACT_APP_SERVER_URL}/cart/removeall/${cartId}`)
             } catch (error:any) {
                 notifyError(error.response.data)
             }

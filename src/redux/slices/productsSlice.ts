@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Products, Body } from "../../types";
 import { fecthProducts} from "../utils/fetchProducts";
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 type productState = {
   products: Products[];
@@ -37,7 +38,7 @@ const initialState: productState = {
       "minPrice": '',
       "maxPrice": Infinity
     },
-    url: 'http://localhost:3000/products',
+    url: `${REACT_APP_SERVER_URL}/products`,
     urlPage: '1',
     urlName: '',
     productCount: 0,
@@ -63,7 +64,6 @@ export const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fecthProducts.fulfilled, (state, action) => {
-      console.log(action.payload)
       if(!action.payload){
         state.products = []
         state.productsFiltered = [];

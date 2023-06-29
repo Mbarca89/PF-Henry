@@ -5,6 +5,7 @@ import { FaUserCircle } from 'react-icons/fa'
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { notifyError, notifySuccess } from '../../components/Toaster/Toaster';
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const Detail = () => {
     const navigate = useNavigate()
@@ -24,7 +25,7 @@ const Detail = () => {
 
     useEffect(() => {
         const getProduct = () => {
-            axios.get(`http://localhost:3000/products/detail/${id}`)
+            axios.get(`${REACT_APP_SERVER_URL}/products/detail/${id}`)
                 .then(({ data }) => {
                     if (data.name) {
                         setProduct(data);
@@ -62,7 +63,7 @@ const Detail = () => {
 
     const addProduct = async () => {
         try {
-            const {data} = await axios.post('http://localhost:3000/cart/add', { id, userId: user, quantity: value })
+            const {data} = await axios.post(`${REACT_APP_SERVER_URL}/cart/add`, { id, userId: user, quantity: value })
             notifySuccess(data)
             navigate('/cart')
         } catch (error:any) {

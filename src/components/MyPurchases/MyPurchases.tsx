@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './MyPurchases.module.css';
 import axios from 'axios';
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 interface Order {
   id: string;
@@ -22,11 +23,12 @@ const MyPurchases = () => {
         const userOk = JSON.parse(stringUser);
         setUser(userOk.id);
 
-        try {
-          const response = await axios.get(`http://localhost:3000/orders/user/${userOk.id}`);
+        try {          
+          setOrders(response.data);
+          const response = await axios.get(`${REACT_APP_SERVER_URL}/orders/user/${userOk.id}`);
           setOrders(response.data.reverse());
 
-          const reviewedProductsResponse = await axios.get(`http://localhost:3000/users/purchasedproduct`);
+          const reviewedProductsResponse = await axios.get(`${REACT_APP_SERVER_URL}/users/purchasedproduct`);
           const reviewedProductsData = reviewedProductsResponse.data;
           const reviewedProductIds = reviewedProductsData.reviewedProducts.map((product: any) => product.itemId);
           setReviewedProducts(reviewedProductIds);
@@ -59,9 +61,7 @@ const MyPurchases = () => {
       console.log('Datos de la reseña:', reviewData);
 
       try {
-        const response = await axios.post('http://localhost:3000/products/postreview', reviewData);
-        console.log(response.data);
-        // Actualizar la lista de productos revisados
+        const response = await axios.post(`${REACT_APP_SERVER_URL}/products/postreview`, reviewData);
         setReviewedProducts([...reviewedProducts, productId]);
       } catch (error) {
         console.log(error);

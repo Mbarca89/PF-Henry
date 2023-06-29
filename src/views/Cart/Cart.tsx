@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import styles from './Cart.module.css'
 import { useNavigate } from 'react-router-dom'
 import {notifyError, notifySuccess} from "../../components/Toaster/Toaster.js";
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Cart = () => {
         const getCart = async () => {
             try {
                 if(userData){
-                    const { data } = await axios.get(`http://localhost:3000/cart/get/${userData}`)
+                    const { data } = await axios.get(`${REACT_APP_SERVER_URL}/cart/get/${userData}`)
                     setCart(data.products)
                     setCartId(data.id)
                     setLoading(false)
@@ -39,7 +40,7 @@ const Cart = () => {
 
     const deleteProduct = async (productId: string) => {
         try {
-            const {data} = await axios.delete(`http://localhost:3000/cart/remove?cartId=${cartId}&productId=${productId}`)
+            const {data} = await axios.delete(`${REACT_APP_SERVER_URL}/cart/remove?cartId=${cartId}&productId=${productId}`)
             setUpdate(!update)
             notifySuccess(data)
         } catch (error:any) {
@@ -49,7 +50,7 @@ const Cart = () => {
 
     const deleteAllProducts = async () => {
         try {
-            const {data} = await axios.delete(`http://localhost:3000/cart/removeall/${cartId}`)
+            const {data} = await axios.delete(`${REACT_APP_SERVER_URL}/cart/removeall/${cartId}`)
             setUpdate(!update)
             notifySuccess(data)
         } catch (error:any) {
@@ -59,7 +60,7 @@ const Cart = () => {
 
     const createOrder = async () => {
         try {
-            const {data} = await axios.post('http://localhost:3000/orders',{user:userData,products:cart})
+            const {data} = await axios.post(`${REACT_APP_SERVER_URL}/orders`,{user:userData,products:cart})
             const orderId = data.id
             navigate(`/order/${orderId}`)
         } catch (error:any) {

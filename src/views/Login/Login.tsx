@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import {notifyError} from "../../components/Toaster/Toaster.js";
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ const Login = () => {
     try {
       let res;
       if (!isRegistering) {
-        res = await axios.post("http://localhost:3000/auth/login", formData);
+        res = await axios.post(`${REACT_APP_SERVER_URL}/auth/login`, formData);
         if (res.data) {
           const token = res.data.token;
           const userInfo = res.data.user;
@@ -87,7 +88,7 @@ const Login = () => {
           window.location.reload();
         }
       } else {
-        res = await axios.post("http://localhost:3000/users/register", formData);
+        res = await axios.post(`${REACT_APP_SERVER_URL}/users/register`, formData);
         window.location.reload();
       }
 
@@ -193,7 +194,7 @@ const Login = () => {
           )}
         </div>
       </form>
-      <a href="http://localhost:3000/auth/google">
+      <a href={`${REACT_APP_SERVER_URL}/auth/google`}>
         <button className={styles.google_login}>
           <FcGoogle size={25} />
           INGRESAR CON GOOGLE

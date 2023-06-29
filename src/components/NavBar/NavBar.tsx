@@ -13,6 +13,7 @@ import { useAppDispatch } from "../../redux/store";
 import { notifyError } from "../../components/Toaster/Toaster.js";
 import { setBody } from "../../redux/slices/productsSlice.js";
 import { fecthProducts } from "../../redux/utils/fetchProducts.js";
+import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
@@ -55,7 +56,7 @@ const NavBar = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/categories");
+        const response = await axios.get(`${REACT_APP_SERVER_URL}/categories`);
         setCategories(response.data);
       } catch (error: any) {
         notifyError(error.response.data);
