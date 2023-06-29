@@ -3,8 +3,8 @@ import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-import {notifyError} from "../../components/Toaster/Toaster.js";
-import {REACT_APP_SERVER_URL} from '../../../config.ts'
+import { notifyError } from "../../components/Toaster/Toaster.js";
+import { REACT_APP_SERVER_URL } from '../../../config.ts'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -78,14 +78,17 @@ const Login = () => {
       if (!isRegistering) {
         res = await axios.post(`${REACT_APP_SERVER_URL}/auth/login`, formData);
         if (res.data) {
-          const token = res.data.token;
-          const userInfo = res.data.user;
+          console.log(res.data.user)
+          if (!res.data.user.active) navigate('/notactive')
+          else {
+            const token = res.data.token;
+            const userInfo = res.data.user;
+            // Store token and userName in localStorage
+            localStorage.setItem("token", token);
+            localStorage.setItem("userData", JSON.stringify(userInfo));
 
-          // Store token and userName in localStorage
-          localStorage.setItem("token", token);
-          localStorage.setItem("userData", JSON.stringify(userInfo));
-
-          window.location.reload();
+            window.location.reload();
+          }
         }
       } else {
         res = await axios.post(`${REACT_APP_SERVER_URL}/users/register`, formData);

@@ -1,0 +1,57 @@
+.success_container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-image: url('/src/assets/Landing2.png');
+    background-size: cover;
+}
+.success_container h2{
+    font-size: 4rem;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+.success_btn{
+    all: unset;
+    text-align: center;
+    border-radius: 1rem;
+    display: grid;
+    place-items: center;
+    width: 25%;
+    height: 10%;
+    font-size: 2rem;
+    background-color: rgb(127, 255, 168);
+    cursor: pointer;
+}
+
+.failure_container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-image: url('/src/assets/Landing2.png');
+    background-size: cover;
+}
+.failure_container h2{
+    font-size: 4rem;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+.failure_btn{
+    all: unset;
+    text-align: center;
+    border-radius: 1rem;
+    display: grid;
+    place-items: center;
+    width: 25%;
+    height: 10%;
+    font-size: 2rem;
+    background-color: rgb(255, 127, 127);
+    cursor: pointer;
+}

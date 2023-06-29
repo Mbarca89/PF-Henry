@@ -7,13 +7,14 @@ import Landing from './views/Landing/Landing'
 import About from './views/About/About'
 import Profile from './views/Profile/Profile'
 import Login from './views/Login/Login'
+import Activation from './views/Activation/Activation'
+import NotActive from './views/NotActive/NotActive'
 import { Routes, Route, Outlet } from 'react-router-dom'
 import Cart from './views/Cart/Cart'
 import Checkout from './views/Checkout/Checkout'
 import Success from './views/Success/Success'
 import Failure from './views/Failure/Failure'
 import { Toaster } from 'react-hot-toast';
-
 
 function App() {
 
@@ -39,6 +40,8 @@ function App() {
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Landing />} />
+        <Route path='/activation/:activationToken' element={<Activation />} />
+        <Route path='/notactive' element={<NotActive />} />
       </Routes>
     </div>
   )
