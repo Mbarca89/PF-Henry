@@ -10,6 +10,11 @@ const EditData = () => {
     const [user,setUser] = useState({
         id: '',
         name: '',
+        email: '',
+        active: null,
+        cart: '',
+        commerceName: '',
+        role: '',
         address: '',
         city: '',
         province: '',
@@ -29,6 +34,7 @@ const EditData = () => {
             ...user,
             [event.target.name]: event.target.value
         })
+        localStorage.setItem("userData", JSON.stringify(user));
     }
     const handlePassword = async (event: ChangeEvent<HTMLInputElement>) => {
         setPassword({
@@ -64,6 +70,7 @@ const EditData = () => {
         } catch (error) {
             console.log(error);
         }
+        window.location.reload();
     }
     useEffect(()=> {
         const stringUser = localStorage.getItem('userData')
@@ -75,8 +82,6 @@ const EditData = () => {
                 userId: JSONUser.id
             })
         }
-        console.log(stringUser);
-        
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
