@@ -3,15 +3,20 @@ import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-import { notifyError } from "../../components/Toaster/Toaster.js";
-import { REACT_APP_SERVER_URL } from '../../../config.ts'
+import {
+  notifyError,
+  notifySuccess,
+} from "../../components/Toaster/Toaster.js";
+import { REACT_APP_SERVER_URL } from "../../../config.ts";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
   const [isRegistering, setIsRegistering] = useState(false);
-  const [login, setlogin] = useState(isRegistering ? "Registro" : "Inicio de sesión");
+  const [login, setlogin] = useState(
+    isRegistering ? "Registro" : "Inicio de sesión"
+  );
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -24,32 +29,131 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (isRegistering) setlogin('Registro')
-    if (!isRegistering) setlogin('Inicio de sesión')
-  }, [isRegistering])
+    if (isRegistering) setlogin("Registro");
+    if (!isRegistering) setlogin("Inicio de sesión");
+  }, [isRegistering]);
 
   useEffect(() => {
     if (token) navigate("/home");
     if (document.cookie) {
-      const tokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('email='));
-      const email = tokenCookie?.split('=')[1]
-      const nameCookie = document.cookie.split(';').find(name => name.trim().startsWith('name='));
-      const name = nameCookie?.split('=')[1]
+      const tokenCookie = document.cookie
+        .split(";")
+        .find((cookie) => cookie.trim().startsWith("email="));
+      const email = tokenCookie?.split("=")[1];
+      const nameCookie = document.cookie
+        .split(";")
+        .find((name) => name.trim().startsWith("name="));
+      const name = nameCookie?.split("=")[1];
       setIsRegistering(true);
       setForm({
         ...form,
         email: decodeURIComponent(email || ""),
-        name: decodeURIComponent(name || "")
-      }
-      )
+        name: decodeURIComponent(name || ""),
+      });
     }
-    document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    name: "",
+    address: "",
+    city: "",
+    province: "",
+    postalCode: "",
+    role: "",
+  });
+
+  const validate = (
+    form: any,
+    errors: any,
+    setErrors: (errorObj: any) => void
+  ) => {
+    let updatedErrors = { ...errors };
+
+    if (form.postalCode === "") {
+      updatedErrors = {
+        ...updatedErrors,
+        postalCode: "Ingresar código postal",
+      };
+    } else if (isNaN(form.postalCode)) {
+      updatedErrors = {
+        ...updatedErrors,
+        postalCode: "El código postal debe ser un número",
+      };
+    } else {
+      delete updatedErrors.postalCode; // Clear the error message for postalCode
+    }
+
+    if (form.province === "") {
+      updatedErrors = { ...updatedErrors, province: "Ingresar provincia" };
+    } else {
+      delete updatedErrors.province; // Clear the error message for province
+    }
+
+    if (form.city === "") {
+      updatedErrors = { ...updatedErrors, city: "Ingresar ciudad" };
+    } else {
+      delete updatedErrors.city; // Clear the error message for city
+    }
+
+    if (form.address === "") {
+      updatedErrors = { ...updatedErrors, address: "Ingresar dirección" };
+    } else {
+      delete updatedErrors.address; // Clear the error message for address
+    }
+
+    if (form.name === "") {
+      updatedErrors = { ...updatedErrors, name: "Ingresar nombre" };
+    } else if (/\d/.test(form.name)) {
+      updatedErrors = {
+        ...updatedErrors,
+        name: "El nombre no puede contener números",
+      };
+    } else {
+      delete updatedErrors.name; // Clear the error message for name
+    }
+
+    if (form.email === "") {
+      updatedErrors = {
+        ...updatedErrors,
+        email: "Ingresar correo electrónico",
+      };
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      updatedErrors = {
+        ...updatedErrors,
+        email: "Formato de correo electrónico inválido",
+      };
+    } else {
+      delete updatedErrors.email; // Clear the error message for email
+    }
+
+    if (form.password === "") {
+      updatedErrors = { ...updatedErrors, password: "Ingresar contraseña" };
+    } else if (form.password.length < 6) {
+      updatedErrors = {
+        ...updatedErrors,
+        password: "La contraseña debe tener al menos 6 caracteres",
+      };
+    } else {
+      delete updatedErrors.password; // Clear the error message for password
+    }
+
+    setErrors(updatedErrors);
+  };
+
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
+
+    const property = name; // Use the actual property name directly
+
+    validate({ ...form, [property]: value }, errors, setErrors);
+
     setForm((prevState) => {
       return {
         ...prevState,
@@ -57,7 +161,6 @@ const Login = () => {
       };
     });
   };
-
 
   const handleLoginNormal = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -76,10 +179,10 @@ const Login = () => {
     try {
       let res;
       if (!isRegistering) {
-        res = await axios.post(`${REACT_APP_SERVER_URL}/auth/login`, formData);
+        res = await axios.post(`http://localhost:3000/auth/login`, formData);
         if (res.data) {
-          console.log(res.data.user)
-          if (!res.data.user.active) navigate('/notactive')
+          console.log(res.data.user);
+          if (!res.data.user.active) navigate("/notactive");
           else {
             const token = res.data.token;
             const userInfo = res.data.user;
@@ -91,12 +194,19 @@ const Login = () => {
           }
         }
       } else {
-        res = await axios.post(`${REACT_APP_SERVER_URL}/users/register`, formData);
-        window.location.reload();
-      }
+        res = await axios.post(
+          `http://localhost:3000/users/register`,
+          formData
+        );
+        notifySuccess("Registro exitoso");
 
+        setTimeout(() => {
+          // Refresh the page
+          window.location.reload();
+        }, 800);
+      }
     } catch (error: any) {
-      notifyError(error.response.data)
+      notifyError("Porfavor verificar todos los campos");
     }
   };
 
@@ -115,6 +225,8 @@ const Login = () => {
           <span>Correo electrónico</span>
           <i></i>
         </div>
+        {errors.email && <span>{errors.email}</span>}
+
         <div className={styles.inputbox}>
           <input
             type="password"
@@ -126,6 +238,8 @@ const Login = () => {
           <span>Contraseña</span>
           <i></i>
         </div>
+        {errors.password && <span>{errors.password}</span>}
+
         {isRegistering && (
           <>
             <div className={styles.inputbox}>
@@ -139,6 +253,8 @@ const Login = () => {
               <span>Nombre</span>
               <i></i>
             </div>
+            {errors.name && <span>{errors.name}</span>}
+
             <div className={styles.inputbox}>
               <input
                 type="text"
@@ -150,6 +266,8 @@ const Login = () => {
               <span>Dirección</span>
               <i></i>
             </div>
+            {errors.address && <span>{errors.address}</span>}
+
             <div className={styles.inputbox}>
               <input
                 type="text"
@@ -161,6 +279,8 @@ const Login = () => {
               <span>Ciudad</span>
               <i></i>
             </div>
+            {errors.city && <span>{errors.city}</span>}
+
             <div className={styles.inputbox}>
               <input
                 type="text"
@@ -172,6 +292,8 @@ const Login = () => {
               <span>Provincia</span>
               <i></i>
             </div>
+            {errors.province && <span>{errors.province}</span>}
+
             <div className={styles.inputbox}>
               <input
                 type="text"
@@ -183,10 +305,15 @@ const Login = () => {
               <span>Código Postal</span>
               <i></i>
             </div>
+            {errors.postalCode && <span>{errors.postalCode}</span>}
           </>
         )}
         <div className={styles.login_btn}>
-          {isRegistering && <button onClick={() => setIsRegistering(false)} type="button">Iniciar Sesión</button>}
+          {isRegistering && (
+            <button onClick={() => setIsRegistering(false)} type="button">
+              Iniciar Sesión
+            </button>
+          )}
           {isRegistering ? (
             <button type="submit">REGISTRARME</button>
           ) : (
@@ -197,7 +324,7 @@ const Login = () => {
           )}
         </div>
       </form>
-      <a href={`${REACT_APP_SERVER_URL}/auth/google`}>
+      <a href={`http://localhost:3000/auth/google`}>
         <button className={styles.google_login}>
           <FcGoogle size={25} />
           INGRESAR CON GOOGLE
