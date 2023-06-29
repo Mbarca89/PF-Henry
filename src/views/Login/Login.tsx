@@ -179,7 +179,7 @@ const Login = () => {
     try {
       let res;
       if (!isRegistering) {
-        res = await axios.post(`http://localhost:3000/auth/login`, formData);
+        res = await axios.post(`${REACT_APP_SERVER_URL}/auth/login`, formData);
         if (res.data) {
           console.log(res.data.user);
           if (!res.data.user.active) navigate("/notactive");
@@ -195,7 +195,7 @@ const Login = () => {
         }
       } else {
         res = await axios.post(
-          `http://localhost:3000/users/register`,
+          `${REACT_APP_SERVER_URL}/users/register`,
           formData
         );
         notifySuccess("Registro exitoso");
@@ -324,7 +324,7 @@ const Login = () => {
           )}
         </div>
       </form>
-      <a href={`http://localhost:3000/auth/google`}>
+      <a href={`${REACT_APP_SERVER_URL}/auth/google`}>
         <button className={styles.google_login}>
           <FcGoogle size={25} />
           INGRESAR CON GOOGLE

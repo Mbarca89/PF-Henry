@@ -9,10 +9,9 @@ const Pagination = () => {
     const dispatch = useAppDispatch()
     const urlName = useAppSelector(state => state.products.urlName)
     const body = useAppSelector(state => state.products.body)
-    const urlPage = useAppSelector(state => state.products.urlPage)
     const productCount = useAppSelector(state => state.products.productCount)
     const productsPerPage = 12
-    let pages = []
+    const pages = []
 
     const pageHandle:any = (page:string) => {
         dispatch(setPage(page))
@@ -30,7 +29,7 @@ const Pagination = () => {
 
     return (
         <div className={styles.pagination}>
-            {pages.map((page,index) => {
+            {pages.map((_page,index) => {
                 return (
                     <button key={index} onClick={() => pageHandle(index+1)}>{index+1}</button>
                 )

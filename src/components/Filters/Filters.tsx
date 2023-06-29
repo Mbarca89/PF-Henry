@@ -36,7 +36,6 @@ const Filters = () => {
     id: string;
   }
   const [categories, setCategories] = useState<Category[]>([]);
-  const [userName, setUserName] = useState("");
   const [stateFiltered, setStateFiltered] = useState<Body>({
     sort: {
       price: { isSorted: false, order: "asc" },
@@ -185,11 +184,6 @@ const Filters = () => {
       document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       window.location.reload();
       if (token) navigate("/home");
-    }
-    const storedUserData = localStorage.getItem("userData");
-    if (storedUserData) {
-      const storedUserDataOk = JSON.parse(storedUserData);
-      setUserName(storedUserDataOk.name);
     }
   }, []);
   const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {

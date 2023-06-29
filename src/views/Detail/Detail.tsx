@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import style from './Detail.module.css'
-import { AiOutlineShoppingCart, AiOutlineHeart, AiFillStar } from 'react-icons/ai';
+import { AiOutlineShoppingCart, AiFillStar } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa'
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';

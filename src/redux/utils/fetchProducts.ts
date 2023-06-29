@@ -6,7 +6,7 @@ import {REACT_APP_SERVER_URL} from '../../../config.ts'
 //const { body } = useAppSelector((state: RootState) => state.products);
 export const fecthProducts = createAsyncThunk(
   'products/get',
-  async ({ page, name, body }: { page: string; name: string; body: any }, thunkApi) => {
+  async ({ page, name, body }: { page: string; name: string; body: any }) => {
     try {
       const {data} = await axios.post(
         `${API_PRODUCTS}?page=${page}&name=${name}`,

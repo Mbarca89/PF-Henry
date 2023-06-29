@@ -24,7 +24,6 @@ const MyPurchases = () => {
         setUser(userOk.id);
 
         try {          
-          setOrders(response.data);
           const response = await axios.get(`${REACT_APP_SERVER_URL}/orders/user/${userOk.id}`);
           setOrders(response.data.reverse());
 
@@ -61,7 +60,7 @@ const MyPurchases = () => {
       console.log('Datos de la reseña:', reviewData);
 
       try {
-        const response = await axios.post(`${REACT_APP_SERVER_URL}/products/postreview`, reviewData);
+        await axios.post(`${REACT_APP_SERVER_URL}/products/postreview`, reviewData);
         setReviewedProducts([...reviewedProducts, productId]);
       } catch (error) {
         console.log(error);
