@@ -21,10 +21,17 @@
 .navbar_items {
     width: 90%;
     display: flex;
-    flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
 }
-
+.customSelect{
+    all: unset;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+.select_option{
+    all: unset;
+}
 .navbar_options{
     width: 50%;
     display: flex;

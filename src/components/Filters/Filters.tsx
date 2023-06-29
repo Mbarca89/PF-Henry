@@ -8,7 +8,7 @@ import {
   FcPositiveDynamic,
 } from "react-icons/fc";
 import { GoChevronRight } from "react-icons/go";
-import { MdAttachMoney } from "react-icons/md";
+import { MdAttachMoney, MdCategory } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { setBody, setPage } from "../../redux/slices/productsSlice";
@@ -259,7 +259,8 @@ const Filters = () => {
         </label>
       </div>
 
-      <div className={styles.categorySelect}>
+      <div className={styles.filters_option}>
+        <MdCategory size={25} style={{color: 'purple'}}/>
         <select
           className={styles.customSelect}
           onChange={(event) => handleSelect(event)}
