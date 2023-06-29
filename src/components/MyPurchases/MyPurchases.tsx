@@ -23,9 +23,10 @@ const MyPurchases = () => {
         const userOk = JSON.parse(stringUser);
         setUser(userOk.id);
 
-        try {
-          const response = await axios.get(`${REACT_APP_SERVER_URL}/orders/user/${userOk.id}`);
+        try {          
           setOrders(response.data);
+          const response = await axios.get(`${REACT_APP_SERVER_URL}/orders/user/${userOk.id}`);
+          setOrders(response.data.reverse());
 
           const reviewedProductsResponse = await axios.get(`${REACT_APP_SERVER_URL}/users/purchasedproduct`);
           const reviewedProductsData = reviewedProductsResponse.data;
@@ -61,8 +62,6 @@ const MyPurchases = () => {
 
       try {
         const response = await axios.post(`${REACT_APP_SERVER_URL}/products/postreview`, reviewData);
-        console.log(response.data);
-        // Actualizar la lista de productos revisados
         setReviewedProducts([...reviewedProducts, productId]);
       } catch (error) {
         console.log(error);

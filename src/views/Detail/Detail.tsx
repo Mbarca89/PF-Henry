@@ -145,14 +145,20 @@ const Detail = () => {
         </div>
         {product.reviews[0] && <div className={style.reviews_container}>
             <h2>Reseñas</h2>
-            <div className={style.reviews_item}>
-                <div className={style.reviews_user}>
-                    <FaUserCircle/>
-                    <p>{product.reviews[0]?.user}</p>
-                </div>
-                <ReviewComponent rating={product.reviews[0]?.rating} />
-                <p>{product.reviews[0]?.review}</p>
-            </div>
+            {
+                product.reviews.map((review: { user: string; rating: number; review: string; }) => {
+                    return (
+                        <div className={style.reviews_item} key={review.review}>
+                            <div className={style.reviews_user}>
+                            <FaUserCircle/>
+                            <p>{review.user}</p>
+                            </div>
+                        <ReviewComponent rating={review.rating} />
+                        <p>{review.review}</p>
+                        </div>
+                    )
+                })
+            }
         </div>}
         </>
     )
