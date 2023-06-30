@@ -1,29 +1,29 @@
 .myProfile{
-    position: relative;
     width: 100%;
-    height: 72vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     row-gap: 2%;
 }
 
 .mainInfo{
-    position: relative;
     display: flex;
-    flex-direction: row;
-    gap: 2%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
     width: 100%;
     height: 15%;
     border: 1px solid black;
     border-radius: 15px;
     padding: 1%;
 }
-
 .accountInfo{
-    position: relative;
     display: flex;
     flex-direction: column;
     gap: 5%;
+    justify-content: space-between;
     width: 100%;
     height: 40%;
     border: 1px solid black;
@@ -41,16 +41,7 @@
     align-items: flex-end;
 }
 
-.button{
-    position: absolute;
-    right: 2%;
-    padding-left: 1%;
-    padding-right: 1%;
-}
-
 .seller {
-    position: relative;
-    display: flex;
     width: 100%;
     height: 40%;
     margin-bottom: 5%;
@@ -61,19 +52,26 @@
 }
 
 .text{
-    position: absolute;
     width: 50%;
     height: 100%;
     padding: 1%;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     gap: 2%;
+    margin-left: 1%;
 }
-
+.text a{
+    all: unset;
+    height: 1.7rem;
+    display: grid;
+    place-items: center;
+    width: 25%;
+    background-color: burlywood;
+    text-align: center;
+    border-radius: 5px;
+}
 .seller button {
-    position: absolute;
-    bottom: 3%;
-    left: 3%;
     width: auto;
     padding-left: 1%;
     padding-right: 1%;

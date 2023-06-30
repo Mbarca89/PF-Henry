@@ -100,7 +100,7 @@ const ResetPassword = () => {
           <span>Confirmar contraseña</span>
           <i></i>
         </div>
-        <button type='button' onClick={handlePassword}>Restablecer contraseña</button>
+        <button type='button' onClick={handlePassword}className={styles.btn}>Restablecer contraseña</button>
         {errors.password && <span>{errors.password}</span>}
       </form>
     </div>

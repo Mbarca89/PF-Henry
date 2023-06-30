@@ -244,7 +244,6 @@ const Login = () => {
           <span>Contraseña</span>
           <i></i>
         </div>
-        <button type="button" onClick={handleForgotPassword}>Olvidé mi contraseña</button>
         {errors.password && <span>{errors.password}</span>}
 
         {isRegistering && (
@@ -315,6 +314,7 @@ const Login = () => {
             {errors.postalCode && <span>{errors.postalCode}</span>}
           </>
         )}
+        {login === 'Inicio de sesión' && <button type="button" onClick={handleForgotPassword} className={styles.forgot}>Olvidé mi contraseña</button>}
         <div className={styles.login_btn}>
           {isRegistering && (
             <button onClick={() => setIsRegistering(false)} type="button">

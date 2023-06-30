@@ -15,7 +15,7 @@
 .login_form{
     display: flex;
     width: 30%;
-    height: 70%;
+    height: 75%;
     align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
@@ -139,4 +139,27 @@
   .login_container a{
     text-decoration: none;
     width: 30%;
+  }
+  .btn{
+    all: unset;
+    background-color: rgb(0, 255, 110);
+    border-radius: 1rem;
+    padding: 0.4rem;
+    font-size: 1.1rem;
+    text-align: center;
+    width: 50%;
+    height: 2rem;
+    cursor: pointer;
+  }
+  .forgot{
+    all: unset;
+    background-color: rgb(255, 0, 0);
+    border-radius: 1rem;
+    padding: 0.4rem;
+    font-size: 1.1rem;
+    text-align: center;
+    width: 50%;
+    color: white;
+    height: 1.3rem;
+    cursor: pointer;
   }

@@ -86,7 +86,7 @@ const EditData = () => {
     },[])
 
     return (
-        <div className={styles.accountInfo}>
+    <div className={styles.accountInfo}>
       <h3>Editar datos de la cuenta:</h3>
       <form onSubmit={handleSubmit}>
         <div>
@@ -111,20 +111,17 @@ const EditData = () => {
         </div>
         <div>
           <label htmlFor="phone">Teléfono:</label>
-          <input type="text" id="city" value={user.phone} onChange={handleChange} name='phone'/>
+          <input type="text" id="phone" value={user.phone} onChange={handleChange} name='phone'/>
         </div>
-        <button>EDITAR</button>
+        <button className={styles.edit_btn}>EDITAR</button>
       </form>
         <h3>Cambiar contraseña</h3>
-        <div>
-          <label htmlFor="password">Contraseña antigua:</label>
-          <input type="password" id="password" value={password.password} onChange={handlePassword} name='password'/>
-          <label htmlFor="newPassword">Contraseña nueva:</label>
-          <input type="password" id="newPassword" value={password.newPassword} onChange={handlePassword} name='newPassword'/>
-          <label htmlFor="newPasswordConfirm">Confirmar contraseña:</label>
-          <input type="password" id="newPasswordConfirm" value={password.newPasswordConfirm} onChange={handlePassword} name='newPasswordConfirm'/>
+        <div className={styles.change_password_container}>
+          <input type="password" id="password" value={password.password} onChange={handlePassword} name='password' placeholder='Contraseña anterior'/>
+          <input type="password" id="newPassword" value={password.newPassword} onChange={handlePassword} name='newPassword' placeholder='Contraseña nueva'/>
+          <input type="password" id="newPasswordConfirm" value={password.newPasswordConfirm} onChange={handlePassword} name='newPasswordConfirm' placeholder='Confirmar contraseña'/>
           {error && <p>{error}</p>}
-          <button onClick={handleSubmitPassword}>ACTUALIZAR CONTRASEÑA</button>
+          <button onClick={handleSubmitPassword} className={styles.edit_btn}>ACTUALIZAR CONTRASEÑA</button>
         </div>
     </div>
     )

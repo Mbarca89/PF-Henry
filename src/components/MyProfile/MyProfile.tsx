@@ -52,7 +52,7 @@ const MyProfile = () => {
             </div>
             <div className={styles.seller}>
                 <div className={styles.text}>
-                    <h3>Queres ser vendedor?</h3>
+                    <h3>¿Queres ser vendedor?</h3>
                     <p>Unite a nuestra gran familia y ofrecé tus productos a una comunidad en pleno crecimiento.</p>
                     <a href='https://pf-henry-dash.vercel.app/' target='_blank'>Registrarme</a>
                 </div>
