@@ -25,13 +25,12 @@
 }
 
 .home_product_detail {
-    position: relative;
-    height: 90%;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     align-items: flex-start;
     gap: 2%;
+    height: 100%;
 }
 
 .home_product_detail img {
@@ -49,9 +48,6 @@
 }
 
 .home_product_button {
-    position: absolute;
-    bottom: 2%;
-    align-self: center;
     border: none;
     font-size: 1em;
     text-align: center;

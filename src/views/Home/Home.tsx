@@ -1,6 +1,7 @@
 import styles from './Home.module.css'
 import Offers from '../../components/Offers/Offers';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AiFillStar } from 'react-icons/ai';
 import {REACT_APP_SERVER_URL} from '../../../config.ts'
@@ -10,6 +11,7 @@ import logo from '../../assets/pngwing.com.png'
 const Home = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [product, setProduct] = useState({
+        _id: '',
         name: '',
         description: '',
         ratingAverage: 0,
@@ -18,7 +20,7 @@ const Home = () => {
         }]
     });
     const [loading, setLoading] = useState(true)
-
+    const navigate = useNavigate()
     useEffect(() => {
         const getFeatured = async () => {
             try {
@@ -35,20 +37,20 @@ const Home = () => {
     return (
         !loading && <>
             <div className={styles.home_container}>
-                <div className={styles.home_product}>
+                <div className={styles.home_product} onClick={() => navigate(`/products/${product._id}`)}>
                     <div className={styles.home_product_detail}>
                         <h1>{product.name}</h1>
                         <img src={product.photos[0]?.url} alt="" />
                         <p>{product.description}</p>
                         <div className={styles.rating}>
-                            <AiFillStar size={16} style={product.ratingAverage >= 1 ? { opacity: 1 } : { opacity: 0 }}></AiFillStar>
-                            <AiFillStar size={16} style={product.ratingAverage >= 2 ? { opacity: 1 } : { opacity: 0 }}></AiFillStar>
-                            <AiFillStar size={16} style={product.ratingAverage >= 3 ? { opacity: 1 } : { opacity: 0 }}></AiFillStar>
-                            <AiFillStar size={16} style={product.ratingAverage >= 4 ? { opacity: 1 } : { opacity: 0 }}></AiFillStar>
-                            <AiFillStar size={16} style={product.ratingAverage >= 5 ? { opacity: 1 } : { opacity: 0 }}></AiFillStar>
+                            <AiFillStar size={16} style={product.ratingAverage >= 1 ? { opacity: 1, color: 'gold' } : { opacity: 0 }}></AiFillStar>
+                            <AiFillStar size={16} style={product.ratingAverage >= 2 ? { opacity: 1, color: 'gold' } : { opacity: 0 }}></AiFillStar>
+                            <AiFillStar size={16} style={product.ratingAverage >= 3 ? { opacity: 1, color: 'gold' } : { opacity: 0 }}></AiFillStar>
+                            <AiFillStar size={16} style={product.ratingAverage >= 4 ? { opacity: 1, color: 'gold' } : { opacity: 0 }}></AiFillStar>
+                            <AiFillStar size={16} style={product.ratingAverage >= 5 ? { opacity: 1, color: 'gold' } : { opacity: 0 }}></AiFillStar>
                         </div>
+                        <button className={styles.home_product_button}>Ver producto</button>
                     </div>
-                    <button className={styles.home_product_button}>Ver producto</button>
                 </div>
                 <img src={logo} alt="image_product" className={styles.homeImg} />
             </div>

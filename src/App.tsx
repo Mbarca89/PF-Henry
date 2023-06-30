@@ -14,6 +14,7 @@ import Cart from './views/Cart/Cart'
 import Checkout from './views/Checkout/Checkout'
 import Success from './views/Success/Success'
 import Failure from './views/Failure/Failure'
+import ResetPassword from './views/ResetPassword/ResetPassword'
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path='/failure' element={<Failure />} />
         </Route>
         <Route path='/login' element={<Login />} />
+        <Route path='/resetpassword/:passwordToken' element={<ResetPassword />} />
         <Route path='/' element={<Landing />} />
         <Route path='/activation/:activationToken' element={<Activation />} />
         <Route path='/notactive' element={<NotActive />} />

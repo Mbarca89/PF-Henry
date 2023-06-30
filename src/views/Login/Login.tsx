@@ -181,7 +181,6 @@ const Login = () => {
       if (!isRegistering) {
         res = await axios.post(`${REACT_APP_SERVER_URL}/auth/login`, formData);
         if (res.data) {
-          console.log(res.data.user);
           if (!res.data.user.active) navigate("/notactive");
           else {
             const token = res.data.token;
@@ -205,11 +204,18 @@ const Login = () => {
           window.location.reload();
         }, 800);
       }
-    } catch (error: any) {
+    } catch (error) {
       notifyError("Porfavor verificar todos los campos");
     }
   };
-
+  const handleForgotPassword = async () => {
+    try {
+      const {data} = await axios.put(`${REACT_APP_SERVER_URL}/users/forgotpassword`, {email: form.email});
+      notifySuccess(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className={styles.login_container}>
       <h1>{login}</h1>
@@ -238,6 +244,7 @@ const Login = () => {
           <span>Contraseña</span>
           <i></i>
         </div>
+        <button type="button" onClick={handleForgotPassword}>Olvidé mi contraseña</button>
         {errors.password && <span>{errors.password}</span>}
 
         {isRegistering && (
