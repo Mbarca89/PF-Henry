@@ -107,12 +107,9 @@ const NavBar = () => {
               Sobre Nosotros
             </NavLink>
           </div>
-          <div className={styles.navbar_search}>
-            <SearchBar />
-          </div>
-
+          <SearchBar />
           <div className={styles.navbar_icons}>
-            {userName && <p>{`Hola ${userName}!`}</p>}
+            {userName && <p>{`¡Hola ${userName}!`}</p>}
             {userName && (
               <div
                 className={styles.navbar_icon}

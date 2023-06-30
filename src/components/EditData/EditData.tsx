@@ -3,6 +3,10 @@ import { useState, useEffect, ChangeEvent } from 'react'
 import axios from 'axios'
 import { REACT_APP_SERVER_URL } from '../../../config'
 import { useNavigate } from 'react-router-dom'
+import {
+    notifyError,
+    notifySuccess,
+  } from "../../components/Toaster/Toaster.js";
 //import { CgProfile } from 'react-icons/cg'
 
 const EditData = () => {
@@ -28,14 +32,13 @@ const EditData = () => {
         newPasswordConfirm: '',
         userId: ''
     })
-    const [error, setError] = useState('');
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setUser({
-            ...user,
-            [event.target.name]: event.target.value
-        })
+        setUser((prevUser) => ({
+          ...prevUser,
+          [event.target.name]: event.target.value,
+        }));
         localStorage.setItem("userData", JSON.stringify(user));
-    }
+    };
     const handlePassword = async (event: ChangeEvent<HTMLInputElement>) => {
         setPassword({
             ...password,
@@ -45,7 +48,7 @@ const EditData = () => {
     const handleSubmitPassword = async () => {
         try {
             if(password.newPassword !== password.newPasswordConfirm){
-                setError('La contraseña no coincide')
+                notifyError('La contraseña no coincide')
             }
             else{
                 const {data} = await axios.put(`${REACT_APP_SERVER_URL}/users/changepassword`, password)
@@ -56,6 +59,7 @@ const EditData = () => {
                     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     navigate('/login');
+                    notifySuccess('Se ha actualizado la contraseña')
                 }
             }
         } catch (error) {
@@ -84,7 +88,9 @@ const EditData = () => {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-
+    useEffect(() => {
+        localStorage.setItem("userData", JSON.stringify(user));
+    }, [user]);
     return (
     <div className={styles.accountInfo}>
       <h3>Editar datos de la cuenta:</h3>
@@ -120,8 +126,7 @@ const EditData = () => {
           <input type="password" id="password" value={password.password} onChange={handlePassword} name='password' placeholder='Contraseña anterior'/>
           <input type="password" id="newPassword" value={password.newPassword} onChange={handlePassword} name='newPassword' placeholder='Contraseña nueva'/>
           <input type="password" id="newPasswordConfirm" value={password.newPasswordConfirm} onChange={handlePassword} name='newPasswordConfirm' placeholder='Confirmar contraseña'/>
-          {error && <p>{error}</p>}
-          <button onClick={handleSubmitPassword} className={styles.edit_btn}>ACTUALIZAR CONTRASEÑA</button>
+          <button onClick={handleSubmitPassword} className={styles.set_password}>ACTUALIZAR CONTRASEÑA</button>
         </div>
     </div>
     )

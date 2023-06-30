@@ -1,34 +1,33 @@
 .profile{
     display: flex;
+    flex-direction: row;
     gap: 5%;
     width: calc(100% - 8rem);
-    height: 80vh;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     margin: auto;
-    border: 1px solid red;
 }
 
 .nav{
     display: flex;
     flex-direction: column;
     gap: 1%;
-    width: 20%;
-    height: 30%;
-    justify-content: space-between;
-    border: 1px solid red;
+    top: 10rem;
+    width: 17%;
+    height: 70vh;
 }
 
 .nav_option{
+    position: relative;
     display: flex;
+    flex-direction: row;
     gap: 5%;
-    border: 1px solid red;
     align-items: center;
     justify-content: flex-start;
-    padding: 0 2rem;
+    padding-left: 4%;
     background-color: antiquewhite;
     border-radius: 5px;
-    height: 25%;
+    height: 10%;
     width: 100%;
 }
 
