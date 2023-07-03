@@ -74,7 +74,7 @@ const MyPurchases = () => {
   };
 
   if (orders.length === 0) {
-    return <div>Cargando...</div>;
+    return <div>No tienes productos comprados</div>;
   }
 
   return (

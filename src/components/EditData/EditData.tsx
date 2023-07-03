@@ -69,10 +69,9 @@ const EditData = () => {
     const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
         event.preventDefault()
         try {
-            const {data} = await axios.put(`${REACT_APP_SERVER_URL}/users/updateuser`, user)
-            console.log(data);
+          await axios.put(`${REACT_APP_SERVER_URL}/users/updateuser`, user)
         } catch (error) {
-            console.log(error);
+          console.log(error);
         }
         window.location.reload();
     }

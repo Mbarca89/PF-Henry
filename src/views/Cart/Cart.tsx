@@ -30,13 +30,19 @@ const Cart = () => {
                     setCart(data.products)
                     setCartId(data.id)
                     setLoading(false)
-                }
+                } else setLoading(false)
             } catch (error:any) {
                 notifyError(error.response.data)
             }
         }
         getCart()
     }, [userData, update])
+
+    useEffect(()=> {
+        if(!loading){
+            if(userData === '') navigate('/login')
+        }
+    },[loading])
 
     const deleteProduct = async (productId: string) => {
         try {
@@ -115,4 +121,4 @@ const Cart = () => {
     </div>)
 }
 
-export default Cart
+export default Cart;
