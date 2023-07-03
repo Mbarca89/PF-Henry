@@ -73,7 +73,7 @@ const Detail = () => {
             notifySuccess(data)
             navigate('/cart')
         } catch (error: any) {
-            notifyError(error.response.data)
+            notifyError('Es necesario iniciar sesión')
         }
     }
 
