@@ -1,8 +1,10 @@
 import styles from "./Profile.module.css";
 import { CgProfile, CgShoppingBag, CgDatabase } from "react-icons/cg";
+import { AiFillStar } from 'react-icons/ai';
 import MyProfile from "../../components/MyProfile/MyProfile";
 import MyPurchases from "../../components/MyPurchases/MyPurchases";
 import EditData from "../../components/EditData/EditData";
+import MyReviews from "../../components/MyReviews/MyReviews";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -44,7 +46,12 @@ const Profile = () => {
         <div className={styles.nav_option}>
           <div onClick={sectionHandler} id="myPurchases"></div>
           <CgShoppingBag size={25}></CgShoppingBag>
-          <p>Mis compras</p>
+          <p>Mis ordenes</p>
+        </div>
+        <div className={styles.nav_option}>
+          <div onClick={sectionHandler} id="myReviews"></div>
+          <AiFillStar size={25}></AiFillStar>
+          <p>Mis reviews</p>
         </div>
         <div className={styles.nav_option}>
           <div onClick={sectionHandler} id="editData"></div>
@@ -56,6 +63,7 @@ const Profile = () => {
         {currentSection === "myProfile" && <MyProfile />}
         {currentSection === "myPurchases" && <MyPurchases />}
         {currentSection === "editData" && <EditData />}
+        {currentSection === "myReviews" && <MyReviews />}
       </div>
     </div>
   );
