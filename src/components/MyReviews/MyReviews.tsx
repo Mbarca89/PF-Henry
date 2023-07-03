@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { REACT_APP_SERVER_URL } from '../../../config.ts'
 import { AiFillStar } from 'react-icons/ai';
 import { notifyError, notifySuccess } from '../Toaster/Toaster.ts';
-import { current } from '@reduxjs/toolkit';
 
 
 const MyReviews = () => {
