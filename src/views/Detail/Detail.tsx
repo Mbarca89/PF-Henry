@@ -198,6 +198,7 @@ const Detail = () => {
                                 </div>
                                 <ReviewComponent rating={review.rating} />
                                 <p>{review.review}</p>
+                                <hr />
                             </div>
                         )
                     })

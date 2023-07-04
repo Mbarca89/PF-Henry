@@ -162,7 +162,7 @@
   
 .buy{
     margin-top: 2em;
-    width: 94%;
+    width: 100%;
     cursor: pointer;
     padding: 1em ;
     color: white;
@@ -186,7 +186,8 @@
 
 .buttons{
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
     margin-top: 1em;    
 }
 .cart {
@@ -248,7 +249,6 @@
     margin: 0 auto;
     width: calc(100% - 8rem);
     padding: 0 3.5rem;
-    border: 1px solid red;
 }
 .reviews_container h2{
     font-size: 2.5rem;
@@ -260,7 +260,6 @@
     align-items: center;
     width: 15%;
     gap: 1rem;
-    border: 1px solid red;
 }
 .reviews_item{
     margin: 1rem 0;
@@ -274,5 +273,6 @@
 .reviews_item p{
     font-size: 1.4rem;
 }
-
-  
+hr{
+    width: 100%;
+}

@@ -3,6 +3,7 @@ import styles from './MyPurchases.module.css';
 import axios from 'axios';
 import { REACT_APP_SERVER_URL } from '../../../config.ts'
 import { notifyError } from '../Toaster/Toaster.ts';
+import { useNavigate } from 'react-router-dom';
 
 interface Order {
   id: string;
@@ -13,7 +14,7 @@ interface Order {
 
 const MyPurchases = () => {
   const [orders, setOrders] = useState<Order[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchOrders = async () => {
       const stringUser = localStorage.getItem('userData');
@@ -35,7 +36,9 @@ const MyPurchases = () => {
   if (orders.length === 0) {
     return <div>No tienes productos comprados</div>;
   }
-
+  const handleClick = () => {
+    console.log(orders);
+  }
   return (
     <div className={styles.myPurchases}>
       <h1>Mis Ordenes</h1>
@@ -53,14 +56,16 @@ const MyPurchases = () => {
                 <h5>{`Creada el día: ${formattedDate}`}</h5>
               </div>
               <hr />
-              <div>
-                <h4>Productos:</h4>
+              <div className={styles.list_container}>
+                <h4>Productos</h4>
+                <div className={styles.list_products}>
                 {order.productList.map((product, productIndex) => (
-                  <h5 key={productIndex}>{product.itemName}</h5>
+                  <h5 key={productIndex} onClick={() => navigate(`/products/${product.itemId}`)}>{product.itemName}</h5>
                 ))}
+                </div>
               </div>
-              <hr />
-              <h5>{`Monto total: ${order.totalOrderAmount}`}</h5>
+              
+              <h5 className={styles.price}>{`Monto total: $${order.totalOrderAmount}`}</h5>
             </div>
           );
         })}

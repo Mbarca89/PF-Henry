@@ -4,17 +4,18 @@ import { useState, useEffect } from 'react'
 import { REACT_APP_SERVER_URL } from '../../../config.ts'
 import { AiFillStar } from 'react-icons/ai';
 import { notifyError, notifySuccess } from '../Toaster/Toaster.ts';
+import { useNavigate } from 'react-router-dom';
 
 
 const MyReviews = () => {
-
+    const navigate = useNavigate()
     const [reviews, setReviews] = useState([{
         product: {
-            name: '',
+            name: 'Cargando...',
             price: 0,
-            description: '',
+            description: 'Cargando...',
             photos: [{
-                url: ''
+                url: '/src/assets/Copia de pngwing.com.png'
             }],
             id: '',
             reviews: [{
@@ -55,7 +56,7 @@ const MyReviews = () => {
             ...currentReview,
             userId:(userData)
         })
-    }, [userData, update])
+    }, [userData])
 
     const handleRating = (value: number) => {
         setCurrentReview({
@@ -88,6 +89,7 @@ const MyReviews = () => {
             notifySuccess(data)
             cancelReview()
             setUpdate(!update)
+            setReviews(reviews.filter(review => review.product.id !== currentReview.productId))
         } catch (error:any) {
             notifyError(error.response.data)
         }
@@ -105,8 +107,8 @@ const MyReviews = () => {
             {reviews.map((review, index) => {
                 return (
                     !review.reviewed && <div key={index} className={styles.review} style={showReview ? { opacity: .5 } : { opacity: 1 }}>
-                        <img src={review.product.photos[0]?.url} alt="" />
-                        <div className={styles.review_info}>
+                        <img src={review.product.photos[0]?.url} alt="" onClick={() => navigate(`/products/${review.product.id}`)}/>
+                        <div className={styles.review_info} onClick={() => navigate(`/products/${review.product.id}`)}>
                             <h4>{review.product.name}</h4>
                             <p>{review.product.description}</p>
                         </div>

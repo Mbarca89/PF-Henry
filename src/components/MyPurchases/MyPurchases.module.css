@@ -19,10 +19,40 @@
     display: flex;
     flex-direction: column;
     border: 1px solid black;
+    margin: 1rem 0;
 }
-
+.order h5{
+    text-align: center;
+}
 .order_info{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
     gap: 2%;
+    background-color: rgb(255, 238, 127);
+    font-size: 1.2rem;
+}
+.list_container{
+    padding: 1rem 0;
+    background-color: antiquewhite;
+}
+.list_container h4{
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.list_products{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.list_products h5{
+    background-color: rgb(237, 187, 122);
+    border-radius: 5px;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+.price{
+    border-top: 1px solid black;
+    background-color: burlywood;
 }
