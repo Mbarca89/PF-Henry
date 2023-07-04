@@ -30,7 +30,7 @@ const Success = () => {
         <div className={styles.success_container}>
             <FcApproval size={250}/>
             <h2>Su orden se ha realizado exitosamente</h2>
-            <NavLink to='/home' className={styles.success_btn}>Inicio</NavLink>
+            <NavLink to='/products' className={styles.success_btn}>Ver más productos</NavLink>
         </div>
     )
 }

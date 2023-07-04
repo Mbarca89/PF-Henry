@@ -15,6 +15,7 @@ import Checkout from './views/Checkout/Checkout'
 import Success from './views/Success/Success'
 import Failure from './views/Failure/Failure'
 import ResetPassword from './views/ResetPassword/ResetPassword'
+import NotFound from './views/NotFound/NotFound'
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path='/' element={<Landing />} />
         <Route path='/activation/:activationToken' element={<Activation />} />
         <Route path='/notactive' element={<NotActive />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
   )
