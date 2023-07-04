@@ -1,7 +1,6 @@
 import styles from "./Filters.module.css";
 import {
   FcShipped,
-  FcRating,
   FcHome,
   FcAdvertising,
   FcMoneyTransfer,
