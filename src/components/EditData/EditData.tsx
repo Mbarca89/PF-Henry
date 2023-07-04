@@ -52,7 +52,6 @@ const EditData = () => {
             }
             else{
                 const {data} = await axios.put(`${REACT_APP_SERVER_URL}/users/changepassword`, password)
-                console.log(data);
                 if(data === 'Contraseña actualizada con éxito!'){
                     localStorage.removeItem("userData");
                     localStorage.removeItem("token");
@@ -62,16 +61,16 @@ const EditData = () => {
                     notifySuccess('Se ha actualizado la contraseña')
                 }
             }
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            notifyError(error.response.data)
         }
     }
     const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
         event.preventDefault()
         try {
           await axios.put(`${REACT_APP_SERVER_URL}/users/updateuser`, user)
-        } catch (error) {
-          console.log(error);
+        } catch (error: any) {
+          notifyError(error.response.data)
         }
         window.location.reload();
     }

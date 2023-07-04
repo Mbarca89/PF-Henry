@@ -5,7 +5,7 @@ import { BiLogIn } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import axios from "axios";
+import axios from 'axios'
 import { useEffect, useState } from "react";
 import { setUser } from "../../redux/slices/userSlice";
 import { useAppDispatch } from "../../redux/store";

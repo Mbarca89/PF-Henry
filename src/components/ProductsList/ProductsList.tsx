@@ -21,7 +21,6 @@ const ProductsList = () => {
 
     const createOrder = async (product:any) => {
         try {
-            console.log(userData, product)
             const {data} = await axios.post(`${REACT_APP_SERVER_URL}/orders`,{user:userData,products:[{product:product, quantity:1, price:product.price}]})
             const orderId = data.id
             navigate(`/order/${orderId}`)

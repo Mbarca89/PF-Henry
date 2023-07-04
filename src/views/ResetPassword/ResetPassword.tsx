@@ -1,5 +1,5 @@
 import styles from '../Login/Login.module.css';
-import axios from "axios";
+import axios from 'axios'
 import { ChangeEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {

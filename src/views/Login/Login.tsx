@@ -1,5 +1,5 @@
 import styles from "./Login.module.css";
-import axios from "axios";
+import axios from 'axios'
 import { ChangeEvent, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
@@ -212,8 +212,8 @@ const Login = () => {
     try {
       const {data} = await axios.put(`${REACT_APP_SERVER_URL}/users/forgotpassword`, {email: form.email});
       notifySuccess(data);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      notifyError(error.response.data);
     }
   }
   return (

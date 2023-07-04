@@ -30,15 +30,6 @@ const About = () => {
         }
       ]
     
-    // const checkout = async ()=> {
-    //   const response = await fetch ('/create-order', {
-    //      method: 'POST'
-    //  })
-    //   const data =  await response.json()
-    //   console.log(data);
-    //   window.location.href = data.init_point
-    // }
-
     const checkoutOk = async () => {
         const {data} = await axios.post(`${REACT_APP_SERVER_URL}/checkout/create-order`, {productList})
         window.location.href = data.init_point

@@ -114,9 +114,6 @@ const Detail = () => {
             notifyError(error.response.data)
         }
     }
-
-    console.log(product)
-
     return (
         product.photos &&
         <>

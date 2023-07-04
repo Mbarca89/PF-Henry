@@ -16,7 +16,7 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { fecthProducts } from "../../redux/utils/fetchProducts";
 import { Body } from "../../types";
 import { notifyError } from "../../components/Toaster/Toaster.js";
-import axios from "axios";
+import axios from 'axios'
 import { setUser } from "../../redux/slices/userSlice";
 import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
