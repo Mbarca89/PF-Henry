@@ -1,8 +1,35 @@
 import styles from './ProductsList.module.css';
 import { RootState, useAppSelector } from '../../redux/store';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { notifyError } from '../Toaster/Toaster';
+import axios from 'axios';
+import { REACT_APP_SERVER_URL } from '../../../config';
+import { useEffect, useState } from 'react';
 
 const ProductsList = () => {
+
+    const navigate = useNavigate()
+    const [userData, setUserData] = useState('');
+
+    useEffect(()=>{
+        const storedUserData = localStorage.getItem("userData");
+            if (storedUserData) {
+                const storedUserDataOk = JSON.parse(storedUserData)
+                setUserData(storedUserDataOk.id);
+            }
+    },[])
+
+    const createOrder = async (product:any) => {
+        try {
+            console.log(userData, product)
+            const {data} = await axios.post(`${REACT_APP_SERVER_URL}/orders`,{user:userData,products:[{product:product, quantity:1, price:product.price}]})
+            const orderId = data.id
+            navigate(`/order/${orderId}`)
+        } catch (error:any) {
+            notifyError(error.response.data)
+        }
+    }
+
     const { productsFiltered } = useAppSelector((state: RootState) => state.products);
 
     return (
@@ -20,7 +47,7 @@ const ProductsList = () => {
                         {product.hasDiscount && <p className={styles.price_real}> {`$${product.price * (100 - product.discount) / 100}`} </p>}
                         {!product.hasDiscount && <p className={styles.price_real}> {`$${product.price}`}</p>}
                     </div>
-                    <button>Comprar</button>
+                    <button onClick={()=> createOrder(product)}>Comprar</button>
                 </div>
             ))}
         </div> :
