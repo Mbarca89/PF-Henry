@@ -10,6 +10,7 @@ interface Order {
   orderDate: string;
   productList: { itemId: string; itemName: string }[];
   totalOrderAmount: number;
+  status: string;
 }
 
 const MyPurchases = () => {
@@ -36,6 +37,9 @@ const MyPurchases = () => {
   if (orders.length === 0) {
     return <div>No tienes productos comprados</div>;
   }
+  const handleClick = () => {
+    console.log(orders);
+  }
   return (
     <div className={styles.myPurchases}>
       <h1>Mis Ordenes</h1>
@@ -49,8 +53,9 @@ const MyPurchases = () => {
           return (
             <div key={index} className={styles.order}>
               <div className={styles.order_info}>
-                <h5>{`Orden: ${order.id}`}</h5>
+                <h5 onClick={handleClick}>{`Orden: ${order.id}`}</h5>
                 <h5>{`Creada el día: ${formattedDate}`}</h5>
+                <h5>{`Estado: ${order.status === 'completed' ? 'Completada' : 'Cancelada'}`}</h5>
               </div>
               <hr />
               <div className={styles.list_container}>

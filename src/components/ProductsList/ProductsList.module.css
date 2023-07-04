@@ -15,6 +15,7 @@
     justify-content: space-between;
 }
 .productsList_item img{
+    height: 16rem;
     width: 100%;
 }
 .productsList_item button{

@@ -62,16 +62,16 @@ const ResetPassword = () => {
   };
   const handlePassword = async () => {
     try {
-        if(form.password === form.passwordConfirmation){
-            const {data} = await axios.put(`${REACT_APP_SERVER_URL}/users/resetpassword/${passwordToken}`, {password: form.password})
-            notifySuccess(data)
-            navigate('/login')
-        }
-        else{
-            notifyError('La contraseña no coincide')
-        }
-    } catch (error) {
-        console.log(error);
+      if(form.password === form.passwordConfirmation){
+          const {data} = await axios.put(`${REACT_APP_SERVER_URL}/users/resetpassword/${passwordToken}`, {password: form.password})
+          notifySuccess(data)
+          navigate('/login')
+      }
+      else{
+          notifyError('La contraseña no coincide')
+      }
+    } catch (error: any) {
+      notifyError(error.response.data);
     }
   }
   return (
