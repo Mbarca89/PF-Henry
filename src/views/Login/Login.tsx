@@ -204,8 +204,8 @@ const Login = () => {
           window.location.reload();
         }, 800);
       }
-    } catch (error) {
-      notifyError("Porfavor verificar todos los campos");
+    } catch (error:any) {
+      notifyError(error.response.data);
     }
   };
   const handleForgotPassword = async () => {

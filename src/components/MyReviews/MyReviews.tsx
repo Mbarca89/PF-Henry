@@ -106,13 +106,13 @@ const MyReviews = () => {
         <div className={styles.myReviews}>
             {reviews.map((review, index) => {
                 return (
-                    !review.reviewed && <div key={index} className={styles.review} style={showReview ? { opacity: .5 } : { opacity: 1 }}>
+                    <div key={index} className={styles.review} style={showReview ? { opacity: .5 } : { opacity: 1 }}>
                         <img src={review.product.photos[0]?.url} alt="" onClick={() => navigate(`/products/${review.product.id}`)}/>
                         <div className={styles.review_info} onClick={() => navigate(`/products/${review.product.id}`)}>
                             <h4>{review.product.name}</h4>
                             <p>{review.product.description}</p>
                         </div>
-                        <button onClick={() => showReviewHandler(review.product.id)}>Escribir Reseña</button>
+                        {!review.reviewed ? <button onClick={() => showReviewHandler(review.product.id)}>Escribir Reseña</button>:<h4>Ya has dejado una reseña para este producto.</h4>}
                     </div>
                 )
             })}
