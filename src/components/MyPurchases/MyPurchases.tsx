@@ -36,9 +36,6 @@ const MyPurchases = () => {
   if (orders.length === 0) {
     return <div>No tienes productos comprados</div>;
   }
-  const handleClick = () => {
-    console.log(orders);
-  }
   return (
     <div className={styles.myPurchases}>
       <h1>Mis Ordenes</h1>
