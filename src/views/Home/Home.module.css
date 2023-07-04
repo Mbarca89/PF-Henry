@@ -56,6 +56,7 @@
     background-color: rgb(252, 209, 154);
     width: 50%;
     height: 2.5rem;
+    cursor: pointer;
 }
 
 .rating{

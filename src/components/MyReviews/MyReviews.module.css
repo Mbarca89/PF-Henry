@@ -29,6 +29,9 @@
     background-color: #77DD77;
     cursor: pointer;
 }
+.review h4{
+    text-align: center;
+}
 .review img {
     width: 20%;
     cursor: pointer;
