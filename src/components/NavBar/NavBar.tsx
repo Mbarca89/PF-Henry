@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { notifyError } from "../../components/Toaster/Toaster.js";
 import {REACT_APP_SERVER_URL} from '../../../config.ts'
 import logo from '../../assets/logook.png'
+import { setNumberCart } from "../../redux/slices/productsSlice.ts";
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
@@ -75,6 +76,7 @@ const NavBar = () => {
     localStorage.removeItem("token");
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    dispatch(setNumberCart(0))
     navigate('/');
   };
   return (

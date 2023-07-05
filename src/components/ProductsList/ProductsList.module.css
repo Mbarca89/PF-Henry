@@ -59,3 +59,13 @@
     gap: 1rem;
     justify-content: center;
 }
+
+.rating{
+    position: absolute;
+    top: 2%;
+    left: 2%;
+}
+
+.image{
+    position: relative;
+}

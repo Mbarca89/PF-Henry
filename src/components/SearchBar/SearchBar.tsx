@@ -46,7 +46,7 @@ const SearchBar = () => {
     return (
         <div className={styles.searchBar_container}>
             <FcSearch size={25} onClick={nameHandle} />
-            <input type="text" placeholder='Buscar' onChange={handleChange} value={input} onKeyDown={nameHandle} />
+            <input type="search" placeholder='Buscar' onChange={handleChange} value={input} onKeyDown={nameHandle} />
             {input !== '' && <p onClick={nameResetHandle}>X</p>}
         </div>
     )

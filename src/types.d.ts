@@ -13,6 +13,7 @@ export interface Products {
     category: {
         categoryName: string;
     };
+    ratingAverage: number
 }
 export interface Body {
     sort: {

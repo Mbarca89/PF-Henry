@@ -39,7 +39,7 @@ const Filters = () => {
     sort: {
       price: { isSorted: false, order: "asc" },
       sales: { isSorted: false, order: "asc" },
-      relevant: { isSorted: false, order: "asc" },
+      relevant: { isSorted: false, order: "desc" },
     },
     freeShipping: false,
     hasDiscount: false,
@@ -317,8 +317,8 @@ const Filters = () => {
         />
         {/*  <FcPositiveDynamic size={25} /> */}
         <select name="relevant" onChange={handleChangeSelect}>
-          <option value="asc">Mayor puntuación</option>
-          <option value="desc">Menor puntuación</option>
+          <option value="desc">Mayor puntuación</option>
+          <option value="asc">Menor puntuación</option>
         </select>
       </div>
       <div className={styles.price_filters_option}>
