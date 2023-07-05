@@ -2,12 +2,14 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import styles from './Cart.module.css'
 import { useNavigate } from 'react-router-dom'
+import { setNumberCart } from "../../redux/slices/productsSlice.ts"
+import { useAppDispatch } from "../../redux/store.ts"
 import {notifyError, notifySuccess} from "../../components/Toaster/Toaster.js";
 import {REACT_APP_SERVER_URL} from '../../../config.ts'
 
 const Cart = () => {
     const navigate = useNavigate();
-
+    const dispatch = useAppDispatch();
     const [userData, setUserData] = useState('');
     const [cart, setCart] = useState([]);
     const [cartId, setCartId] = useState('');
@@ -29,6 +31,8 @@ const Cart = () => {
                     const { data } = await axios.get(`${REACT_APP_SERVER_URL}/cart/get/${userData}`)
                     setCart(data.products)
                     setCartId(data.id)
+                    dispatch(setNumberCart(data.products.length))
+                    console.log(data.products.length);
                     setLoading(false)
                 } else setLoading(false)
             } catch (error:any) {
@@ -89,8 +93,8 @@ const Cart = () => {
                                 <button onClick={() => deleteProduct(product.product.id)}>Eliminar</button>
                             </div>
                             <div className={styles.quantity_container}>
-                                <input type="number" min='1' value={product.quantity} />
-                                <p>{`Unidades disponibles:${product.product.stock}`}</p>
+                                <p>Cantidad</p>
+                                <span>{product.quantity}</span>
                             </div>
                             <div className={styles.price_container}>
                                 <h5>{`$${product.price * product.quantity}`}</h5>

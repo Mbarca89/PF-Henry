@@ -8,7 +8,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import axios from 'axios'
 import { useEffect, useState } from "react";
 import { setUser } from "../../redux/slices/userSlice";
-import { useAppDispatch } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { notifyError } from "../../components/Toaster/Toaster.js";
 import {REACT_APP_SERVER_URL} from '../../../config.ts'
 import logo from '../../assets/logook.png'
@@ -29,6 +29,8 @@ const NavBar = () => {
   }
   const [categories, setCategories] = useState<Category[]>([]);
   const [userName, setUserName] = useState("");
+
+  const {numberCart} = useAppSelector(state => state.products);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -138,6 +140,7 @@ const NavBar = () => {
               onClick={() => navigate("/cart")}
             >
               <AiOutlineShoppingCart size={25} />
+              <span>{numberCart > 0 && numberCart}</span>
               <span>Carrito</span>
             </div>
           </div>

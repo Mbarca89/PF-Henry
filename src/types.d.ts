@@ -10,6 +10,9 @@ export interface Products {
     sales: number;
     rating: number;
     id: string;
+    category: {
+        categoryName: string;
+    };
 }
 export interface Body {
     sort: {
@@ -25,15 +28,15 @@ export interface Body {
 }
 
 export interface User {
-    id: String,
-    name: String,
-    email: String,
-    address: String,
-    city: String,
-    province: String,
-    postalCode: String,
-    phone: String,
-    commerceName: String,
-    role: String,
-    cart: String,
+    id: string,
+    name: string,
+    email: string,
+    address: string,
+    city: string,
+    province: string,
+    postalCode: string,
+    phone: string,
+    commerceName: string,
+    role: string,
+    cart: string,
 }

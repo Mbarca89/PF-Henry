@@ -1,13 +1,6 @@
 import styles from "./Filters.module.css";
-import {
-  FcShipped,
-  FcHome,
-  FcAdvertising,
-  FcMoneyTransfer,
-  FcPositiveDynamic,
-} from "react-icons/fc";
 import { GoChevronRight } from "react-icons/go";
-import { MdAttachMoney, MdCategory } from "react-icons/md";
+import { MdAttachMoney } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { setBody, setPage } from "../../redux/slices/productsSlice";
@@ -15,9 +8,16 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { fecthProducts } from "../../redux/utils/fetchProducts";
 import { Body } from "../../types";
 import { notifyError } from "../../components/Toaster/Toaster.js";
-import axios from 'axios'
+import axios from "axios";
 import { setUser } from "../../redux/slices/userSlice";
-import {REACT_APP_SERVER_URL} from '../../../config.ts'
+import { REACT_APP_SERVER_URL } from "../../../config.ts";
+import shipping_icon from "../../assets/shipping_icon.png";
+import home_icon from "../../assets/home_icon.png";
+import categories_icon from "../../assets/categories_icon.png";
+import star_icon from "../../assets/star_icon.png";
+
+import price_icon from "../../assets/price_icon.png";
+import offer_icon from "../../assets/offer_icon.png";
 
 const Filters = () => {
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const Filters = () => {
   useEffect(() => {
     setStateFiltered(body);
   }, [body]);
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
     setStateFiltered((prevState) => {
       return {
@@ -59,6 +59,7 @@ const Filters = () => {
       };
     });
   };
+
   const handlePrice = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setStateFiltered((prevState) => {
@@ -195,12 +196,27 @@ const Filters = () => {
   return (
     <div className={styles.filters_container}>
       <div className={styles.filters_option} onClick={() => navigate("/")}>
-        <FcHome size={25} />
+        {/*  <FcHome size={25} /> */}
+        <img
+          src={home_icon}
+          alt=""
+          style={{
+            width: "30px",
+          }}
+        />
         <p>Inicio</p>
         <GoChevronRight size={25} style={{ color: "black" }} />
       </div>
       <div className={styles.filters_option}>
-        <FcShipped size={25} />
+        {/*     <FcShipped size={25} /> */}
+
+        <img
+          src={shipping_icon}
+          alt=""
+          style={{
+            width: "30px",
+          }}
+        />
         <p>Envío gratis</p>
         <label className={styles.switch}>
           <input
@@ -223,7 +239,14 @@ const Filters = () => {
         </label>
       </div>
       <div className={styles.filters_option}>
-        <FcAdvertising size={25} />
+        {/* <FcAdvertising size={25} /> */}
+        <img
+          src={offer_icon}
+          alt=""
+          style={{
+            width: "30px",
+          }}
+        />
         <p>Ofertas</p>
         <label className={styles.switch}>
           <input
@@ -247,14 +270,21 @@ const Filters = () => {
       </div>
 
       <div className={styles.filters_option}>
-        <MdCategory size={25} style={{color: 'purple'}}/>
+        {/*     <MdCategory size={25} style={{ color: "purple" }} /> */}
+        <img
+          src={categories_icon}
+          alt=""
+          style={{
+            width: "30px",
+          }}
+        />
         <select
           className={styles.customSelect}
           onChange={(event) => handleSelect(event)}
           value={stateFiltered.category}
         >
           <option>Categorias</option>
-          {categories.map((category,index) => {
+          {categories.map((category, index) => {
             return (
               <option key={index} value={category.id}>
                 {category.categoryName}
@@ -264,14 +294,28 @@ const Filters = () => {
         </select>
       </div>
       <div className={styles.filters_option}>
-        <FcMoneyTransfer size={25} />
+        <img
+          src={price_icon}
+          alt=""
+          style={{
+            width: "30px",
+          }}
+        />
+        {/*   <FcMoneyTransfer size={25} /> */}
         <select name="price" onChange={handleChangeSelect}>
           <option value="desc">Mayor precio</option>
           <option value="asc">Menor precio</option>
         </select>
       </div>
       <div className={styles.filters_option}>
-        <FcPositiveDynamic size={25} />
+        <img
+          src={star_icon}
+          alt=""
+          style={{
+            width: "30px",
+          }}
+        />
+        {/*  <FcPositiveDynamic size={25} /> */}
         <select name="relevant" onChange={handleChangeSelect}>
           <option value="asc">Mayor puntuación</option>
           <option value="desc">Menor puntuación</option>

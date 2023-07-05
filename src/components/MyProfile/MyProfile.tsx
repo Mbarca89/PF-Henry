@@ -9,12 +9,14 @@ const MyProfile = () => {
         email:'',
         address:'',
         city:'',
-        province:''
+        province:'',
+        role: ''
     })
 
     useEffect(()=> {
         const stringUser = localStorage.getItem('userData')
         if(stringUser){
+            console.log(stringUser);
             setUser(JSON.parse(stringUser))
         }
     },[])
@@ -51,11 +53,17 @@ const MyProfile = () => {
                 </div>
             </div>
             <div className={styles.seller}>
-                <div className={styles.text}>
+                {user.role !== 'seller' ? <div className={styles.text}>
                     <h3>¿Queres ser vendedor?</h3>
                     <p>Unite a nuestra gran familia y ofrecé tus productos a una comunidad en pleno crecimiento.</p>
                     <a href='https://pf-henry-dash.vercel.app/' target='_blank'>Registrarme</a>
                 </div>
+                :
+                <div className={styles.text}>
+                    <h3>Ingreso al dashboard</h3>
+                    <p>Gestiona tus productos y visualiza tu crecimiento junto a nosotros.</p>
+                    <a href='https://pf-henry-dash.vercel.app/' target='_blank'>Ingresar</a>
+                </div>}
             </div>
         </div>
     )

@@ -73,7 +73,7 @@ const Detail = () => {
             notifySuccess(data)
             navigate('/cart')
         } catch (error: any) {
-            notifyError('Es necesario iniciar sesión')
+            notifyError(error.response.data);
         }
     }
 
@@ -124,7 +124,7 @@ const Detail = () => {
                     <div className={style.right} onClick={next}> 〉 </div>
                     <div className={style.previews}>
                         {product.photos.length >= 1 && product.photos.map((photo: any,index:number) => {
-                            return <img src={photo.url} alt="" className={index === imageIndex ? style.selected : style.notSelected}/>
+                            return <img src={photo.url} alt="" className={index === imageIndex ? style.selected : style.notSelected} key={photo.url}/>
                         })}
                     </div>
                 </div>
@@ -159,8 +159,7 @@ const Detail = () => {
                         <p> {product.description}</p>
                     </div>
 
-
-                    <div className={style.container_quantity}>
+                    {product.isActive ? <div className={style.container_quantity}>
                         <h3> Cantidad </h3>
 
                         <div className={style.input_wrapper}>
@@ -175,12 +174,11 @@ const Detail = () => {
                                 <AiOutlineShoppingCart size={20} />
                                 Agregar al carrito
                             </button>
-                            {/* <button className={style.favoritos}>
-                                <AiOutlineHeart size={20} />
-                                Lista de deseos
-                            </button> */}
                         </div>
                     </div>
+                    :
+                    <div className={style.container_quantity}>El vendedor ha desactivado el producto.</div>
+                    }
                 </div>
             </div>
             {product.reviews[0] && <div className={style.reviews_container}>

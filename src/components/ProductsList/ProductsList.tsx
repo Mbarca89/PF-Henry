@@ -5,6 +5,7 @@ import { notifyError } from '../Toaster/Toaster';
 import axios from 'axios';
 import { REACT_APP_SERVER_URL } from '../../../config';
 import { useEffect, useState } from 'react';
+import {FcShipped} from 'react-icons/fc'
 
 const ProductsList = () => {
 
@@ -30,7 +31,6 @@ const ProductsList = () => {
     }
 
     const { productsFiltered } = useAppSelector((state: RootState) => state.products);
-
     return (
         productsFiltered.length ? <div className={styles.productsList_container}>
             {productsFiltered.map((product,index) => (
@@ -39,7 +39,11 @@ const ProductsList = () => {
                         <img src={product.photos[0]?.url} alt="" />
                     </NavLink>
                     <NavLink to={`${product.id}`} className={styles.name}>
+                        <span>{product.category.categoryName}</span>
+                        <div className={styles.product_info}>
                         <h2>{product.name}</h2>
+                        {product.freeShipping && <FcShipped size={25}/>}
+                        </div>
                     </NavLink>
                     <div className={styles.priceContainer}>
                         {product.hasDiscount && <p className={styles.price_descuento}>{`$${product.price}`}</p>}

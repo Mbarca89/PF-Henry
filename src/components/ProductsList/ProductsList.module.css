@@ -27,7 +27,11 @@
     height: 2rem;
     cursor: pointer;
 }
-
+.product_info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .name{
     text-decoration: none;
     color: black;
@@ -35,9 +39,9 @@
 }
 
 .price_descuento{
-        margin-right: 1em;
-        color: #757575;
-        text-decoration: line-through;
+    margin-right: 1em;
+    color: #757575;
+    text-decoration: line-through;
 }
 
 .priceContainer{

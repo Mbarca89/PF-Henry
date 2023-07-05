@@ -11,7 +11,8 @@ type productState = {
   urlName: string;
   urlPage: string;
   productCount: number;
-  JWT: string
+  JWT: string;
+  numberCart: number;
 };
 const initialState: productState = {
   products: [],
@@ -43,6 +44,7 @@ const initialState: productState = {
     urlName: '',
     productCount: 0,
     JWT: '',
+    numberCart: 0
 };
 
 export const productsSlice = createSlice({
@@ -60,6 +62,9 @@ export const productsSlice = createSlice({
     },
     setJWT: (state, action) => {
       state.JWT = action.payload;
+    },
+    setNumberCart: (state, action) => {
+      state.numberCart = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -79,6 +84,6 @@ export const productsSlice = createSlice({
 
 
 // eslint-disable-next-line no-empty-pattern
-export const { setBody, setName, setPage, setJWT } = productsSlice.actions;
+export const { setBody, setName, setPage, setJWT, setNumberCart } = productsSlice.actions;
 export default productsSlice.reducer;
 
