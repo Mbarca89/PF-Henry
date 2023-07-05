@@ -1,8 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap");
 * {
   box-sizing: border-box;
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap");
 
 .container_background {
   background-image: url("/src/assets/Landing2.png");

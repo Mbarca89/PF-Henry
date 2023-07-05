@@ -16,7 +16,7 @@ const SearchBar = () => {
 
     const handleChange = (event: { target: { value: SetStateAction<string>; }; }) => {
         setInput(event.target.value)
-        if (pathname === '/home' || pathname === '/about') {
+        if (pathname !== '/products' ) {
             navigate('/products')
         }
     }
