@@ -195,7 +195,7 @@ const Filters = () => {
 
   return (
     <div className={styles.filters_container}>
-      <div className={styles.filters_option} onClick={() => navigate("/")}>
+      <div className={styles.filters_option} onClick={() => navigate("/home")}>
         {/*  <FcHome size={25} /> */}
         <img
           src={home_icon}
