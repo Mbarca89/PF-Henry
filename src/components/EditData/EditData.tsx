@@ -23,7 +23,6 @@ const EditData = () => {
         city: '',
         province: '',
         postalCode: '',
-        phone: '',
         password:''
     })
     const [password, setPassword] = useState({
@@ -112,10 +111,6 @@ const EditData = () => {
         <div>
           <label htmlFor="postalCode">Codigo Postal:</label>
           <input type="number" id="postalCode" value={user.postalCode} onChange={handleChange} name='postalCode'/>
-        </div>
-        <div>
-          <label htmlFor="phone">Teléfono:</label>
-          <input type="text" id="phone" value={user.phone} onChange={handleChange} name='phone'/>
         </div>
         <button className={styles.edit_btn}>EDITAR</button>
       </form>

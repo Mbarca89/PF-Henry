@@ -103,7 +103,7 @@ const Cart = () => {
                     </div>
                 })}
                 <div className={styles.button_container}>
-                    <button onClick={createOrder}>Prodecer al Checkout</button>
+                    <button onClick={createOrder}>Prodecer al pago</button>
                     <button onClick={deleteAllProducts}>Vaciar carrito</button>
                     <button onClick={() => navigate('/products')}>Seguir comprando</button>
                 </div>
