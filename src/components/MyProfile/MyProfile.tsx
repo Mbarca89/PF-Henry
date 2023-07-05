@@ -16,7 +16,6 @@ const MyProfile = () => {
     useEffect(()=> {
         const stringUser = localStorage.getItem('userData')
         if(stringUser){
-            console.log(stringUser);
             setUser(JSON.parse(stringUser))
         }
     },[])

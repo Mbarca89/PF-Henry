@@ -32,7 +32,6 @@ const Cart = () => {
                     setCart(data.products)
                     setCartId(data.id)
                     dispatch(setNumberCart(data.products.length))
-                    console.log(data.products.length);
                     setLoading(false)
                 } else setLoading(false)
             } catch (error:any) {
@@ -40,13 +39,13 @@ const Cart = () => {
             }
         }
         getCart()
-    }, [userData, update])
+    }, [userData, update, dispatch])
 
     useEffect(()=> {
         if(!loading){
             if(userData === '') navigate('/login')
         }
-    },[loading])
+    },[loading, navigate, userData])
 
     const deleteProduct = async (productId: string) => {
         try {
