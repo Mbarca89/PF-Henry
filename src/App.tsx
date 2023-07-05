@@ -17,8 +17,38 @@ import Failure from './views/Failure/Failure'
 import ResetPassword from './views/ResetPassword/ResetPassword'
 import NotFound from './views/NotFound/NotFound'
 import { Toaster } from 'react-hot-toast';
+import { useEffect, useState } from 'react'
+import { useAppDispatch } from './redux/store'
+import { setNumberCart } from './redux/slices/productsSlice'
+import { notifyError } from './components/Toaster/Toaster'
+import axios from 'axios'
+import { REACT_APP_SERVER_URL } from '../config'
 
 function App() {
+  const dispatch = useAppDispatch()
+  const [userData, setUserData] = useState('');
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+        const storedUserDataOk = JSON.parse(storedUserData)
+        setUserData(storedUserDataOk.id);
+    }
+}, []);
+
+useEffect(() => {
+  const getCart = async () => {
+      try {
+          if(userData){
+              const { data } = await axios.get(`${REACT_APP_SERVER_URL}/cart/get/${userData}`)
+              dispatch(setNumberCart(data.products.length))
+          }
+      } catch (error:any) {
+          notifyError(error.response.data)
+      }
+  }
+  getCart()
+}, [userData, dispatch])
 
   return (
     <div className="App">
