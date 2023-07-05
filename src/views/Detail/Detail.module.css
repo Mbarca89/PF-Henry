@@ -197,24 +197,16 @@
     padding: .6em;
     width: 45%;
     border: 1px solid #c2b491e1;
-    background-color: transparent;
-    color: #c2b491e1;
+    background-color: #c2b491e1;
+    color: white;
     border-radius: 5px;
     font-size: 14px;
     transition: background-color 0.3s, color 0.3s;
     cursor: pointer;
 }
-
 .cart svg {
     margin-right: 0.5em; 
-}
-
-.cart:hover, .favoritos:hover {
-    color: white;
-    border: 1px solid white;
-    background-color: #c2b491e1;
-}
-  
+}  
 .favoritos{
     display: flex;
     align-items: center;
