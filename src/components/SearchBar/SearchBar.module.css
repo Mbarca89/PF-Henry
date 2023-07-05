@@ -11,8 +11,11 @@
     all: unset;
     width: 80%;
     height: 80%;
+    
 }
-
+.searchBar_container input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
 .searchBar_container p {
     cursor: pointer;
 }

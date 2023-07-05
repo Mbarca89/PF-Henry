@@ -32,12 +32,12 @@ const Activation = () => {
         success ? <div className={styles.success_container}>
             <FcApproval size={250}/>
             <h2>{message}</h2>
-            <NavLink to='/home' className={styles.success_btn}>Inicio</NavLink>
+            <NavLink to='/login' className={styles.success_btn}>Ingresar</NavLink>
         </div>:
         <div className={styles.failure_container}>
         <FcCancel size={250}/>
         <h2>{message}</h2>
-        <NavLink to='/home' className={styles.failure_btn}>Inicio</NavLink>
+        <NavLink to='/login' className={styles.failure_btn}>Ingresar</NavLink>
     </div>
     )
 }

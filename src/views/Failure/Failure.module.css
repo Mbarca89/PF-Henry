@@ -24,4 +24,5 @@
     height: 10%;
     font-size: 2rem;
     background-color: rgb(127, 255, 168);
+    cursor: pointer;
 }
