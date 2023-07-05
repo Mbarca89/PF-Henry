@@ -43,9 +43,9 @@ const NavBar = () => {
       }
     };
     fetchCategories();
-    console.log(document.cookie);
+    console.log('NavBar', document.cookie);
     if (document.cookie) {
-      console.log(document.cookie);
+      console.log('NavBar', document.cookie);
       const tokenCookie = document.cookie
         .split(";")
         .find((cookie) => cookie.trim().startsWith("token="));
