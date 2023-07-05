@@ -16,6 +16,7 @@
 .navbar_logo{
     height: 80%;
     width: 20%;
+    cursor: pointer;
 }
 
 .navbar_items {
