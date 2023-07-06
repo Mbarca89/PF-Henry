@@ -142,7 +142,7 @@ const NavBar = () => {
               onClick={() => navigate("/cart")}
             >
               <AiOutlineShoppingCart size={25} />
-              <span>{numberCart > 0 && numberCart}</span>
+              <span className={styles.cart_number}>{numberCart > 0 && `${numberCart}`}</span>
               <span>Carrito</span>
             </div>
           </div>
