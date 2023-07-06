@@ -36,8 +36,8 @@ const EditData = () => {
           ...prevUser,
           [event.target.name]: event.target.value,
         }));
-        localStorage.setItem("userData", JSON.stringify(user));
     };
+
     const handlePassword = async (event: ChangeEvent<HTMLInputElement>) => {
         setPassword({
             ...password,
@@ -68,10 +68,10 @@ const EditData = () => {
         event.preventDefault()
         try {
           await axios.put(`${REACT_APP_SERVER_URL}/users/updateuser`, user)
+          window.location.reload();
         } catch (error: any) {
           notifyError(error.response.data)
         }
-        window.location.reload();
     }
     useEffect(()=> {
         const stringUser = localStorage.getItem('userData')
@@ -85,9 +85,7 @@ const EditData = () => {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    useEffect(() => {
-        localStorage.setItem("userData", JSON.stringify(user));
-    }, [user]);
+    
     return (
     <div className={styles.accountInfo}>
       <h3>Editar datos de la cuenta:</h3>
