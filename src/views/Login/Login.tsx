@@ -35,9 +35,7 @@ const Login = () => {
 
   useEffect(() => {
     if (token) navigate("/home");
-    console.log(document.cookie);
     if (document.cookie) {
-      console.log(document.cookie);
       const tokenCookie = document.cookie
         .split(";")
         .find((cookie) => cookie.trim().startsWith("email="));

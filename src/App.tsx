@@ -16,6 +16,7 @@ import Success from './views/Success/Success'
 import Failure from './views/Failure/Failure'
 import ResetPassword from './views/ResetPassword/ResetPassword'
 import NotFound from './views/NotFound/NotFound'
+import Redirect from './components/Redirect/Redirect'
 import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react'
 import { useAppDispatch } from './redux/store'
@@ -76,6 +77,7 @@ useEffect(() => {
         <Route path='/activation/:activationToken' element={<Activation />} />
         <Route path='/notactive' element={<NotActive />} />
         <Route path='*' element={<NotFound />} />
+        <Route path='/redirect' element={<Redirect />} />
       </Routes>
     </div>
   )
