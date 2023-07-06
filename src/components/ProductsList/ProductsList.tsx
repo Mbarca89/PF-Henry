@@ -82,7 +82,7 @@ const ProductsList = () => {
                             </div>
                     </NavLink>
                     <NavLink to={`${product.id}`} className={styles.name}>
-                        <span>{product?.category?.categoryName}</span>
+                        <span style={{ border: '1px solid black', borderRadius: '5px', padding: '2px' }}>{product?.category?.categoryName}</span>
                         <div className={styles.product_info}>
                             <h2>{product.name}</h2>
                             {product.freeShipping && <FcShipped size={25} />}

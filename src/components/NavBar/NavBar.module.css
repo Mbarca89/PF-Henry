@@ -39,7 +39,9 @@
     align-items: center;
     justify-content: space-evenly;
 }
-
+.div_white{
+    width: 20%;
+}
 .categoryButton,
 .navbar_button{
     all: unset;

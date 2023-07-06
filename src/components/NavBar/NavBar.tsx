@@ -43,9 +43,7 @@ const NavBar = () => {
       }
     };
     fetchCategories();
-    console.log('NavBar', document.cookie);
     if (document.cookie) {
-      console.log('NavBar', document.cookie);
       const tokenCookie = document.cookie
         .split(";")
         .find((cookie) => cookie.trim().startsWith("token="));
@@ -113,7 +111,7 @@ const NavBar = () => {
               Sobre Nosotros
             </NavLink>
           </div>
-          <SearchBar />
+          {pathname !== '/myprofile' ? <SearchBar /> : <div className={styles.div_white}></div>}
           <div className={styles.navbar_icons}>
             {userName && <p>{`¡Hola ${userName}!`}</p>}
             {userName && (
