@@ -1,5 +1,5 @@
 import styles from './About.module.css';
-
+import logo from '../../assets/logook.png'
 const About = () => {
 
   return (
@@ -9,7 +9,7 @@ const About = () => {
       boxShadow: "0 6px 10px rgba(0, 0, 0, 0.5)",
     }}
     >
-    <img src="/src/assets/logook.png" alt="" />
+    <img src={logo} alt="" />
     <div className={styles.about_item}>
       <p>
         Somos una empresa dedicada a ofrecer productos naturales de alta calidad que promueven el bienestar y la salud. Nos enorgullece ofrecer una amplia gama de productos elaborados con ingredientes naturales cuidadosamente seleccionados, libres de químicos y aditivos artificiales.
