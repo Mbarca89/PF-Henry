@@ -98,7 +98,8 @@
     position: absolute;
     top: 20%;
     right: 0;
-    background-color: white;
+    background-color: red;
+    color: white;
     border-radius: 100%;
     padding-left: 1%;
     padding-right: 1%;
